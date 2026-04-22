@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "test-mod",
+	"version": "${version}",
+	"name": "Test Mod",
+	"description": "用于初次练手的mod，目前还没想好添加什么",
+	"authors": [
+		"CCiChara"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/test-mod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.chara.test1.TestMod"
+		],
+		"client": [
+			"com.chara.test1.client.TestModClient"
+		]
+	},
+	"mixins": [
+		"test-mod.mixins.json",
+		{
+			"config": "test-mod.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~26.1.1",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
