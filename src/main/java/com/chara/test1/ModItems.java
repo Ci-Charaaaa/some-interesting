@@ -59,8 +59,9 @@ public class ModItems{
 
 
 
-    //创建一个标签，这里是一个只打算包含绿宝石，用来提供绿宝石等级的修复材料的标签（TAG）
-    public static final TagKey<Item> EMERADL_TAG = TagKey.create(BuiltInRegistries.ITEM.key(),Identifier.fromNamespaceAndPath(TestMod.MOD_ID,"emerald_tag"));
+    //创建一个标签，这里是一个叫做“emerald_repair_tag”的，用来提供绿宝石等级的修复材料的标签（TAG）
+    public static final TagKey<Item> EMERADL_TAG = TagKey.create(BuiltInRegistries.ITEM.key(),Identifier.fromNamespaceAndPath(TestMod.MOD_ID,"emerald_repair_tag"));
+
 
     //创建“工具等级”，使得程序会根据这个工具等级来给相应的工具进行赋值
     public static final ToolMaterial EMERALD_MATERIAL = new ToolMaterial(
@@ -78,12 +79,13 @@ public class ModItems{
     public static final Item USELESS_ITEM = register("useless_item",Item::new,new Item.Properties());
 
     //这是工具类物品的实例创建
-    public static final Item EMERALD_PICKAXE = register("emerald_pickaxe",Item::new,new Item.Properties().pickaxe(EMERALD_MATERIAL,1F,1.2F));
-    public static final Item EMERALD_SWORD = register("emerald_sword",Item::new,new Item.Properties().sword(EMERALD_MATERIAL,4F,1.6F));
+    public static final Item EMERALD_PICKAXE = register("emerald_pickaxe",Item::new,new Item.Properties().pickaxe(EMERALD_MATERIAL,1f,-2.8f));
+    public static final Item EMERALD_SWORD = register("emerald_sword",Item::new,new Item.Properties().sword(EMERALD_MATERIAL,4f,-2.4f));
 
 
     public static <T extends Item> T register( String name, Function<Item.Properties,T> itemFactory
             , Item.Properties settings){
+
 
         //创造注册表关联的item的键，用于注册表识别
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TestMod.MOD_ID,name));
