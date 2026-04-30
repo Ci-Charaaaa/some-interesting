@@ -7,6 +7,16 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+
+	repositories {
+		// 优先从国内镜像下载 Mod 依赖和 Fabric 库
+		maven { url "https://maven.aliyun.com/repository/public" }
+		maven { url "https://bmclapi2.bangbang93.com/maven" }
+
+		// 原有的 Fabric 官方库建议保留作为备选
+		maven { url "https://maven.fabricmc.net/" }
+	}
+
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.

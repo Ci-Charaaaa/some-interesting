@@ -10,7 +10,7 @@
     "/": "minecraft:stick"
   },
   "result": {
-    "id": "test_mod:emerald_pickaxe",
+    "id": "test-mod:emerald_pickaxe",
     "count": 1
   }
 }

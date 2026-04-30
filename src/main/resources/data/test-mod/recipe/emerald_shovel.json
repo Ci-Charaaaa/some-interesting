@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " # ",
-    " # ",
+    " / ",
     " / "
   ],
   "key": {
@@ -10,7 +10,7 @@
     "/": "minecraft:stick"
   },
   "result": {
-    "id": "test-mod:emerald_sword",
+    "id": "test-mod:emerald_shovel",
     "count": 1
   }
 }

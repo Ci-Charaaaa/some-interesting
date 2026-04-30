@@ -1,8 +1,12 @@
 {
   "item.test-mod.emerald_sword": "绿宝石剑",
   "item.test-mod.emerald_pickaxe": "绿宝石镐",
+  "item.test-mod.emerald_shovel": "绿宝石铲",
+  "item.test-mod.emerald_axe": "绿宝石斧",
+  "item.test-mod.emerald_hoe": "绿宝石锄",
   "item.test-mod.useless_item":"没用的东西",
 
 
-  "creativeTab.test_mod":"CCChara的测试模组"
+
+  "creativeTab.test-mod":"CCChara的测试模组"
 }

@@ -2,6 +2,7 @@ package com.chara.test1;
 
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
+import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,6 +13,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.datafix.fixes.MobEffectIdFix;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemLore;
 
@@ -35,13 +37,16 @@ public class ModItems{
     //用于具体的创建mod的创造模式物品标签页
     public static final CreativeModeTab CUSTOM_CREATIVE_TAB = FabricCreativeModeTab.builder()
             .icon(() -> new ItemStack(ModItems.EMERALD_SWORD)) //这里是给标签页的贴图设置为指定物品/方块的贴图
-            .title(Component.translatable("creativeTab.test_mod")) //这里是指定标签页在本地显示文本名称时使用的key，用这个key去对应真正的name
+            .title(Component.translatable("creativeTab.test-mod")) //这里是指定标签页在本地显示文本名称时使用的key，用这个key去对应真正的name
             .displayItems((params, output) -> {
 
-                //添加物品的地方，此处只添加一个翡翠剑
+                //添加物品的地方，此处添加一套绿宝石工具
                 output.accept(ModItems.EMERALD_SWORD);
                 output.accept(ModItems.EMERALD_PICKAXE);
                 output.accept(ModItems.USELESS_ITEM);
+                output.accept(ModItems.EMERALD_SHOVEL);
+                output.accept(ModItems.EMERALD_HOE);
+                output.accept(ModItems.EMERALD_AXE);
 
                 //同理添加方块
 //                // The tab builder also accepts Blocks
@@ -65,12 +70,12 @@ public class ModItems{
 
     //创建“工具等级”，使得程序会根据这个工具等级来给相应的工具进行赋值
     public static final ToolMaterial EMERALD_MATERIAL = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,  //挖掘等级
-            333,                                   //耐久
-            10F,                                   //挖掘速度，铁6，钻8，金12
-            2.5F,                                  //基础攻击力
-            18,                                    //附魔亲和力，铁14，木15，钻10，金22
-            EMERADL_TAG                 //修复材料所在的标签，mc使用标签对修复材料进行分类
+            BlockTags.INCORRECT_FOR_IRON_TOOL,  //挖掘等级
+            333,                                //耐久
+            10F,                                //挖掘速度，铁6，钻8，金12
+            2.5F,                               //基础攻击力
+            18,                                 //附魔亲和力，铁14，木15，钻10，金22
+            EMERADL_TAG                         //修复材料所在的标签，mc使用标签对修复材料进行分类
     );
 
 
@@ -81,6 +86,11 @@ public class ModItems{
     //这是工具类物品的实例创建
     public static final Item EMERALD_PICKAXE = register("emerald_pickaxe",Item::new,new Item.Properties().pickaxe(EMERALD_MATERIAL,1f,-2.8f));
     public static final Item EMERALD_SWORD = register("emerald_sword",Item::new,new Item.Properties().sword(EMERALD_MATERIAL,4f,-2.4f));
+    public static final Item EMERALD_SHOVEL = register("emerald_shovel",Item::new,new Item.Properties().shovel(EMERALD_MATERIAL,1f,-2.8f));
+    public static final Item EMERALD_HOE = register("emerald_hoe",Item::new,new Item.Properties().hoe(EMERALD_MATERIAL,1f,-2f));
+    public static final Item EMERALD_AXE = register("emerald_axe",Item::new,new Item.Properties().axe(EMERALD_MATERIAL,5f,-3f));
+
+
 
 
     public static <T extends Item> T register( String name, Function<Item.Properties,T> itemFactory
