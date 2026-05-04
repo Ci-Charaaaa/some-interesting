@@ -23,7 +23,6 @@ import java.util.function.Function;
 public class ModItems{
 
     public static void initialize(){
-
         //执行具体的自定义标签页的注册逻辑，物品的注册不需要是因为注册方法是静态的，加载时直接自动编译内部的注册逻辑
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,CUSTOM_CREATIVE_TAB_KEY,CUSTOM_CREATIVE_TAB);
     }
@@ -47,6 +46,11 @@ public class ModItems{
                 output.accept(ModItems.EMERALD_SHOVEL);
                 output.accept(ModItems.EMERALD_HOE);
                 output.accept(ModItems.EMERALD_AXE);
+                //一套绿宝石盔甲
+                output.accept(GuiditeArmorMaterial.EMERALD_HELMET);
+                output.accept(GuiditeArmorMaterial.EMERALD_CHESTPLATE);
+                output.accept(GuiditeArmorMaterial.EMERALD_LEGGINGS);
+                output.accept(GuiditeArmorMaterial.EMERALD_BOOTS);
 
                 //同理添加方块
 //                // The tab builder also accepts Blocks

@@ -30,6 +30,7 @@ public class TestMod implements ModInitializer {
 
 		LOGGER.info("Hello Fabric world!");
 		ModItems.initialize();
+		GuiditeArmorMaterial.tem();
 
 
 	}

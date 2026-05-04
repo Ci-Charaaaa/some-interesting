@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "# #"
+  ],
+  "key": {
+    "#": "minecraft:emerald"
+  },
+  "result": {
+    "id": "test-mod:emerald_boots",
+    "count": 1
+  }
+}
