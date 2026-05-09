@@ -76,9 +76,9 @@ public class ModItems{
     public static final ToolMaterial EMERALD_MATERIAL = new ToolMaterial(
             BlockTags.INCORRECT_FOR_IRON_TOOL,  //挖掘等级
             333,                                //耐久
-            10F,                                //挖掘速度，铁6，钻8，金12
+            9F,                                //挖掘速度，铁6，钻8，金12
             2.5F,                               //基础攻击力
-            18,                                 //附魔亲和力，铁14，木15，钻10，金22
+            16,                                 //附魔亲和力，铁14，木15，钻10，金22
             EMERADL_TAG                         //修复材料所在的标签，mc使用标签对修复材料进行分类
     );
 
@@ -89,7 +89,7 @@ public class ModItems{
 
     //这是工具类物品的实例创建
     public static final Item EMERALD_PICKAXE = register("emerald_pickaxe",Item::new,new Item.Properties().pickaxe(EMERALD_MATERIAL,1f,-2.8f));
-    public static final Item EMERALD_SWORD = register("emerald_sword",Item::new,new Item.Properties().sword(EMERALD_MATERIAL,4f,-2.4f));
+    public static final Item EMERALD_SWORD = register("emerald_sword",Item::new,new Item.Properties().sword(EMERALD_MATERIAL,3.5f,-2.4f));
     public static final Item EMERALD_SHOVEL = register("emerald_shovel",Item::new,new Item.Properties().shovel(EMERALD_MATERIAL,1f,-2.8f));
     public static final Item EMERALD_HOE = register("emerald_hoe",Item::new,new Item.Properties().hoe(EMERALD_MATERIAL,1f,-2f));
     public static final Item EMERALD_AXE = register("emerald_axe",Item::new,new Item.Properties().axe(EMERALD_MATERIAL,5f,-3f));

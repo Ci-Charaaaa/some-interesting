@@ -33,7 +33,7 @@ public class GuiditeArmorMaterial {
             //穿戴时的音效
             SoundEvents.ARMOR_EQUIP_IRON,
             //盔甲韧性
-            0.75f,
+            1f,
             //击退抗性
             0.0f,
             //修复使用的材料所在的标签

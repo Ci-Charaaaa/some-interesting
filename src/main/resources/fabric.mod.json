@@ -2,8 +2,8 @@
 	"schemaVersion": 1,
 	"id": "test-mod",
 	"version": "${version}",
-	"name": "Test Mod",
-	"description": "用于初次练手的mod，目前还没想好添加什么",
+	"name": "Some interesting",
+	"description": "一些奇思妙想，添加了一套绿宝石工具与护甲",
 	"authors": [
 		"CCiChara"
 	],
