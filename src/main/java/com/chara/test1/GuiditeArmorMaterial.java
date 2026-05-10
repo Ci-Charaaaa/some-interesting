@@ -24,8 +24,8 @@ public class GuiditeArmorMaterial {
             EMERALD_BASE_DURABILITY,
             Map.of(//各部位护甲的护甲值枚举
                 ArmorType.HELMET,3,
-                ArmorType.CHESTPLATE,6,
-                ArmorType.LEGGINGS,4,
+                ArmorType.CHESTPLATE,5,
+                ArmorType.LEGGINGS,3,
                 ArmorType.BOOTS,2
             ),
             //盔甲附魔性，钻10，铁9

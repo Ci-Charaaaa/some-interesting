@@ -14,8 +14,14 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.datafix.fixes.MobEffectIdFix;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 
 import java.util.List;
 import java.util.function.Function;
@@ -52,6 +58,9 @@ public class ModItems{
                 output.accept(GuiditeArmorMaterial.EMERALD_LEGGINGS);
                 output.accept(GuiditeArmorMaterial.EMERALD_BOOTS);
 
+                //添加一个食物
+                output.accept(ModItems.JUMP_APPLE);
+
                 //同理添加方块
 //                // The tab builder also accepts Blocks
 //                output.accept(ModBlocks.CONDENSED_DIRT);
@@ -71,7 +80,6 @@ public class ModItems{
     //创建一个标签，这里是一个叫做“emerald_repair_tag”的，用来提供绿宝石等级的修复材料的标签（TAG）
     public static final TagKey<Item> EMERADL_TAG = TagKey.create(BuiltInRegistries.ITEM.key(),Identifier.fromNamespaceAndPath(TestMod.MOD_ID,"emerald_repair_tag"));
 
-
     //创建“工具等级”，使得程序会根据这个工具等级来给相应的工具进行赋值
     public static final ToolMaterial EMERALD_MATERIAL = new ToolMaterial(
             BlockTags.INCORRECT_FOR_IRON_TOOL,  //挖掘等级
@@ -82,10 +90,24 @@ public class ModItems{
             EMERADL_TAG                         //修复材料所在的标签，mc使用标签对修复材料进行分类
     );
 
+    //可以给食物添加有特殊效果的组件
+    public static final Consumable JUMP_APPLE_CONSUMABLE_CONTENT = Consumables.defaultFood()
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 6 * 20,1),1.0f))
+            .build();
+
+    //给与食物的基本属性的组件
+    public static final FoodProperties JUMP_APPLE_CONTENT = new FoodProperties.Builder()
+            .nutrition(4)
+            .saturationModifier(0.3f)
+            .build();
+
 
     //这是全局声明一个新的物品实例，Item::new是Item的构造器，
     //其传参和返回值与Function<Item.properties,T>一致，所以直接把构造器当接口实现用了，
     public static final Item USELESS_ITEM = register("useless_item",Item::new,new Item.Properties());
+
+    //创建一个食物物品，后面属性使用food，food()传入直接新建的foodProper，也可以自定义两个组件，一个基础组件，一个特殊效果组件传入
+    public static final Item JUMP_APPLE = register("jump_apple",Item::new,new Item.Properties().food(JUMP_APPLE_CONTENT,JUMP_APPLE_CONSUMABLE_CONTENT));
 
     //这是工具类物品的实例创建
     public static final Item EMERALD_PICKAXE = register("emerald_pickaxe",Item::new,new Item.Properties().pickaxe(EMERALD_MATERIAL,1f,-2.8f));
