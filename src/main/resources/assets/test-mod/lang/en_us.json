@@ -1,0 +1,20 @@
+{
+  "item.test-mod.emerald_sword": "emerald sword",
+  "item.test-mod.emerald_pickaxe": "emerald pickaxe",
+  "item.test-mod.emerald_shovel": "emerald shovel",
+  "item.test-mod.emerald_axe": "emerald axe",
+  "item.test-mod.emerald_hoe": "emerald hoe",
+
+  "item.test-mod.useless_item":"useless item",
+  "item.test-mod.jump_apple": "jump apple",
+
+  "item.test-mod.emerald_helmet": "emerald_helmet",
+  "item.test-mod.emerald_chestplate": "emerald_chestplate",
+  "item.test-mod.emerald_leggings": "emerald_leggings",
+  "item.test-mod.emerald_boots": "emerald_boots",
+
+
+
+
+  "creativeTab.test-mod":"CCChara's test mod,have some interesting"
+}
