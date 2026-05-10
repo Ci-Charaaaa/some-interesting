@@ -1,0 +1,17 @@
+{
+  "item.test-mod.emerald_sword": "綠寶石劍",
+  "item.test-mod.emerald_pickaxe": "綠寶石鎬",
+  "item.test-mod.emerald_shovel": "綠寶石鏟",
+  "item.test-mod.emerald_axe": "綠寶石斧",
+  "item.test-mod.emerald_hoe": "綠寶石鋤",
+
+  "item.test-mod.useless_item": "沒用的東西",
+  "item.test-mod.jump_apple": "跳躍蘋果",
+
+  "item.test-mod.emerald_helmet": "綠寶石頭盔",
+  "item.test-mod.emerald_chestplate": "綠寶石胸甲",
+  "item.test-mod.emerald_leggings": "綠寶石護腿",
+  "item.test-mod.emerald_boots": "綠寶石靴子",
+
+  "creativeTab.test-mod": "CCChara的測試模組，包含一些有趣的東西，持續開發中ing"
+}
