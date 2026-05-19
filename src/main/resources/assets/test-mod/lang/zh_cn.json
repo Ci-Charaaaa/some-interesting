@@ -13,6 +13,14 @@
   "item.test-mod.emerald_leggings": "绿宝石护腿",
   "item.test-mod.emerald_boots": "绿宝石靴子",
 
+  "item.test-mod.be.synchronized.text.info": "你已精通 %1$s ！",
+  "item.test-mod.be.soulbound.text.info": "你已与 %1$s 灵魂相通 ！",
+
+  "item.test-mod.familiarizing":"初识",
+  "item.test-mod.synchronized":"默契",
+  "item.test-mod.soulbound":"灵魂绑定",
+  "item.test-mod.normal_count.info":"熟练度：%1$s",
+  "item.test-mod.super_count.info":"暴击熟练度：%1$s",
 
 
 

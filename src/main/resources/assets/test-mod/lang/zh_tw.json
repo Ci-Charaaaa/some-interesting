@@ -13,5 +13,15 @@
   "item.test-mod.emerald_leggings": "綠寶石護腿",
   "item.test-mod.emerald_boots": "綠寶石靴子",
 
+  "item.test-mod.be.synchronized.text.info": "你已精通 %1$s ！",
+  "item.test-mod.be.soulbound.text.info": "你已與 %1$s 靈魂綁定！",
+
+
+  "item.test-mod.familiarizing":"初識",
+  "item.test-mod.synchronized":"默契",
+  "item.test-mod.soulbound":"靈魂綁定",
+  "item.test-mod.normal_count.info": "熟練度：%1$s",
+  "item.test-mod.super_count.info": "暴擊熟練度：%1$s",
+
   "creativeTab.test-mod": "CCChara的測試模組，包含一些有趣的東西，持續開發中ing"
 }

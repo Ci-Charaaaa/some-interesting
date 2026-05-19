@@ -1,5 +1,6 @@
 package com.chara.test1;
 
+import com.chara.test1.component.ModComponent;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
@@ -129,8 +130,11 @@ public class ModItems{
         //使用item的类成员properties的setid方法，把刚才声明的键给设置成一个物品的id，等于创建物品的实例
         T item = itemFactory.apply(settings.setId(itemKey));
 
+
         //把物品注册到表里面去,BuiltInRegistries是一个静态容器类，是小注册表的注册表，也就是总目录
         Registry.register(BuiltInRegistries.ITEM,itemKey,item);
+
+
 
         return item;
     }
