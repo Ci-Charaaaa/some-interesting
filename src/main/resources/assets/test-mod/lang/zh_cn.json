@@ -19,8 +19,8 @@
   "item.test-mod.familiarizing":"初识",
   "item.test-mod.synchronized":"默契",
   "item.test-mod.soulbound":"灵魂绑定",
-  "item.test-mod.normal_count.info":"熟练度：%1$s",
-  "item.test-mod.super_count.info":"暴击熟练度：%1$s",
+  "item.test-mod.normal_count.info":"攻击默契：%1$s",
+  "item.test-mod.super_count.info":"暴击默契：%1$s",
 
 
 

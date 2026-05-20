@@ -22,8 +22,8 @@
   "item.test-mod.synchronized": "Synchronized",
   "item.test-mod.soulbound": "Soulbound",
 
-  "item.test-mod.normal_count.info": "Proficiency：%1$s",
-  "item.test-mod.super_count.info": "Critical Proficiency：%1$s",
+  "item.test-mod.normal_count.info": "Attack Synergy：%1$s",
+  "item.test-mod.super_count.info": "Critical Synergy：%1$s",
 
 
   "creativeTab.test-mod":"CCChara's test mod,have some interesting"

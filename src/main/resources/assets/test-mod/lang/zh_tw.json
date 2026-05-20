@@ -20,8 +20,8 @@
   "item.test-mod.familiarizing":"初識",
   "item.test-mod.synchronized":"默契",
   "item.test-mod.soulbound":"靈魂綁定",
-  "item.test-mod.normal_count.info": "熟練度：%1$s",
-  "item.test-mod.super_count.info": "暴擊熟練度：%1$s",
+  "item.test-mod.normal_count.info": "攻擊默契：%1$s",
+  "item.test-mod.super_count.info": "暴擊默契：%1$s",
 
   "creativeTab.test-mod": "CCChara的測試模組，包含一些有趣的東西，持續開發中ing"
 }
