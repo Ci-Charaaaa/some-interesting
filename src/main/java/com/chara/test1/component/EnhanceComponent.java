@@ -22,18 +22,18 @@ public record EnhanceComponent(int normal_count, int super_count,boolean is_sync
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag, DataComponentGetter components) {
-        if(this.normal_count <= 30 || this.super_count <= 6){
-            tooltip.accept(Component.translatable("item.test-mod.familiarizing").withStyle(ChatFormatting.WHITE));
-            tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count).withStyle(ChatFormatting.WHITE));
-            tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count).withStyle(ChatFormatting.WHITE));
-        }else if (this.normal_count <= 300 || this.super_count <= 60){
-            tooltip.accept(Component.translatable("item.test-mod.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count).withStyle(ChatFormatting.WHITE));
-            tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count).withStyle(ChatFormatting.WHITE));
-        }else{
+        if (is_soulbound) {
             tooltip.accept(Component.translatable("item.test-mod.soulbound").withStyle(ChatFormatting.GOLD));
-            tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count).withStyle(ChatFormatting.WHITE));
-            tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count).withStyle(ChatFormatting.WHITE));
+            tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
+        } else if (is_synchronized) {
+            tooltip.accept(Component.translatable("item.test-mod.synchronized").withStyle(ChatFormatting.BLUE));
+            tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count, 300).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count, 60).withStyle(ChatFormatting.DARK_GRAY));
+        } else {
+            tooltip.accept(Component.translatable("item.test-mod.familiarizing").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count, 30).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count, 6).withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 

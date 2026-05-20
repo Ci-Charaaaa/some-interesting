@@ -77,6 +77,8 @@ public class TestMod implements ModInitializer {
 						//如果发现是否精通为假，改成真的，并播放升级音效和输出文本
 						if(!is_synchronized){
 
+							is_synchronized = true;
+
 							world.playSound(
 									null,
 									player.getX(), player.getY(), player.getZ(),
@@ -86,21 +88,27 @@ public class TestMod implements ModInitializer {
 									1.0F  // 音调
 							);
 
-							//获取物品名字
-							Component nameComponent = heldstack.get(DataComponents.CUSTOM_NAME);
-							String name = nameComponent.getString();
+					//获取物品名字（优先取自定义名，没有则用默认显示名）
+					String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
+							heldstack.getOrDefault(DataComponents.ITEM_NAME,
+									Component.literal("???"))).getString();
 
-							//输出文本
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.text.info",name));
+					//输出文本
+					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.text.info",name));
+					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.repair_reset"));
+					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.durability_up",String.valueOf((int)(max_damage*1.2))));
+					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.damage_up"));
+					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.next_goal",String.valueOf(300),String.valueOf(60)));
 
-							//修改为真防止反复触发
-							heldstack.set(EnhanceComponent.TURE_PROFICIENCY_COMPONENT,new EnhanceComponent(normal_count,super_count,true,is_soulbound));
+					//修改为真防止反复触发
+					heldstack.set(EnhanceComponent.TURE_PROFICIENCY_COMPONENT,new EnhanceComponent(normal_count,super_count,true,is_soulbound));
 
-						}
+					heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.2));
+					heldstack.set(DataComponents.REPAIR_COST,0);
 
-						target.hurt(player.damageSources().magic(),3.0f);
-						heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.2));
-						heldstack.set(DataComponents.REPAIR_COST,0);
+				}
+
+				target.hurt(player.damageSources().magic(),3.0f);
 
 					}else{
 
@@ -117,20 +125,26 @@ public class TestMod implements ModInitializer {
 							);
 
 							//获取物品名字
-							Component nameComponent = heldstack.get(DataComponents.CUSTOM_NAME);
-							String name = nameComponent.getString();
+							String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
+									heldstack.getOrDefault(DataComponents.ITEM_NAME,
+											Component.literal("???"))).getString();
 
 							//输出文本
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.text.info",name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.text.info",name).withStyle(ChatFormatting.GOLD));
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.durability_up",String.valueOf((int)(max_damage*1.8))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.max_level"));
 
 							//修改为真防止反复触发
 							heldstack.set(EnhanceComponent.TURE_PROFICIENCY_COMPONENT,new EnhanceComponent(normal_count,super_count,is_synchronized,true));
 
+							heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.8));
+							heldstack.set(DataComponents.REPAIR_COST,0);
 						}
 
 						target.hurt(player.damageSources().magic(),6.0f);
-						heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.8));
-						heldstack.set(DataComponents.REPAIR_COST,0);
+
 
 					}
 
