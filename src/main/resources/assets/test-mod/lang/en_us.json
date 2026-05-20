@@ -16,13 +16,13 @@
   "item.test-mod.be.synchronized.text.info": "§6✦ You have mastered %1$s !",
   "item.test-mod.be.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
   "item.test-mod.be.synchronized.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
-  "item.test-mod.be.synchronized.damage_up": "  §a✔ Gain +3 bonus magic damage",
+  "item.test-mod.be.synchronized.damage_up": "  §a✔ Gain 20% bonus damage",
   "item.test-mod.be.synchronized.next_goal": "  §e▶ Next upgrade: Attack >%1$s + Crit >%2$s",
 
   "item.test-mod.be.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
   "item.test-mod.be.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
   "item.test-mod.be.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
-  "item.test-mod.be.soulbound.damage_up": "  §a✔ Gain +6 bonus magic damage",
+  "item.test-mod.be.soulbound.damage_up": "  §a✔ Gain 50% bonus damage",
   "item.test-mod.be.soulbound.max_level": "  §e★ Max level reached!",
 
   "item.test-mod.familiarizing": "Familiarizing",

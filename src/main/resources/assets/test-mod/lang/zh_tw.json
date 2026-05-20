@@ -16,13 +16,13 @@
   "item.test-mod.be.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.test-mod.be.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
   "item.test-mod.be.synchronized.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
-  "item.test-mod.be.synchronized.damage_up": "  §a✔ 獲得額外 3 點魔法傷害加成",
+  "item.test-mod.be.synchronized.damage_up": "  §a✔ 獲得 20% 傷害加成",
   "item.test-mod.be.synchronized.next_goal": "  §e▶ 下次升級需：攻擊默契 >%1$s + 暴擊默契 >%2$s",
 
   "item.test-mod.be.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
   "item.test-mod.be.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
   "item.test-mod.be.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
-  "item.test-mod.be.soulbound.damage_up": "  §a✔ 獲得額外 6 點魔法傷害加成",
+  "item.test-mod.be.soulbound.damage_up": "  §a✔ 獲得 50% 傷害加成",
   "item.test-mod.be.soulbound.max_level": "  §e★ 已達成最高等級！",
 
   "item.test-mod.familiarizing": "初識",

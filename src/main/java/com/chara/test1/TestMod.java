@@ -11,13 +11,17 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,10 +76,10 @@ public class TestMod implements ModInitializer {
 
 					if(normal_count <= 30 || super_count <= 6){
 						//do nothing
-					}else if (normal_count <= 300 || super_count <= 60){
+					}else if (normal_count <= 300 || super_count <= 60) {
 
 						//如果发现是否精通为假，改成真的，并播放升级音效和输出文本
-						if(!is_synchronized){
+						if (!is_synchronized) {
 
 							is_synchronized = true;
 
@@ -88,28 +92,42 @@ public class TestMod implements ModInitializer {
 									1.0F  // 音调
 							);
 
-					//获取物品名字（优先取自定义名，没有则用默认显示名）
-					String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
-							heldstack.getOrDefault(DataComponents.ITEM_NAME,
-									Component.literal("???"))).getString();
+							//获取物品名字（优先取自定义名，没有则用默认显示名）
+							String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
+									heldstack.getOrDefault(DataComponents.ITEM_NAME,
+											Component.literal("???"))).getString();
 
-					//输出文本
-					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.text.info",name));
-					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.repair_reset"));
-					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.durability_up",String.valueOf((int)(max_damage*1.2))));
-					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.damage_up"));
-					player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.next_goal",String.valueOf(300),String.valueOf(60)));
+							//输出文本
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.durability_up", String.valueOf((int) (max_damage * 1.2))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.next_goal", String.valueOf(300), String.valueOf(60)));
 
-					//修改为真防止反复触发
-					heldstack.set(EnhanceComponent.TURE_PROFICIENCY_COMPONENT,new EnhanceComponent(normal_count,super_count,true,is_soulbound));
+							//修改为真防止反复触发
+							heldstack.set(EnhanceComponent.TURE_PROFICIENCY_COMPONENT, new EnhanceComponent(normal_count, super_count, true, is_soulbound));
 
-					heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.2));
-					heldstack.set(DataComponents.REPAIR_COST,0);
+							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
 
-				}
+							//获取这把剑当前拥有的所有属性修饰符--属性修饰符，通过这类modifier对剑的属性进行修改
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							//组件算固有属性，不能动态修改，需要调用builder重新生成一个覆盖原有的
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							//复制原有的所有修饰符--新生成的那个只有要修改的地方与原本不同，
+							//但是其他属性要保持不变，所以得先获取一下原有的
+							current.modifiers().forEach(entry ->
+									builder.add(entry.attribute(), entry.modifier(), entry.slot()));
+							//追加精通加成--也就是要修改的部分
+							builder.add(Attributes.ATTACK_DAMAGE,
+									new AttributeModifier(PROFICIENCY_BONUS_ID, 0.2,
+											//选择 加上原有值*xx倍 的修改方式
+											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
 
-				target.hurt(player.damageSources().magic(),3.0f);
-
+						}
 					}else{
 
 						//如果发现是否灵魂相通为假，改成真的，并播放升级音效和输出文本
@@ -141,11 +159,25 @@ public class TestMod implements ModInitializer {
 
 							heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.8));
 							heldstack.set(DataComponents.REPAIR_COST,0);
+
+							//获取这把剑当前拥有的所有属性修饰符--属性修饰符，通过这类modifier对剑的属性进行修改
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							//组件算固有属性，不能动态修改，需要调用builder重新生成一个覆盖原有的
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							//复制原有的所有修饰符--新生成的那个只有要修改的地方与原本不同，
+							//但是其他属性要保持不变，所以得先获取一下原有的
+							current.modifiers().forEach(entry ->
+									builder.add(entry.attribute(), entry.modifier(), entry.slot()));
+							//追加精通加成--也就是要修改的部分
+							builder.add(Attributes.ATTACK_DAMAGE,
+									new AttributeModifier(PROFICIENCY_BONUS_ID, 0.3,
+											//选择 加上原有值*xx倍 的修改方式
+											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+
 						}
-
-						target.hurt(player.damageSources().magic(),6.0f);
-
-
 					}
 
 					//每次自增普通攻击次数的值
