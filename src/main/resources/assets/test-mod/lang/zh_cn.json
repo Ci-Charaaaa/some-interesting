@@ -13,6 +13,9 @@
   "item.test-mod.emerald_leggings": "绿宝石护腿",
   "item.test-mod.emerald_boots": "绿宝石靴子",
 
+  "item.test-mod.normal_excavate_count.info": "普通矿石挖掘数: %1$s / %2$s",
+  "item.test-mod.rare_excavate_count.info": "稀有矿石挖掘数: %1$s / %2$s",
+
   "item.test-mod.be.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.test-mod.be.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.be.synchronized.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",

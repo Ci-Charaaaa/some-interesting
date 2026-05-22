@@ -1,14 +1,18 @@
 package com.chara.test1;
 
-import com.chara.test1.component.EnhanceComponent;
+import com.chara.test1.component.PickaxeEnhanceComponent;
+import com.chara.test1.component.SwordsEnhanceComponent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -17,12 +21,14 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import net.minecraft.world.level.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +40,101 @@ public class TestMod implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
 		ModItems.initialize();
-		EnhanceComponent.initialize();
-		GuiditeArmorMaterial.tem();
 
+		SwordsEnhanceComponent.initialize();
+		PickaxeEnhanceComponent.initialize();
+
+
+		//镐使用的回调方法，侦测破坏方块，并实现相关逻辑
+		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
+
+			//判断是否是客户端以及被挖掘的方块是否是矿石类
+			if(!world.isClientSide() && state.is(ConventionalBlockTags.ORES)){
+
+				ItemStack heldstack = player.getMainHandItem();
+
+				//判断玩家手上是不是镐
+				if(heldstack.is(ItemTags.PICKAXES)){
+
+					//获取玩家手上的物品数据组件
+					PickaxeEnhanceComponent pickaxeEnhanceComponent = heldstack.getOrDefault(
+							PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,
+							new PickaxeEnhanceComponent(0,0,false,false));
+
+					int normal_mined_count = pickaxeEnhanceComponent.normal_excavate_count();
+					int rare_mined_count = pickaxeEnhanceComponent.rare_excavate_count();
+					boolean is_synchronized = pickaxeEnhanceComponent.is_synchronized();
+					boolean is_soulbound = pickaxeEnhanceComponent.is_soulbound();
+
+					//如果挖的是稀有矿石，则稀有矿石挖掘数加1
+					if (state.is(BlockTags.DIAMOND_ORES) || state.is(BlockTags.EMERALD_ORES) || state.is(ConventionalBlockTags.NETHERITE_SCRAP_ORES)){
+						heldstack.set(PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,new PickaxeEnhanceComponent(normal_mined_count,++rare_mined_count,is_synchronized,is_soulbound));
+					}else{
+						//普通矿石自增一
+						heldstack.set(
+								PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,
+								new PickaxeEnhanceComponent(++normal_mined_count,rare_mined_count,is_synchronized,is_soulbound));
+
+					}
+
+					if(normal_mined_count <= 60 && rare_mined_count <= 1){
+						//do nothing
+					}else if (normal_mined_count <= 300 && rare_mined_count <= 15){
+
+						//判断是否已经精通
+						if(!is_synchronized){
+
+							is_synchronized = true;
+
+							//输出文本
+							out_text(world,player);
+
+							//获取物品名字（优先取自定义名，没有则用默认显示名）
+							String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
+									heldstack.getOrDefault(DataComponents.ITEM_NAME,
+											Component.literal("???"))).getString();
+
+
+
+
+
+
+						}
+					}else {
+						//判断是否灵魂相通
+						if (!is_soulbound){
+
+							is_soulbound = true;
+
+							//输出文本
+							out_text(world,player);
+
+							//获取物品名字（优先取自定义名，没有则用默认显示名）
+							String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
+									heldstack.getOrDefault(DataComponents.ITEM_NAME,
+											Component.literal("???"))).getString();
+
+
+
+
+
+
+
+						}
+					}
+
+
+
+
+				}
+
+			}
+		});
+
+
+
+
+		//剑类使用的回调方法，侦测攻击,并实现逻辑逻辑（目前只有手中握持为剑生效）
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult)->{
 
 			//定义一个标识符用于修改攻击数据组件
@@ -50,9 +148,9 @@ public class TestMod implements ModInitializer {
 				// 检查玩家手里的物品
 				if (player.getItemInHand(hand).is(ItemTags.SWORDS)) {
 					//获取高级数据组件的记录类和组件本身
-					EnhanceComponent heldComponent = heldstack.getOrDefault(
-							EnhanceComponent.TURE_PROFICIENCY_COMPONENT,
-							new EnhanceComponent(0, 0,false,false));
+					SwordsEnhanceComponent heldComponent = heldstack.getOrDefault(
+							SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT,
+							new SwordsEnhanceComponent(0, 0,false,false));
 
 					//获取两个具体的值
 					int normal_count = heldComponent.normal_count();
@@ -69,7 +167,10 @@ public class TestMod implements ModInitializer {
 
 					//如果满足，则对super_count加1
 					if (isCrit){
-						heldstack.set(EnhanceComponent.TURE_PROFICIENCY_COMPONENT, new EnhanceComponent(normal_count, ++super_count,is_synchronized,is_soulbound));
+						heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, ++super_count,is_synchronized,is_soulbound));
+					}else{
+						//自增普通攻击次数的值
+						heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(++normal_count, super_count,is_synchronized,is_soulbound));
 					}
 
 					int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
@@ -83,14 +184,8 @@ public class TestMod implements ModInitializer {
 
 							is_synchronized = true;
 
-							world.playSound(
-									null,
-									player.getX(), player.getY(), player.getZ(),
-									net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP,
-									net.minecraft.sounds.SoundSource.PLAYERS,
-									1.0F, // 音量
-									1.0F  // 音调
-							);
+							//输出文本
+							out_text(world,player);
 
 							//获取物品名字（优先取自定义名，没有则用默认显示名）
 							String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
@@ -105,7 +200,7 @@ public class TestMod implements ModInitializer {
 							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.next_goal", String.valueOf(300), String.valueOf(60)));
 
 							//修改为真防止反复触发
-							heldstack.set(EnhanceComponent.TURE_PROFICIENCY_COMPONENT, new EnhanceComponent(normal_count, super_count, true, is_soulbound));
+							heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, super_count, true, is_soulbound));
 
 							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
 							heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -155,7 +250,7 @@ public class TestMod implements ModInitializer {
 							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.max_level"));
 
 							//修改为真防止反复触发
-							heldstack.set(EnhanceComponent.TURE_PROFICIENCY_COMPONENT,new EnhanceComponent(normal_count,super_count,is_synchronized,true));
+							heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT,new SwordsEnhanceComponent(normal_count,super_count,is_synchronized,true));
 
 							heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.8));
 							heldstack.set(DataComponents.REPAIR_COST,0);
@@ -179,10 +274,6 @@ public class TestMod implements ModInitializer {
 
 						}
 					}
-
-					//每次自增普通攻击次数的值
-					heldstack.set(EnhanceComponent.TURE_PROFICIENCY_COMPONENT, new EnhanceComponent(++normal_count, super_count,is_synchronized,is_soulbound));
-
 				}
 			}
 
@@ -255,7 +346,18 @@ public class TestMod implements ModInitializer {
 
 	}
 
-
+	public void out_text(Level world, Player player){
+		//播放升级音效
+			world.playSound(
+					null,
+					player.getX(), player.getY(), player.getZ(),
+					net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP,
+					net.minecraft.sounds.SoundSource.PLAYERS,
+					1.0F, // 音量
+					1.0F  // 音调
+			);
+	}
 
 
 }
+
