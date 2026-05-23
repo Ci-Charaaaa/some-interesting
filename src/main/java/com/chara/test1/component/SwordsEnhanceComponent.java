@@ -18,7 +18,7 @@ import net.minecraft.world.item.component.TooltipProvider;
 
 import java.util.function.Consumer;
 
-public record SwordsEnhanceComponent(int normal_count, int super_count, boolean is_synchronized, boolean is_soulbound) implements TooltipProvider {
+public record SwordsEnhanceComponent(int normal_count, int super_count, boolean is_adept,boolean is_synchronized, boolean is_soulbound) implements TooltipProvider {
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag, DataComponentGetter components) {
@@ -28,8 +28,12 @@ public record SwordsEnhanceComponent(int normal_count, int super_count, boolean 
             tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_synchronized) {
             tooltip.accept(Component.translatable("item.test-mod.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count, 300).withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count, 60).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count, 500).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count, 80).withStyle(ChatFormatting.DARK_GRAY));
+        } else if (is_adept) {
+            tooltip.accept(Component.translatable("item.test-mod.adept").withStyle(ChatFormatting.GREEN));
+            tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count, 180).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.super_count.info", this.super_count, 20).withStyle(ChatFormatting.DARK_GRAY));
         } else {
             tooltip.accept(Component.translatable("item.test-mod.familiarizing").withStyle(ChatFormatting.DARK_GRAY));
             tooltip.accept(Component.translatable("item.test-mod.normal_count.info", this.normal_count, 30).withStyle(ChatFormatting.DARK_GRAY));
@@ -49,6 +53,7 @@ public record SwordsEnhanceComponent(int normal_count, int super_count, boolean 
         return builder.group(
                 Codec.INT.optionalFieldOf("normal_count",0).forGetter(SwordsEnhanceComponent::normal_count),
                 Codec.INT.optionalFieldOf("super_count", 0).forGetter(SwordsEnhanceComponent::super_count),
+                Codec.BOOL.optionalFieldOf("adept", false).forGetter(SwordsEnhanceComponent::is_adept),
                 Codec.BOOL.optionalFieldOf("synchronized", false).forGetter(SwordsEnhanceComponent::is_synchronized),
                 Codec.BOOL.optionalFieldOf("soulbound", false).forGetter(SwordsEnhanceComponent::is_soulbound)
         ).apply(builder, SwordsEnhanceComponent::new);

@@ -12,6 +12,8 @@ import static com.chara.test1.ModItems.register;
 
 public class GuiditeArmorMaterial {
 
+    public static void initialize(){}
+
 
     //注册物品：盔甲材料
     public static final ResourceKey<EquipmentAsset> EMERALD_ARMOR_MATERIAL_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(TestMod.MOD_ID, "emerald"));
@@ -78,15 +80,15 @@ public class GuiditeArmorMaterial {
 
 
 
-
-    public static final int tem(){
-
-        int i = ArmorMaterials.DIAMOND.durability();
-        System.out.println(i);
-
-
-        return 0 ;
-    }
+//
+//    public static final int tem(){
+//
+//        int i = ArmorMaterials.DIAMOND.durability();
+//        System.out.println(i);
+//
+//
+//        return 0 ;
+//    }
 
 
 

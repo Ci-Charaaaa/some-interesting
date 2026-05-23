@@ -16,23 +16,48 @@
   "item.test-mod.normal_excavate_count.info": "Common Ore Mined Count: %1$s / %2$s",
   "item.test-mod.rare_excavate_count.info": "Rare Ore Mined Count: %1$s / %2$s",
 
-  "item.test-mod.be.synchronized.text.info": "§6✦ You have mastered %1$s !",
-  "item.test-mod.be.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
-  "item.test-mod.be.synchronized.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
-  "item.test-mod.be.synchronized.damage_up": "  §a✔ Gain 20% bonus damage",
-  "item.test-mod.be.synchronized.next_goal": "  §e▶ Next upgrade: Attack >%1$s + Crit >%2$s",
+  "item.test-mod.swords.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.test-mod.swords.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.swords.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.test-mod.swords.adept.damage_up": "  §a✔ Gain 20% bonus damage",
+  "item.test-mod.swords.adept.next_goal": "  §e▶ Next upgrade: Attack >%1$s + Crit >%2$s",
 
-  "item.test-mod.be.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
-  "item.test-mod.be.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
-  "item.test-mod.be.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
-  "item.test-mod.be.soulbound.damage_up": "  §a✔ Gain 50% bonus damage",
-  "item.test-mod.be.soulbound.max_level": "  §e★ Max level reached!",
+  "item.test-mod.swords.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.test-mod.swords.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.swords.synchronized.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.test-mod.swords.synchronized.damage_up": "  §a✔ Gain 50% bonus damage",
+  "item.test-mod.swords.synchronized.next_goal": "  §e▶ Next upgrade: Attack >%1$s + Crit >%2$s",
+
+  "item.test-mod.swords.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.test-mod.swords.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.swords.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.test-mod.swords.soulbound.damage_up": "  §a✔ Gain 80% bonus damage",
+  "item.test-mod.swords.soulbound.max_level": "  §e★ Max level reached!",
 
   "item.test-mod.familiarizing": "Familiarizing",
+  "item.test-mod.adept": "Adept",
   "item.test-mod.synchronized": "Synchronized",
   "item.test-mod.soulbound": "Soulbound",
   "item.test-mod.normal_count.info": "Attack Synergy: %1$s / %2$s",
   "item.test-mod.super_count.info": "Critical Synergy: %1$s / %2$s",
+
+  "item.test-mod.pickaxe.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.test-mod.pickaxe.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.pickaxe.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.test-mod.pickaxe.adept.damage_up": "  §a✔ Gain 2 mining speed bonus",
+  "item.test-mod.pickaxe.adept.next_goal": "  §e▶ Next upgrade: Common >%1$s + Rare >%2$s",
+
+  "item.test-mod.pickaxe.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.test-mod.pickaxe.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.pickaxe.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.test-mod.pickaxe.synchronized.damage_up": "  §a✔ Gain 4 mining speed bonus",
+  "item.test-mod.pickaxe.synchronized.next_goal": "  §e▶ Next upgrade: Common >%1$s + Rare >%2$s",
+
+  "item.test-mod.pickaxe.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.test-mod.pickaxe.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.pickaxe.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.test-mod.pickaxe.soulbound.damage_up": "  §a✔ Gain 8 mining speed bonus",
+  "item.test-mod.pickaxe.soulbound.max_level": "  §e★ Max level reached!",
 
   "creativeTab.test-mod": "CCChara's Test Mod"
 }
