@@ -40,103 +40,175 @@ public class TestMod implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
 		ModItems.initialize();
+		GuiditeArmorMaterial.initialize();
 
-		SwordsEnhanceComponent.initialize();
 		PickaxeEnhanceComponent.initialize();
-
+		SwordsEnhanceComponent.initialize();
 
 		//镐使用的回调方法，侦测破坏方块，并实现相关逻辑
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
-
+			//定义一个标识符用于修改挖掘数据组件
+			Identifier MINING_SPEED_ID = Identifier.fromNamespaceAndPath("test-mod", "mining_speed_id");
 			//判断是否是客户端以及被挖掘的方块是否是矿石类
 			if(!world.isClientSide() && state.is(ConventionalBlockTags.ORES)){
 
 				ItemStack heldstack = player.getMainHandItem();
-
 				//判断玩家手上是不是镐
 				if(heldstack.is(ItemTags.PICKAXES)){
-
 					//获取玩家手上的物品数据组件
 					PickaxeEnhanceComponent pickaxeEnhanceComponent = heldstack.getOrDefault(
 							PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,
-							new PickaxeEnhanceComponent(0,0,false,false));
+							new PickaxeEnhanceComponent(0,0,false,false,false));
 
 					int normal_mined_count = pickaxeEnhanceComponent.normal_excavate_count();
 					int rare_mined_count = pickaxeEnhanceComponent.rare_excavate_count();
+					boolean is_adept = pickaxeEnhanceComponent.is_adept();
 					boolean is_synchronized = pickaxeEnhanceComponent.is_synchronized();
 					boolean is_soulbound = pickaxeEnhanceComponent.is_soulbound();
 
+					int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
+
 					//如果挖的是稀有矿石，则稀有矿石挖掘数加1
 					if (state.is(BlockTags.DIAMOND_ORES) || state.is(BlockTags.EMERALD_ORES) || state.is(ConventionalBlockTags.NETHERITE_SCRAP_ORES)){
-						heldstack.set(PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,new PickaxeEnhanceComponent(normal_mined_count,++rare_mined_count,is_synchronized,is_soulbound));
+						heldstack.set(PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,new PickaxeEnhanceComponent(normal_mined_count,++rare_mined_count,is_adept,is_synchronized,is_soulbound));
 					}else{
 						//普通矿石自增一
 						heldstack.set(
 								PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,
-								new PickaxeEnhanceComponent(++normal_mined_count,rare_mined_count,is_synchronized,is_soulbound));
+								new PickaxeEnhanceComponent(++normal_mined_count,rare_mined_count,is_adept,is_synchronized,is_soulbound));
 
 					}
 
-					if(normal_mined_count <= 60 && rare_mined_count <= 1){
+					if(normal_mined_count <= 60 || rare_mined_count < 0){
 						//do nothing
-					}else if (normal_mined_count <= 300 && rare_mined_count <= 15){
+					}else if (normal_mined_count <= 150 || rare_mined_count <= 3){
+						if (!is_adept){
+							//防止反复触发
+							is_adept = true;
+							heldstack.set(PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,new PickaxeEnhanceComponent(normal_mined_count,rare_mined_count,true,is_synchronized,is_soulbound));
+
+							//播放音效
+							out_sound(world,player);
+							//获取物品名字（优先取自定义名，没有则用默认显示名）
+							String name = get_name(heldstack);
+
+							//粗通文本
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.durability_up", String.valueOf((int) (max_damage * 1.1))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.next_goal", String.valueOf(150), String.valueOf(3)));
+
+							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							//依旧修饰符
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							//依旧需要覆盖，使所以build一个用
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							//依旧FOR循环加入数据时，过滤掉倍粗通时修改的属性
+							for (ItemAttributeModifiers.Entry entry : current.modifiers()){
+								if (!entry.modifier().id().equals(MINING_SPEED_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
+							//依旧把东西一一输入
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(MINING_SPEED_ID, 2,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}else if (normal_mined_count <= 500 || rare_mined_count <= 15){
 
 						//判断是否已经精通
 						if(!is_synchronized){
 
+							//防止反复触发
 							is_synchronized = true;
+							heldstack.set(PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,new PickaxeEnhanceComponent(normal_mined_count,rare_mined_count,is_adept,true,is_soulbound));
+
+							//播放音效
+							out_sound(world,player);
+							//获取物品名字（优先取自定义名，没有则用默认显示名）
+							String name = get_name(heldstack);
 
 							//输出文本
-							out_text(world,player);
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.durability_up", String.valueOf((int) (max_damage * 1.5))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.next_goal", String.valueOf(500), String.valueOf(15)));
 
-							//获取物品名字（优先取自定义名，没有则用默认显示名）
-							String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
-									heldstack.getOrDefault(DataComponents.ITEM_NAME,
-											Component.literal("???"))).getString();
+							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.5));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
 
-
-
-
-
-
+							//依旧修饰符
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							//依旧需要覆盖，使所以build一个用
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							//依旧遍历读取所有数据
+							current.modifiers().forEach(entry ->
+									builder.add(entry.attribute(), entry.modifier(), entry.slot()));
+							//依旧把东西一一输入
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(MINING_SPEED_ID, 4,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
 						}
 					}else {
 						//判断是否灵魂相通
 						if (!is_soulbound){
 
+							//防止反复触发
 							is_soulbound = true;
+							heldstack.set(PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,new PickaxeEnhanceComponent(normal_mined_count,rare_mined_count,is_adept,is_synchronized,true));
+
+							//播放音效
+							out_sound(world,player);
+							//获取物品名字（优先取自定义名，没有则用默认显示名）
+							String name = get_name(heldstack);
 
 							//输出文本
-							out_text(world,player);
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.soulbound.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.soulbound.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.soulbound.durability_up", String.valueOf((int) (max_damage * 1.8))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.soulbound.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.soulbound.max_level"));
 
-							//获取物品名字（优先取自定义名，没有则用默认显示名）
-							String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
-									heldstack.getOrDefault(DataComponents.ITEM_NAME,
-											Component.literal("???"))).getString();
+							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.8));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
 
+							//依旧修饰符
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							//依旧需要覆盖，使所以build一个用
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
 
+							//依旧FOR循环加入数据时，过滤掉倍精通时修改的属性
+							for (ItemAttributeModifiers.Entry entry : current.modifiers()){
+								if (!entry.modifier().id().equals(MINING_SPEED_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
 
-
-
-
-
+							//依旧把东西一一输入
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(MINING_SPEED_ID, 8,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
 						}
 					}
-
-
-
-
 				}
-
 			}
 		});
 
-
-
-
-		//剑类使用的回调方法，侦测攻击,并实现逻辑逻辑（目前只有手中握持为剑生效）
+		//剑逻辑
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult)->{
-
 			//定义一个标识符用于修改攻击数据组件
 			Identifier PROFICIENCY_BONUS_ID = Identifier.fromNamespaceAndPath("test-mod", "proficiency_damage");
 			// 确保逻辑在服务端运行，且攻击的目标是个生物
@@ -150,11 +222,12 @@ public class TestMod implements ModInitializer {
 					//获取高级数据组件的记录类和组件本身
 					SwordsEnhanceComponent heldComponent = heldstack.getOrDefault(
 							SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT,
-							new SwordsEnhanceComponent(0, 0,false,false));
+							new SwordsEnhanceComponent(0, 0,false,false,false));
 
 					//获取两个具体的值
 					int normal_count = heldComponent.normal_count();
 					int super_count = heldComponent.super_count();
+					boolean is_adept = heldComponent.is_adept();
 					boolean is_synchronized = heldComponent.is_synchronized();
 					boolean is_soulbound = heldComponent.is_soulbound();
 
@@ -167,40 +240,32 @@ public class TestMod implements ModInitializer {
 
 					//如果满足，则对super_count加1
 					if (isCrit){
-						heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, ++super_count,is_synchronized,is_soulbound));
+						heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, ++super_count,is_adept,is_synchronized,is_soulbound));
 					}else{
-						//自增普通攻击次数的值
-						heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(++normal_count, super_count,is_synchronized,is_soulbound));
+						//每次自增普通攻击次数的值
+						heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(++normal_count, super_count,is_adept,is_synchronized,is_soulbound));
 					}
 
 					int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
 
 					if(normal_count <= 30 || super_count <= 6){
 						//do nothing
-					}else if (normal_count <= 300 || super_count <= 60) {
-
-						//如果发现是否精通为假，改成真的，并播放升级音效和输出文本
-						if (!is_synchronized) {
-
-							is_synchronized = true;
-
-							//输出文本
-							out_text(world,player);
-
-							//获取物品名字（优先取自定义名，没有则用默认显示名）
-							String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
-									heldstack.getOrDefault(DataComponents.ITEM_NAME,
-											Component.literal("???"))).getString();
-
-							//输出文本
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.text.info", name));
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.repair_reset"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.durability_up", String.valueOf((int) (max_damage * 1.2))));
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.damage_up"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.synchronized.next_goal", String.valueOf(300), String.valueOf(60)));
-
+					} else if (normal_count <= 180 || super_count <= 20) {
+						if (!is_adept){
 							//修改为真防止反复触发
-							heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, super_count, true, is_soulbound));
+							is_adept = true;
+							heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, super_count, true,is_synchronized, is_soulbound));
+							//播放音效
+							out_sound(world,player);
+							//获取物品名字（优先取自定义名，没有则用默认显示名）
+							String name = get_name(heldstack);
+
+							//输出文本
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.adept.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.adept.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.adept.durability_up", String.valueOf((int) (max_damage * 1.2))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.adept.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.adept.next_goal", String.valueOf(180), String.valueOf(20)));
 
 							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
 							heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -221,36 +286,65 @@ public class TestMod implements ModInitializer {
 											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
-
 						}
-					}else{
-
-						//如果发现是否灵魂相通为假，改成真的，并播放升级音效和输出文本
-						if(!is_soulbound){
-
-							world.playSound(
-									null,
-									player.getX(), player.getY(), player.getZ(),
-									net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP,
-									net.minecraft.sounds.SoundSource.PLAYERS,
-									1.0F, // 音量
-									1.0F  // 音调
-							);
-
-							//获取物品名字
-							String name = heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
-									heldstack.getOrDefault(DataComponents.ITEM_NAME,
-											Component.literal("???"))).getString();
+					} else if (normal_count <= 500 || super_count <= 80) {
+						//如果发现是否精通为假，改成真的，并播放升级音效和输出文本
+						if (!is_synchronized) {
+							is_synchronized = true;
+							//修改为真防止反复触发
+							heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, super_count, is_adept,true, is_soulbound));
+							//播放音效
+							out_sound(world,player);
+							//获取物品名字（优先取自定义名，没有则用默认显示名）
+							String name = get_name(heldstack);
 
 							//输出文本
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.text.info",name).withStyle(ChatFormatting.GOLD));
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.repair_reset"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.durability_up",String.valueOf((int)(max_damage*1.8))));
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.damage_up"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.be.soulbound.max_level"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.synchronized.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.synchronized.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.synchronized.durability_up", String.valueOf((int) (max_damage * 1.5))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.synchronized.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.synchronized.next_goal", String.valueOf(500), String.valueOf(80)));
 
+							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.5));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							//获取这把剑当前拥有的所有属性修饰符--属性修饰符，通过这类modifier对剑的属性进行修改
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							//组件算固有属性，不能动态修改，需要调用builder重新生成一个覆盖原有的
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							//复制原有的所有修饰符--新生成的那个只有要修改的地方与原本不同，
+							//通过if来判断过滤之前粗通修改的数值，重新从0加
+							for(ItemAttributeModifiers.Entry entry : current.modifiers() ){
+								if (!entry.modifier().id().equals(PROFICIENCY_BONUS_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
+							//追加精通加成--也就是要修改的部分
+							builder.add(Attributes.ATTACK_DAMAGE,
+									new AttributeModifier(PROFICIENCY_BONUS_ID, 0.5,
+											//选择 加上原有值*xx倍 的修改方式
+											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}else{
+						//如果发现是否灵魂相通为假，改成真的，并播放升级音效和输出文本
+						if(!is_soulbound){
+							is_soulbound = true;
 							//修改为真防止反复触发
-							heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT,new SwordsEnhanceComponent(normal_count,super_count,is_synchronized,true));
+							heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT,new SwordsEnhanceComponent(normal_count,super_count,is_adept,is_synchronized,true));
+							//播放音效
+							out_sound(world,player);
+							//获取物品名字
+							String name = get_name(heldstack);
+
+							//输出文本
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.soulbound.text.info",name).withStyle(ChatFormatting.GOLD));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.soulbound.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.soulbound.durability_up",String.valueOf((int)(max_damage*1.8))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.soulbound.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.swords.soulbound.max_level"));
 
 							heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.8));
 							heldstack.set(DataComponents.REPAIR_COST,0);
@@ -262,25 +356,25 @@ public class TestMod implements ModInitializer {
 							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
 							//复制原有的所有修饰符--新生成的那个只有要修改的地方与原本不同，
 							//但是其他属性要保持不变，所以得先获取一下原有的
-							current.modifiers().forEach(entry ->
-									builder.add(entry.attribute(), entry.modifier(), entry.slot()));
-							//追加精通加成--也就是要修改的部分
+							//通过if来判断过滤之前精通修改的数值，重新从0加
+							for(ItemAttributeModifiers.Entry entry : current.modifiers() ){
+								if (!entry.modifier().id().equals(PROFICIENCY_BONUS_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
+							//追加灵魂相通加成--也就是要修改的部分
 							builder.add(Attributes.ATTACK_DAMAGE,
-									new AttributeModifier(PROFICIENCY_BONUS_ID, 0.3,
+									new AttributeModifier(PROFICIENCY_BONUS_ID, 0.8,
 											//选择 加上原有值*xx倍 的修改方式
 											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
-
 						}
 					}
 				}
 			}
-
 			return InteractionResult.PASS;
 		});
-
-
 
 		//对原版的树叶添加食物的属性
 		//橡树
@@ -346,18 +440,25 @@ public class TestMod implements ModInitializer {
 
 	}
 
-	public void out_text(Level world, Player player){
+	public String get_name(ItemStack heldstack){
+		return heldstack.getOrDefault(DataComponents.CUSTOM_NAME,
+				heldstack.getOrDefault(DataComponents.ITEM_NAME,
+						Component.literal("???"))).getString();
+	}
+
+	public void out_sound(Level world, Player player){
 		//播放升级音效
-			world.playSound(
-					null,
-					player.getX(), player.getY(), player.getZ(),
-					net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP,
-					net.minecraft.sounds.SoundSource.PLAYERS,
-					1.0F, // 音量
-					1.0F  // 音调
-			);
+		world.playSound(
+				null,
+				player.getX(), player.getY(), player.getZ(),
+				net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP,
+				net.minecraft.sounds.SoundSource.PLAYERS,
+				1.0F, // 音量
+				1.0F  // 音调
+		);
 	}
 
 
-}
 
+
+}
