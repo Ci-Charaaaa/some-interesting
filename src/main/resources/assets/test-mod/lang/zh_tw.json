@@ -100,5 +100,25 @@
   "item.test-mod.shovel.soulbound.damage_up": "  §a✔ 挖掘效率+8",
   "item.test-mod.shovel.soulbound.max_level": "  §e★ 已達成最高等級！",
 
+  "item.test-mod.hoe_normal_count.info": "耕耘默契：%1$s / %2$s",
+
+  "item.test-mod.hoe.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.test-mod.hoe.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.test-mod.hoe.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.test-mod.hoe.adept.damage_up": "  §a✔ 挖掘效率+2",
+  "item.test-mod.hoe.adept.next_goal": "  §e▶ 下次升級需：耕耘默契 >%1$s",
+
+  "item.test-mod.hoe.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.test-mod.hoe.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.test-mod.hoe.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.test-mod.hoe.synchronized.damage_up": "  §a✔ 挖掘效率+4",
+  "item.test-mod.hoe.synchronized.next_goal": "  §e▶ 下次升級需：耕耘默契 >%1$s",
+
+  "item.test-mod.hoe.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.test-mod.hoe.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.test-mod.hoe.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.test-mod.hoe.soulbound.damage_up": "  §a✔ 挖掘效率+8",
+  "item.test-mod.hoe.soulbound.max_level": "  §e★ 已達成最高等級！",
+
   "creativeTab.test-mod": "CCChara的測試模組"
 }

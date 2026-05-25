@@ -100,5 +100,25 @@
   "item.test-mod.shovel.soulbound.damage_up": "  §a✔ Mining efficiency +8",
   "item.test-mod.shovel.soulbound.max_level": "  §e★ Max level reached!",
 
+  "item.test-mod.hoe_normal_count.info": "Hoe Synergy: %1$s / %2$s",
+
+  "item.test-mod.hoe.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.test-mod.hoe.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.hoe.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.test-mod.hoe.adept.damage_up": "  §a✔ Mining efficiency +2",
+  "item.test-mod.hoe.adept.next_goal": "  §e▶ Next upgrade: Hoe >%1$s",
+
+  "item.test-mod.hoe.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.test-mod.hoe.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.hoe.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.test-mod.hoe.synchronized.damage_up": "  §a✔ Mining efficiency +4",
+  "item.test-mod.hoe.synchronized.next_goal": "  §e▶ Next upgrade: Hoe >%1$s",
+
+  "item.test-mod.hoe.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.test-mod.hoe.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.hoe.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.test-mod.hoe.soulbound.damage_up": "  §a✔ Mining efficiency +8",
+  "item.test-mod.hoe.soulbound.max_level": "  §e★ Max level reached!",
+
   "creativeTab.test-mod": "CCChara's Test Mod"
 }

@@ -2,6 +2,7 @@ package com.chara.test1;
 
 import com.chara.test1.component.AxeEnhanceComponent;
 import com.chara.test1.component.PickaxeEnhanceComponent;
+import com.chara.test1.component.HoeEnhanceComponent;
 import com.chara.test1.component.ShovelEnhanceComponent;
 import com.chara.test1.component.SwordsEnhanceComponent;
 import net.fabricmc.api.ModInitializer;
@@ -49,6 +50,7 @@ public class TestMod implements ModInitializer {
 		SwordsEnhanceComponent.initialize();
 		AxeEnhanceComponent.initialize();
 		ShovelEnhanceComponent.initialize();
+		HoeEnhanceComponent.initialize();
 
 		//镐使用的回调方法，侦测破坏方块，并实现相关逻辑
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
@@ -658,6 +660,122 @@ public class TestMod implements ModInitializer {
 							}
 							builder.add(Attributes.MINING_EFFICIENCY,
 									new AttributeModifier(SHOVEL_SPEED_ID, 8,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}
+				}
+			}
+		});
+
+		//锄逻辑
+		Identifier HOE_SPEED_ID = Identifier.fromNamespaceAndPath("test-mod", "hoe_speed_id");
+
+		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
+			if(!world.isClientSide()){
+				ItemStack heldstack = player.getMainHandItem();
+				if(heldstack.is(ItemTags.HOES)){
+					HoeEnhanceComponent comp = heldstack.getOrDefault(
+							HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+							new HoeEnhanceComponent(0,false,false,false));
+					int normal_count = comp.normal_count();
+					boolean is_adept = comp.is_adept();
+					boolean is_synchronized = comp.is_synchronized();
+					boolean is_soulbound = comp.is_soulbound();
+					int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
+
+					heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+							new HoeEnhanceComponent(++normal_count, is_adept, is_synchronized, is_soulbound));
+
+					if(normal_count <= 60){
+						//do nothing
+					}else if(normal_count <= 180){
+						//粗通
+						if(!is_adept){
+							is_adept = true;
+							out_sound(world, player);
+							String name = get_name(heldstack);
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.durability_up", String.valueOf((int)(max_damage * 1.2))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.next_goal", String.valueOf(150)));
+
+							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+									new HoeEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
+							heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.2));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							current.modifiers().forEach(entry ->
+									builder.add(entry.attribute(), entry.modifier(), entry.slot()));
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(HOE_SPEED_ID, 2,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}else if(normal_count <= 600){
+						//默契
+						if(!is_synchronized){
+							is_synchronized = true;
+							out_sound(world, player);
+							String name = get_name(heldstack);
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.durability_up", String.valueOf((int)(max_damage * 1.5))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.next_goal", String.valueOf(150)));
+
+							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+									new HoeEnhanceComponent(normal_count, is_adept, true, is_soulbound));
+							heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.5));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							for(ItemAttributeModifiers.Entry entry : current.modifiers()){
+								if(!entry.modifier().id().equals(HOE_SPEED_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(HOE_SPEED_ID, 4,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}else{
+						//灵魂相通
+						if(!is_soulbound){
+							is_soulbound = true;
+							out_sound(world, player);
+							String name = get_name(heldstack);
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.text.info", name).withStyle(ChatFormatting.GOLD));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.durability_up", String.valueOf((int)(max_damage * 1.8))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.max_level"));
+
+							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+									new HoeEnhanceComponent(normal_count, is_adept, is_synchronized, true));
+							heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.8));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							for(ItemAttributeModifiers.Entry entry : current.modifiers()){
+								if(!entry.modifier().id().equals(HOE_SPEED_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(HOE_SPEED_ID, 8,
 											AttributeModifier.Operation.ADD_VALUE),
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
