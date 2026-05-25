@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -33,6 +34,9 @@ import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -557,7 +561,7 @@ public class TestMod implements ModInitializer {
 		Identifier SHOVEL_SPEED_ID = Identifier.fromNamespaceAndPath("test-mod", "shovel_speed_id");
 
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
-			if(!world.isClientSide()){
+			if(!world.isClientSide() && state.is(BlockTags.MINEABLE_WITH_SHOVEL) ){
 				ItemStack heldstack = player.getMainHandItem();
 				if(heldstack.is(ItemTags.SHOVELS)){
 					ShovelEnhanceComponent comp = heldstack.getOrDefault(
@@ -673,7 +677,7 @@ public class TestMod implements ModInitializer {
 		Identifier HOE_SPEED_ID = Identifier.fromNamespaceAndPath("test-mod", "hoe_speed_id");
 
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
-			if(!world.isClientSide()){
+			if(!world.isClientSide() && state.is(BlockTags.MINEABLE_WITH_HOE) ){
 				ItemStack heldstack = player.getMainHandItem();
 				if(heldstack.is(ItemTags.HOES)){
 					HoeEnhanceComponent comp = heldstack.getOrDefault(
@@ -783,6 +787,130 @@ public class TestMod implements ModInitializer {
 					}
 				}
 			}
+		});
+
+		//锄耕地（右键计数）
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+			if(!world.isClientSide()){
+				ItemStack heldstack = player.getItemInHand(hand);
+
+				//通过hitResult获取方块信息
+				BlockPos hitPos = hitResult.getBlockPos();
+				BlockState hitState = world.getBlockState(hitPos);
+				Block hitBlock = hitState.getBlock();
+				//检测是不是可耕耘方块
+				if(heldstack.is(ItemTags.HOES) || hitBlock == Blocks.DIRT || hitBlock == Blocks.GRASS_BLOCK ||
+						hitBlock == Blocks.PODZOL || hitBlock == Blocks.COARSE_DIRT ||
+						hitBlock == Blocks.ROOTED_DIRT ){
+					HoeEnhanceComponent comp = heldstack.getOrDefault(
+							HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+							new HoeEnhanceComponent(0,false,false,false));
+
+					int normal_count = comp.normal_count();
+					boolean is_adept = comp.is_adept();
+					boolean is_synchronized = comp.is_synchronized();
+					boolean is_soulbound = comp.is_soulbound();
+					int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
+
+					heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+							new HoeEnhanceComponent(++normal_count, is_adept, is_synchronized, is_soulbound));
+
+					if(normal_count <= 60){
+						//do nothing
+					}else if(normal_count <= 180){
+						//粗通
+						if(!is_adept){
+							is_adept = true;
+							out_sound(world, player);
+							String name = get_name(heldstack);
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.durability_up", String.valueOf((int)(max_damage * 1.2))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.next_goal", String.valueOf(150)));
+
+							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+									new HoeEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
+							heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.2));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							current.modifiers().forEach(entry ->
+									builder.add(entry.attribute(), entry.modifier(), entry.slot()));
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(HOE_SPEED_ID, 2,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}else if(normal_count <= 600){
+						//默契
+						if(!is_synchronized){
+							is_synchronized = true;
+							out_sound(world, player);
+							String name = get_name(heldstack);
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.durability_up", String.valueOf((int)(max_damage * 1.5))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.next_goal", String.valueOf(150)));
+
+							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+									new HoeEnhanceComponent(normal_count, is_adept, true, is_soulbound));
+							heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.5));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							for(ItemAttributeModifiers.Entry entry : current.modifiers()){
+								if(!entry.modifier().id().equals(HOE_SPEED_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(HOE_SPEED_ID, 4,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}else {
+						//灵魂相通
+						if (!is_soulbound) {
+							is_soulbound = true;
+							out_sound(world, player);
+							String name = get_name(heldstack);
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.text.info", name).withStyle(ChatFormatting.GOLD));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.durability_up", String.valueOf((int) (max_damage * 1.8))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.soulbound.max_level"));
+
+							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+									new HoeEnhanceComponent(normal_count, is_adept, is_synchronized, true));
+							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.8));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							for (ItemAttributeModifiers.Entry entry : current.modifiers()) {
+								if (!entry.modifier().id().equals(HOE_SPEED_ID)) {
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(HOE_SPEED_ID, 8,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}
+				}
+			}
+			return InteractionResult.PASS;
 		});
 
 		//对原版的树叶添加食物的属性
