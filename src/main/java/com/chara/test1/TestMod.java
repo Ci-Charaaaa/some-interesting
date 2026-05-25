@@ -424,24 +424,27 @@ public class TestMod implements ModInitializer {
 
 		//斧砍伐
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
-			if(!world.isClientSide() && state.is(BlockTags.LOGS)){
+			if(!world.isClientSide() && state.is(BlockTags.MINEABLE_WITH_AXE)){
 				ItemStack heldstack = player.getMainHandItem();
 				if(heldstack.is(ItemTags.AXES)){
 					AxeEnhanceComponent comp = heldstack.getOrDefault(
 							AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
 							new AxeEnhanceComponent(0,0,false,false,false));
+
 					int normal_count = comp.normal_count();
 					int super_count = comp.super_count();
 					boolean is_adept = comp.is_adept();
 					boolean is_synchronized = comp.is_synchronized();
 					boolean is_soulbound = comp.is_soulbound();
 					int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
+
 					//砍树也加
 					heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
 							new AxeEnhanceComponent(++normal_count, super_count, is_adept, is_synchronized, is_soulbound));
-					if(normal_count <= 30 && super_count <= 3){
+
+					if(normal_count <= 30 || super_count <= 3){
 						//do nothing
-					}else if(normal_count <= 120 && super_count <= 12){
+					}else if(normal_count <= 120 || super_count <= 12){
 						//粗通
 						if(!is_adept){
 							is_adept = true;
@@ -473,7 +476,7 @@ public class TestMod implements ModInitializer {
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
 						}
-					}else if(normal_count <= 400 && super_count <= 40){
+					}else if(normal_count <= 400 || super_count <= 40){
 						//默契
 						if(!is_synchronized){
 							is_synchronized = true;
@@ -503,7 +506,7 @@ public class TestMod implements ModInitializer {
 											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
 									EquipmentSlotGroup.MAINHAND);
 							builder.add(Attributes.MINING_EFFICIENCY,
-									new AttributeModifier(AXE_SPEED_ID, 2.5,
+									new AttributeModifier(AXE_SPEED_ID, 2,
 											AttributeModifier.Operation.ADD_VALUE),
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
@@ -538,7 +541,7 @@ public class TestMod implements ModInitializer {
 											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
 									EquipmentSlotGroup.MAINHAND);
 							builder.add(Attributes.MINING_EFFICIENCY,
-									new AttributeModifier(AXE_SPEED_ID, 5,
+									new AttributeModifier(AXE_SPEED_ID, 4,
 											AttributeModifier.Operation.ADD_VALUE),
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
@@ -623,7 +626,7 @@ public class TestMod implements ModInitializer {
 								}
 							}
 							builder.add(Attributes.MINING_EFFICIENCY,
-									new AttributeModifier(SHOVEL_SPEED_ID, 5,
+									new AttributeModifier(SHOVEL_SPEED_ID, 4,
 											AttributeModifier.Operation.ADD_VALUE),
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
@@ -654,7 +657,7 @@ public class TestMod implements ModInitializer {
 								}
 							}
 							builder.add(Attributes.MINING_EFFICIENCY,
-									new AttributeModifier(SHOVEL_SPEED_ID, 10,
+									new AttributeModifier(SHOVEL_SPEED_ID, 8,
 											AttributeModifier.Operation.ADD_VALUE),
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());

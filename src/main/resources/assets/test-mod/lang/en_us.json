@@ -71,13 +71,13 @@
   "item.test-mod.axe.synchronized.text.info": "§6✦ You have mastered %1$s !",
   "item.test-mod.axe.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
   "item.test-mod.axe.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
-  "item.test-mod.axe.synchronized.damage_up": "  §a✔ Mining +2.5, Damage +25%%",
+  "item.test-mod.axe.synchronized.damage_up": "  §a✔ Mining +2, Damage +25%%",
   "item.test-mod.axe.synchronized.next_goal": "  §e▶ Next upgrade: Chop >%1$s + Crit >%2$s",
 
   "item.test-mod.axe.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
   "item.test-mod.axe.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
   "item.test-mod.axe.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
-  "item.test-mod.axe.soulbound.damage_up": "  §a✔ Mining +5, Damage +40%%",
+  "item.test-mod.axe.soulbound.damage_up": "  §a✔ Mining +4, Damage +40%%",
   "item.test-mod.axe.soulbound.max_level": "  §e★ Max level reached!",
 
   "item.test-mod.shovel_normal_count.info": "Dig Synergy: %1$s / %2$s",
@@ -91,13 +91,13 @@
   "item.test-mod.shovel.synchronized.text.info": "§6✦ You have mastered %1$s !",
   "item.test-mod.shovel.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
   "item.test-mod.shovel.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
-  "item.test-mod.shovel.synchronized.damage_up": "  §a✔ Mining efficiency +5",
+  "item.test-mod.shovel.synchronized.damage_up": "  §a✔ Mining efficiency +4",
   "item.test-mod.shovel.synchronized.next_goal": "  §e▶ Next upgrade: Dig >%1$s",
 
   "item.test-mod.shovel.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
   "item.test-mod.shovel.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
   "item.test-mod.shovel.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
-  "item.test-mod.shovel.soulbound.damage_up": "  §a✔ Mining efficiency +10",
+  "item.test-mod.shovel.soulbound.damage_up": "  §a✔ Mining efficiency +8",
   "item.test-mod.shovel.soulbound.max_level": "  §e★ Max level reached!",
 
   "creativeTab.test-mod": "CCChara's Test Mod"

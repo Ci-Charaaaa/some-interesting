@@ -71,13 +71,13 @@
   "item.test-mod.axe.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.test-mod.axe.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
   "item.test-mod.axe.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
-  "item.test-mod.axe.synchronized.damage_up": "  §a✔ 挖掘效率+2.5，傷害+25%%",
+  "item.test-mod.axe.synchronized.damage_up": "  §a✔ 挖掘效率+2，傷害+25%%",
   "item.test-mod.axe.synchronized.next_goal": "  §e▶ 下次升級需：砍伐默契 >%1$s + 暴擊默契 >%2$s",
 
   "item.test-mod.axe.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
   "item.test-mod.axe.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
   "item.test-mod.axe.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
-  "item.test-mod.axe.soulbound.damage_up": "  §a✔ 挖掘效率+5，傷害+40%%",
+  "item.test-mod.axe.soulbound.damage_up": "  §a✔ 挖掘效率+4，傷害+40%%",
   "item.test-mod.axe.soulbound.max_level": "  §e★ 已達成最高等級！",
 
   "item.test-mod.shovel_normal_count.info": "挖掘默契：%1$s / %2$s",
@@ -91,13 +91,13 @@
   "item.test-mod.shovel.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.test-mod.shovel.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
   "item.test-mod.shovel.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
-  "item.test-mod.shovel.synchronized.damage_up": "  §a✔ 挖掘效率+5",
+  "item.test-mod.shovel.synchronized.damage_up": "  §a✔ 挖掘效率+4",
   "item.test-mod.shovel.synchronized.next_goal": "  §e▶ 下次升級需：挖掘默契 >%1$s",
 
   "item.test-mod.shovel.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
   "item.test-mod.shovel.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
   "item.test-mod.shovel.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
-  "item.test-mod.shovel.soulbound.damage_up": "  §a✔ 挖掘效率+10",
+  "item.test-mod.shovel.soulbound.damage_up": "  §a✔ 挖掘效率+8",
   "item.test-mod.shovel.soulbound.max_level": "  §e★ 已達成最高等級！",
 
   "creativeTab.test-mod": "CCChara的測試模組"
