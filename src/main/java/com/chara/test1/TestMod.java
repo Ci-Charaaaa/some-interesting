@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -33,6 +34,9 @@ import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -673,7 +677,7 @@ public class TestMod implements ModInitializer {
 		Identifier HOE_SPEED_ID = Identifier.fromNamespaceAndPath("test-mod", "hoe_speed_id");
 
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
-			if(!world.isClientSide()){
+			if(!world.isClientSide() || state.is(BlockTags.MINEABLE_WITH_HOE) ){
 				ItemStack heldstack = player.getMainHandItem();
 				if(heldstack.is(ItemTags.HOES)){
 					HoeEnhanceComponent comp = heldstack.getOrDefault(
@@ -783,6 +787,34 @@ public class TestMod implements ModInitializer {
 					}
 				}
 			}
+		});
+
+		//锄耕地（右键计数）
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+			if(!world.isClientSide()){
+				ItemStack heldstack = player.getItemInHand(hand);
+
+				//通过hitResult获取方块信息
+				BlockPos hitPos = hitResult.getBlockPos();
+				BlockState hitState = world.getBlockState(hitPos);
+				Block hitBlock = hitState.getBlock();
+				//检测是不是可耕耘方块
+				if(heldstack.is(ItemTags.HOES) || hitBlock == Blocks.DIRT || hitBlock == Blocks.GRASS_BLOCK ||
+						hitBlock == Blocks.PODZOL || hitBlock == Blocks.COARSE_DIRT ||
+						hitBlock == Blocks.ROOTED_DIRT ){
+					HoeEnhanceComponent comp = heldstack.getOrDefault(
+							HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+							new HoeEnhanceComponent(0,false,false,false));
+
+					int normal_count = comp.normal_count();
+					boolean is_adept = comp.is_adept();
+					boolean is_synchronized = comp.is_synchronized();
+					boolean is_soulbound = comp.is_soulbound();
+					heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
+							new HoeEnhanceComponent(++normal_count, is_adept, is_synchronized, is_soulbound));
+				}
+			}
+			return InteractionResult.PASS;
 		});
 
 		//对原版的树叶添加食物的属性
