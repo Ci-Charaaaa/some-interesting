@@ -59,5 +59,26 @@
   "item.test-mod.pickaxe.soulbound.damage_up": "  §a✔ Gain 8 mining speed bonus",
   "item.test-mod.pickaxe.soulbound.max_level": "  §e★ Max level reached!",
 
+  "item.test-mod.axe_normal_count.info": "Chop/Attack Synergy: %1$s / %2$s",
+  "item.test-mod.axe_super_count.info": "Crit Synergy: %1$s / %2$s",
+
+  "item.test-mod.axe.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.test-mod.axe.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.axe.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.test-mod.axe.adept.damage_up": "  §a✔ Mining +1, Damage +10%%",
+  "item.test-mod.axe.adept.next_goal": "  §e▶ Next upgrade: Chop >%1$s + Crit >%2$s",
+
+  "item.test-mod.axe.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.test-mod.axe.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.axe.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.test-mod.axe.synchronized.damage_up": "  §a✔ Mining +2.5, Damage +25%%",
+  "item.test-mod.axe.synchronized.next_goal": "  §e▶ Next upgrade: Chop >%1$s + Crit >%2$s",
+
+  "item.test-mod.axe.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.test-mod.axe.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.test-mod.axe.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.test-mod.axe.soulbound.damage_up": "  §a✔ Mining +5, Damage +40%%",
+  "item.test-mod.axe.soulbound.max_level": "  §e★ Max level reached!",
+
   "creativeTab.test-mod": "CCChara's Test Mod"
 }

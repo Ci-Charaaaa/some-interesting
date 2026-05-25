@@ -18,9 +18,8 @@
   "item.test-mod.synchronized":"默契",
   "item.test-mod.soulbound":"灵魂相通",
 
-
-  "item.test-mod.normal_count.info":"攻击默契：%1$s / %2$s",
-  "item.test-mod.super_count.info":"暴击默契：%1$s / %2$s",
+  "item.test-mod.normal_count.info":"攻击默契度：%1$s / %2$s",
+  "item.test-mod.super_count.info":"暴击默契度：%1$s / %2$s",
 
   "item.test-mod.swords.adept.text.info": "§6✦ 你已粗通 %1$s ！",
   "item.test-mod.swords.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
@@ -61,6 +60,27 @@
   "item.test-mod.pickaxe.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
   "item.test-mod.pickaxe.soulbound.damage_up": "  §a✔ 获得 8 挖掘效率加成",
   "item.test-mod.pickaxe.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+  "item.test-mod.axe_normal_count.info": "砍伐/攻击默契数：%1$s / %2$s",
+  "item.test-mod.axe_super_count.info": "暴击默契度：%1$s / %2$s",
+
+  "item.test-mod.axe.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.test-mod.axe.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.test-mod.axe.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.test-mod.axe.adept.damage_up": "  §a✔ 挖掘效率+1，伤害+10%%",
+  "item.test-mod.axe.adept.next_goal": "  §e▶ 下次升级需：砍伐默契 >%1$s + 暴击默契 >%2$s",
+
+  "item.test-mod.axe.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.test-mod.axe.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.test-mod.axe.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.test-mod.axe.synchronized.damage_up": "  §a✔ 挖掘效率+2.5，伤害+25%%",
+  "item.test-mod.axe.synchronized.next_goal": "  §e▶ 下次升级需：砍伐默契 >%1$s + 暴击默契 >%2$s",
+
+  "item.test-mod.axe.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.test-mod.axe.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.test-mod.axe.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.test-mod.axe.soulbound.damage_up": "  §a✔ 挖掘效率+5，伤害+40%%",
+  "item.test-mod.axe.soulbound.max_level": "  §e★ 已达成最高等级！",
 
   "creativeTab.test-mod":"CCChara的测试模组"
 }
