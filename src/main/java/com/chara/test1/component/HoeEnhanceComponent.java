@@ -27,7 +27,7 @@ public record HoeEnhanceComponent(int normal_count, boolean is_adept, boolean is
             tooltip.accept(Component.translatable("item.test-mod.hoe_normal_count.info", this.normal_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_synchronized) {
             tooltip.accept(Component.translatable("item.test-mod.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.test-mod.hoe_normal_count.info", this.normal_count, 600).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.hoe_normal_count.info", this.normal_count, 540).withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_adept) {
             tooltip.accept(Component.translatable("item.test-mod.adept").withStyle(ChatFormatting.GREEN));
             tooltip.accept(Component.translatable("item.test-mod.hoe_normal_count.info", this.normal_count, 180).withStyle(ChatFormatting.DARK_GRAY));

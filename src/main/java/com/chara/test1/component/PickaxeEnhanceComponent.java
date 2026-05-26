@@ -34,11 +34,11 @@ public record PickaxeEnhanceComponent(int normal_excavate_count,int rare_excavat
             tooltip.accept(Component.translatable("item.test-mod.rare_excavate_count.info", this.rare_excavate_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_synchronized) {
             tooltip.accept(Component.translatable("item.test-mod.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.test-mod.normal_excavate_count.info", this.normal_excavate_count, 500).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.normal_excavate_count.info", this.normal_excavate_count, 1500).withStyle(ChatFormatting.DARK_GRAY));
             tooltip.accept(Component.translatable("item.test-mod.rare_excavate_count.info", this.rare_excavate_count, 15).withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_adept) {
             tooltip.accept(Component.translatable("item.test-mod.adept").withStyle(ChatFormatting.GREEN));
-            tooltip.accept(Component.translatable("item.test-mod.normal_excavate_count.info", this.normal_excavate_count, 180).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.test-mod.normal_excavate_count.info", this.normal_excavate_count, 300).withStyle(ChatFormatting.DARK_GRAY));
             tooltip.accept(Component.translatable("item.test-mod.rare_excavate_count.info", this.rare_excavate_count, 3).withStyle(ChatFormatting.DARK_GRAY));
         } else {
             tooltip.accept(Component.translatable("item.test-mod.familiarizing").withStyle(ChatFormatting.DARK_GRAY));
