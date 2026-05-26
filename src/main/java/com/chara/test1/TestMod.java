@@ -791,15 +791,15 @@ public class TestMod implements ModInitializer {
 
 		//锄耕地（右键计数）
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-			if(!world.isClientSide()){
-				ItemStack heldstack = player.getItemInHand(hand);
+			ItemStack heldstack = player.getItemInHand(hand);
+			if(!world.isClientSide() && heldstack.is(ItemTags.HOES)){
 
 				//通过hitResult获取方块信息
 				BlockPos hitPos = hitResult.getBlockPos();
 				BlockState hitState = world.getBlockState(hitPos);
 				Block hitBlock = hitState.getBlock();
 				//检测是不是可耕耘方块
-				if(heldstack.is(ItemTags.HOES) || hitBlock == Blocks.DIRT || hitBlock == Blocks.GRASS_BLOCK ||
+				if(hitBlock == Blocks.DIRT || hitBlock == Blocks.GRASS_BLOCK ||
 						hitBlock == Blocks.PODZOL || hitBlock == Blocks.COARSE_DIRT ||
 						hitBlock == Blocks.ROOTED_DIRT ){
 					HoeEnhanceComponent comp = heldstack.getOrDefault(
@@ -994,7 +994,6 @@ public class TestMod implements ModInitializer {
 				1.0F  // 音调
 		);
 	}
-
 
 
 
