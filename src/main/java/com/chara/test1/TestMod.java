@@ -82,17 +82,17 @@ public class TestMod implements ModInitializer {
 					//如果挖的是稀有矿石，则稀有矿石挖掘数加1
 					if (state.is(BlockTags.DIAMOND_ORES) || state.is(BlockTags.EMERALD_ORES) || state.is(ConventionalBlockTags.NETHERITE_SCRAP_ORES)){
 						heldstack.set(PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,new PickaxeEnhanceComponent(normal_mined_count,++rare_mined_count,is_adept,is_synchronized,is_soulbound));
-					}else{
-						//普通挖掘自增一
-						heldstack.set(
-								PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,
-								new PickaxeEnhanceComponent(++normal_mined_count,rare_mined_count,is_adept,is_synchronized,is_soulbound));
-
 					}
+
+					//普通挖掘自增一
+					heldstack.set(
+							PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,
+							new PickaxeEnhanceComponent(++normal_mined_count,rare_mined_count,is_adept,is_synchronized,is_soulbound));
+
 
 					if(normal_mined_count <= 60 || rare_mined_count < 0){
 						//do nothing
-					}else if (normal_mined_count <= 180 || rare_mined_count <= 3){
+					}else if (normal_mined_count <= 300 || rare_mined_count <= 3){
 						if (!is_adept){
 							//防止反复触发
 							is_adept = true;
@@ -131,7 +131,7 @@ public class TestMod implements ModInitializer {
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
 						}
-					}else if (normal_mined_count <= 500 || rare_mined_count <= 15){
+					}else if (normal_mined_count <= 1500 || rare_mined_count <= 15){
 
 						//判断是否已经精通
 						if(!is_synchronized){
@@ -578,7 +578,7 @@ public class TestMod implements ModInitializer {
 
 					if(normal_count <= 60){
 						//do nothing
-					}else if(normal_count <= 180){
+					}else if(normal_count <= 240){
 						//粗通
 						if(!is_adept){
 							is_adept = true;
@@ -606,7 +606,7 @@ public class TestMod implements ModInitializer {
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
 						}
-					}else if(normal_count <= 600){
+					}else if(normal_count <= 960){
 						//默契
 						if(!is_synchronized){
 							is_synchronized = true;
@@ -722,7 +722,7 @@ public class TestMod implements ModInitializer {
 									EquipmentSlotGroup.MAINHAND);
 							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
 						}
-					}else if(normal_count <= 600){
+					}else if(normal_count <= 540){
 						//默契
 						if(!is_synchronized){
 							is_synchronized = true;
