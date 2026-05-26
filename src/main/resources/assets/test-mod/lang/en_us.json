@@ -39,7 +39,7 @@
   "item.test-mod.swords.soulbound.damage_up": "  §a✔ Gain 80% bonus damage",
   "item.test-mod.swords.soulbound.max_level": "  §e★ Max level reached!",
 
-  "item.test-mod.normal_excavate_count.info": "Common Ore Mined Count: %1$s / %2$s",
+  "item.test-mod.normal_excavate_count.info": "Block Mined Count: %1$s / %2$s",
   "item.test-mod.rare_excavate_count.info": "Rare Ore Mined Count: %1$s / %2$s",
 
   "item.test-mod.pickaxe.adept.text.info": "§6✦ You have become adept with %1$s !",

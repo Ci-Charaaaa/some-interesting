@@ -40,7 +40,7 @@
   "item.test-mod.swords.soulbound.max_level": "  §e★ 已达成最高等级！",
 
 
-  "item.test-mod.normal_excavate_count.info": "普通矿石挖掘数: %1$s / %2$s",
+  "item.test-mod.normal_excavate_count.info": "方块挖掘数: %1$s / %2$s",
   "item.test-mod.rare_excavate_count.info": "稀有矿石挖掘数: %1$s / %2$s",
 
   "item.test-mod.pickaxe.adept.text.info": "§6✦ 你已粗通 %1$s ！",

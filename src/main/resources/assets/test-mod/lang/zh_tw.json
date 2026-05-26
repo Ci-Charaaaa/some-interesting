@@ -13,8 +13,13 @@
   "item.test-mod.emerald_leggings": "綠寶石護腿",
   "item.test-mod.emerald_boots": "綠寶石靴子",
 
-  "item.test-mod.normal_excavate_count.info": "普通礦石挖掘數: %1$s / %2$s",
-  "item.test-mod.rare_excavate_count.info": "稀有礦石挖掘數: %1$s / %2$s",
+  "item.test-mod.familiarizing": "初識",
+  "item.test-mod.adept": "粗通",
+  "item.test-mod.synchronized": "默契",
+  "item.test-mod.soulbound": "靈魂相通",
+
+  "item.test-mod.normal_count.info": "攻擊默契：%1$s / %2$s",
+  "item.test-mod.super_count.info": "暴擊默契：%1$s / %2$s",
 
   "item.test-mod.swords.adept.text.info": "§6✦ 你已粗通 %1$s ！",
   "item.test-mod.swords.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
@@ -34,12 +39,8 @@
   "item.test-mod.swords.soulbound.damage_up": "  §a✔ 獲得 80% 傷害加成",
   "item.test-mod.swords.soulbound.max_level": "  §e★ 已達成最高等級！",
 
-  "item.test-mod.familiarizing": "初識",
-  "item.test-mod.adept": "粗通",
-  "item.test-mod.synchronized": "默契",
-  "item.test-mod.soulbound": "靈魂相通",
-  "item.test-mod.normal_count.info": "攻擊默契：%1$s / %2$s",
-  "item.test-mod.super_count.info": "暴擊默契：%1$s / %2$s",
+  "item.test-mod.normal_excavate_count.info": "方塊挖掘數: %1$s / %2$s",
+  "item.test-mod.rare_excavate_count.info": "稀有礦石挖掘數: %1$s / %2$s",
 
   "item.test-mod.pickaxe.adept.text.info": "§6✦ 你已粗通 %1$s ！",
   "item.test-mod.pickaxe.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",

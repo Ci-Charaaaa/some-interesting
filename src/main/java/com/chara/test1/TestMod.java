@@ -60,8 +60,8 @@ public class TestMod implements ModInitializer {
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
 			//定义一个标识符用于修改挖掘数据组件
 			Identifier MINING_SPEED_ID = Identifier.fromNamespaceAndPath("test-mod", "mining_speed_id");
-			//判断是否是客户端以及被挖掘的方块是否是矿石类
-			if(!world.isClientSide() && state.is(ConventionalBlockTags.ORES)){
+			//判断是否是客户端以及被挖掘的方块是否是镐可挖的方块类
+			if(!world.isClientSide() && state.is(BlockTags.MINEABLE_WITH_PICKAXE)){
 
 				ItemStack heldstack = player.getMainHandItem();
 				//判断玩家手上是不是镐
@@ -83,7 +83,7 @@ public class TestMod implements ModInitializer {
 					if (state.is(BlockTags.DIAMOND_ORES) || state.is(BlockTags.EMERALD_ORES) || state.is(ConventionalBlockTags.NETHERITE_SCRAP_ORES)){
 						heldstack.set(PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,new PickaxeEnhanceComponent(normal_mined_count,++rare_mined_count,is_adept,is_synchronized,is_soulbound));
 					}else{
-						//普通矿石自增一
+						//普通挖掘自增一
 						heldstack.set(
 								PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,
 								new PickaxeEnhanceComponent(++normal_mined_count,rare_mined_count,is_adept,is_synchronized,is_soulbound));
@@ -92,7 +92,7 @@ public class TestMod implements ModInitializer {
 
 					if(normal_mined_count <= 60 || rare_mined_count < 0){
 						//do nothing
-					}else if (normal_mined_count <= 150 || rare_mined_count <= 3){
+					}else if (normal_mined_count <= 180 || rare_mined_count <= 3){
 						if (!is_adept){
 							//防止反复触发
 							is_adept = true;
