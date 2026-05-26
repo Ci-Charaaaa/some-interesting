@@ -108,7 +108,7 @@ public class TestMod implements ModInitializer {
 							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.repair_reset"));
 							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.durability_up", String.valueOf((int) (max_damage * 1.1))));
 							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.damage_up"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.next_goal", String.valueOf(150), String.valueOf(3)));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.adept.next_goal", String.valueOf(300), String.valueOf(3)));
 
 							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
 							heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -150,7 +150,7 @@ public class TestMod implements ModInitializer {
 							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.repair_reset"));
 							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.durability_up", String.valueOf((int) (max_damage * 1.5))));
 							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.damage_up"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.next_goal", String.valueOf(500), String.valueOf(15)));
+							player.sendSystemMessage(Component.translatable("item.test-mod.pickaxe.synchronized.next_goal", String.valueOf(1500), String.valueOf(15)));
 
 							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.5));
 							heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -588,7 +588,7 @@ public class TestMod implements ModInitializer {
 							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.adept.repair_reset"));
 							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.adept.durability_up", String.valueOf((int)(max_damage * 1.2))));
 							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.adept.damage_up"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.adept.next_goal", String.valueOf(150)));
+							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.adept.next_goal", String.valueOf(240)));
 
 							heldstack.set(ShovelEnhanceComponent.SHOVEL_PROFICIENCY_COMPONENT,
 									new ShovelEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
@@ -616,7 +616,7 @@ public class TestMod implements ModInitializer {
 							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.synchronized.repair_reset"));
 							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.synchronized.durability_up", String.valueOf((int)(max_damage * 1.5))));
 							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.synchronized.damage_up"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.synchronized.next_goal", String.valueOf(150)));
+							player.sendSystemMessage(Component.translatable("item.test-mod.shovel.synchronized.next_goal", String.valueOf(960)));
 
 							heldstack.set(ShovelEnhanceComponent.SHOVEL_PROFICIENCY_COMPONENT,
 									new ShovelEnhanceComponent(normal_count, is_adept, true, is_soulbound));
@@ -827,7 +827,7 @@ public class TestMod implements ModInitializer {
 							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.repair_reset"));
 							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.durability_up", String.valueOf((int)(max_damage * 1.2))));
 							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.damage_up"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.next_goal", String.valueOf(150)));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.adept.next_goal", String.valueOf(180)));
 
 							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
 									new HoeEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
@@ -855,7 +855,7 @@ public class TestMod implements ModInitializer {
 							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.repair_reset"));
 							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.durability_up", String.valueOf((int)(max_damage * 1.5))));
 							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.damage_up"));
-							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.next_goal", String.valueOf(150)));
+							player.sendSystemMessage(Component.translatable("item.test-mod.hoe.synchronized.next_goal", String.valueOf(600)));
 
 							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
 									new HoeEnhanceComponent(normal_count, is_adept, true, is_soulbound));
