@@ -408,6 +408,7 @@ public class TestMod implements ModInitializer {
 					boolean is_adept = comp.is_adept();
 					boolean is_synchronized = comp.is_synchronized();
 					boolean is_soulbound = comp.is_soulbound();
+					int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
 
 					//依旧暴击
 					boolean isCrit = player.fallDistance > 0.0F
@@ -423,6 +424,114 @@ public class TestMod implements ModInitializer {
 						heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
 								new AxeEnhanceComponent(++normal_count, super_count, is_adept, is_synchronized, is_soulbound));
 					}
+
+
+					if(normal_count <= 30 || super_count <= 3){
+						//do nothing
+					}else if(normal_count <= 120 || super_count <= 12){
+						//粗通
+						if(!is_adept){
+							is_adept = true;
+							out_sound(world, player);
+							String name = get_name(heldstack);
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.adept.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.adept.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.adept.durability_up", String.valueOf((int)(max_damage * 1.2))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.adept.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.adept.next_goal", String.valueOf(400), String.valueOf(40)));
+
+							heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
+									new AxeEnhanceComponent(normal_count, super_count, true, is_synchronized, is_soulbound));
+							heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.2));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							current.modifiers().forEach(entry ->
+									builder.add(entry.attribute(), entry.modifier(), entry.slot()));
+							builder.add(Attributes.ATTACK_DAMAGE,
+									new AttributeModifier(AXE_DAMAGE_ID, 0.1,
+											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+									EquipmentSlotGroup.MAINHAND);
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(AXE_SPEED_ID, 1,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}else if(normal_count <= 400 || super_count <= 40){
+						//默契
+						if(!is_synchronized){
+							is_synchronized = true;
+							out_sound(world, player);
+							String name = get_name(heldstack);
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.synchronized.text.info", name));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.synchronized.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.synchronized.durability_up", String.valueOf((int)(max_damage * 1.5))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.synchronized.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.synchronized.next_goal", String.valueOf(400), String.valueOf(40)));
+
+							heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
+									new AxeEnhanceComponent(normal_count, super_count, is_adept, true, is_soulbound));
+							heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.5));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							for(ItemAttributeModifiers.Entry entry : current.modifiers()){
+								if(!entry.modifier().id().equals(AXE_DAMAGE_ID) && !entry.modifier().id().equals(AXE_SPEED_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
+							builder.add(Attributes.ATTACK_DAMAGE,
+									new AttributeModifier(AXE_DAMAGE_ID, 0.25,
+											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+									EquipmentSlotGroup.MAINHAND);
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(AXE_SPEED_ID, 2,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}else{
+						//灵魂相通
+						if(!is_soulbound){
+							is_soulbound = true;
+							out_sound(world, player);
+							String name = get_name(heldstack);
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.soulbound.text.info", name).withStyle(ChatFormatting.GOLD));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.soulbound.repair_reset"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.soulbound.durability_up", String.valueOf((int)(max_damage * 1.8))));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.soulbound.damage_up"));
+							player.sendSystemMessage(Component.translatable("item.test-mod.axe.soulbound.max_level"));
+
+							heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
+									new AxeEnhanceComponent(normal_count, super_count, is_adept, is_synchronized, true));
+							heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.8));
+							heldstack.set(DataComponents.REPAIR_COST, 0);
+
+							ItemAttributeModifiers current = heldstack.getOrDefault(
+									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+							for(ItemAttributeModifiers.Entry entry : current.modifiers()){
+								if(!entry.modifier().id().equals(AXE_DAMAGE_ID) && !entry.modifier().id().equals(AXE_SPEED_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
+							builder.add(Attributes.ATTACK_DAMAGE,
+									new AttributeModifier(AXE_DAMAGE_ID, 0.4,
+											AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+									EquipmentSlotGroup.MAINHAND);
+							builder.add(Attributes.MINING_EFFICIENCY,
+									new AttributeModifier(AXE_SPEED_ID, 4,
+											AttributeModifier.Operation.ADD_VALUE),
+									EquipmentSlotGroup.MAINHAND);
+							heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+						}
+					}
+
 				}
 			}
 			return InteractionResult.PASS;
