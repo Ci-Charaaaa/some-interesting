@@ -118,6 +118,7 @@ public class TestMod implements ModInitializer {
 									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
 							//依旧需要覆盖，使所以build一个用
 							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+
 							//依旧FOR循环加入数据时，过滤掉倍粗通时修改的属性
 							for (ItemAttributeModifiers.Entry entry : current.modifiers()){
 								if (!entry.modifier().id().equals(MINING_SPEED_ID)){
@@ -160,9 +161,13 @@ public class TestMod implements ModInitializer {
 									DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
 							//依旧需要覆盖，使所以build一个用
 							ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-							//依旧遍历读取所有数据
-							current.modifiers().forEach(entry ->
-									builder.add(entry.attribute(), entry.modifier(), entry.slot()));
+
+							//依旧FOR循环加入数据时，过滤掉倍粗通时修改的属性
+							for (ItemAttributeModifiers.Entry entry : current.modifiers()){
+								if (!entry.modifier().id().equals(MINING_SPEED_ID)){
+									builder.add(entry.attribute(), entry.modifier(), entry.slot());
+								}
+							}
 							//依旧把东西一一输入
 							builder.add(Attributes.MINING_EFFICIENCY,
 									new AttributeModifier(MINING_SPEED_ID, 4,
