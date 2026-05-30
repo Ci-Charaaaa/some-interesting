@@ -25,13 +25,11 @@
   "item.test-mod.swords.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.swords.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.test-mod.swords.adept.damage_up": "  §a✔ 获得 20%% 伤害加成",
-  "item.test-mod.swords.adept.next_goal": "  §e▶ 下次升级需：攻击默契 >%1$s + 暴击默契 >%2$s",
 
   "item.test-mod.swords.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.test-mod.swords.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.swords.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.test-mod.swords.synchronized.damage_up": "  §a✔ 获得 50%% 伤害加成",
-  "item.test-mod.swords.synchronized.next_goal": "  §e▶ 下次升级需：攻击默契 >%1$s + 暴击默契 >%2$s",
 
   "item.test-mod.swords.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.test-mod.swords.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
@@ -47,13 +45,11 @@
   "item.test-mod.pickaxe.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.pickaxe.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.test-mod.pickaxe.adept.damage_up": "  §a✔ 获得 2 挖掘效率加成",
-  "item.test-mod.pickaxe.adept.next_goal": "  §e▶ 下次升级需：普通矿石 >%1$s + 稀有矿石 >%2$s",
 
   "item.test-mod.pickaxe.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.test-mod.pickaxe.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.pickaxe.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.test-mod.pickaxe.synchronized.damage_up": "  §a✔ 获得 4 挖掘效率加成",
-  "item.test-mod.pickaxe.synchronized.next_goal": "  §e▶ 下次升级需：普通矿石 >%1$s + 稀有矿石 >%2$s",
 
   "item.test-mod.pickaxe.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.test-mod.pickaxe.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
@@ -68,13 +64,11 @@
   "item.test-mod.axe.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.axe.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.test-mod.axe.adept.damage_up": "  §a✔ 挖掘效率+1，伤害+10%%",
-  "item.test-mod.axe.adept.next_goal": "  §e▶ 下次升级需：砍伐默契 >%1$s + 暴击默契 >%2$s",
 
   "item.test-mod.axe.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.test-mod.axe.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.axe.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.test-mod.axe.synchronized.damage_up": "  §a✔ 挖掘效率+2，伤害+25%%",
-  "item.test-mod.axe.synchronized.next_goal": "  §e▶ 下次升级需：砍伐默契 >%1$s + 暴击默契 >%2$s",
 
   "item.test-mod.axe.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.test-mod.axe.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
@@ -88,13 +82,11 @@
   "item.test-mod.shovel.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.shovel.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.test-mod.shovel.adept.damage_up": "  §a✔ 挖掘效率+2",
-  "item.test-mod.shovel.adept.next_goal": "  §e▶ 下次升级需：挖掘默契 >%1$s",
 
   "item.test-mod.shovel.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.test-mod.shovel.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.shovel.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.test-mod.shovel.synchronized.damage_up": "  §a✔ 挖掘效率+4",
-  "item.test-mod.shovel.synchronized.next_goal": "  §e▶ 下次升级需：挖掘默契 >%1$s",
 
   "item.test-mod.shovel.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.test-mod.shovel.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
@@ -108,13 +100,11 @@
   "item.test-mod.hoe.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.hoe.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.test-mod.hoe.adept.damage_up": "  §a✔ 挖掘效率+2",
-  "item.test-mod.hoe.adept.next_goal": "  §e▶ 下次升级需：耕耘默契 >%1$s",
 
   "item.test-mod.hoe.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.test-mod.hoe.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.test-mod.hoe.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.test-mod.hoe.synchronized.damage_up": "  §a✔ 挖掘效率+4",
-  "item.test-mod.hoe.synchronized.next_goal": "  §e▶ 下次升级需：耕耘默契 >%1$s",
 
   "item.test-mod.hoe.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.test-mod.hoe.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
