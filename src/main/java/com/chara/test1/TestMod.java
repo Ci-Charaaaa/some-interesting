@@ -2,8 +2,11 @@ package com.chara.test1;
 
 import com.chara.test1.EventCallBack.AttackEvent;
 import com.chara.test1.EventCallBack.BreakEvent;
+import com.chara.test1.EventCallBack.RangedEvent;
 import com.chara.test1.EventCallBack.RightEvent;
 import com.chara.test1.component.AxeEnhanceComponent;
+import com.chara.test1.component.BowEnhanceComponent;
+import com.chara.test1.component.CrossbowEnhanceComponent;
 import com.chara.test1.component.PickaxeEnhanceComponent;
 import com.chara.test1.component.HoeEnhanceComponent;
 import com.chara.test1.component.ShovelEnhanceComponent;
@@ -54,6 +57,7 @@ public class TestMod implements ModInitializer {
 		GuiditeArmorMaterial.initialize();
 
 		AttackEvent.initialize();
+		RangedEvent.initialize();
 		BreakEvent.initialize();
 		RightEvent.initialize();
 
@@ -62,6 +66,9 @@ public class TestMod implements ModInitializer {
 		AxeEnhanceComponent.initialize();
 		ShovelEnhanceComponent.initialize();
 		HoeEnhanceComponent.initialize();
+		BowEnhanceComponent.initialize();
+		CrossbowEnhanceComponent.initialize();
+
 
 
 		//对原版的树叶添加食物的属性

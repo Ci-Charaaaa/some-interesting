@@ -111,5 +111,49 @@
   "item.test-mod.hoe.soulbound.damage_up": "  §a✔ 挖掘效率+8",
   "item.test-mod.hoe.soulbound.max_level": "  §e★ 已達成最高等級！",
 
+  "item.test-mod.bow.damage_bonus": "  §a✔ 箭矢傷害：%1$s",
+
+  "item.test-mod.bow_normal_count.info": "射擊默契：%1$s / %2$s",
+
+  "item.test-mod.bow.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.test-mod.bow.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.test-mod.bow.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.test-mod.bow.adept.damage_up": "  §a✔ 箭矢傷害 +20%%",
+  "item.test-mod.bow.adept.next_goal": "  §e▶ 下次升級需：射擊默契 >%1$s",
+
+  "item.test-mod.bow.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.test-mod.bow.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.test-mod.bow.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.test-mod.bow.synchronized.damage_up": "  §a✔ 箭矢傷害 +50%%",
+  "item.test-mod.bow.synchronized.next_goal": "  §e▶ 下次升級需：射擊默契 >%1$s",
+
+  "item.test-mod.bow.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.test-mod.bow.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.test-mod.bow.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.test-mod.bow.soulbound.damage_up": "  §a✔ 箭矢傷害 +80%%",
+  "item.test-mod.bow.soulbound.max_level": "  §e★ 已達成最高等級！",
+
+  "item.test-mod.crossbow.damage_bonus": "  §a✔ 弩箭傷害：%1$s",
+
+  "item.test-mod.crossbow_normal_count.info": "弩擊默契：%1$s / %2$s",
+
+  "item.test-mod.crossbow.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.test-mod.crossbow.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.test-mod.crossbow.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.test-mod.crossbow.adept.damage_up": "  §a✔ 弩箭傷害 +20%%",
+  "item.test-mod.crossbow.adept.next_goal": "  §e▶ 下次升級需：弩擊默契 >%1$s",
+
+  "item.test-mod.crossbow.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.test-mod.crossbow.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.test-mod.crossbow.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.test-mod.crossbow.synchronized.damage_up": "  §a✔ 弩箭傷害 +50%%",
+  "item.test-mod.crossbow.synchronized.next_goal": "  §e▶ 下次升級需：弩擊默契 >%1$s",
+
+  "item.test-mod.crossbow.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.test-mod.crossbow.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.test-mod.crossbow.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.test-mod.crossbow.soulbound.damage_up": "  §a✔ 弩箭傷害 +80%%",
+  "item.test-mod.crossbow.soulbound.max_level": "  §e★ 已達成最高等級！",
+
   "creativeTab.test-mod": "CCChara的測試模組"
 }

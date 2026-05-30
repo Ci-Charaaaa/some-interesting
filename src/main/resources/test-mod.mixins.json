@@ -3,7 +3,9 @@
 	"package": "com.chara.test1.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"ArrowDamageMixin",
+		"ArrowDamageAccessor"
 	],
 	"injectors": {
 		"defaultRequire": 1
