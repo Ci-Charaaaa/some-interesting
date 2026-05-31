@@ -1,0 +1,179 @@
+﻿{
+  "item.some-interesting.emerald_sword": "Emerald Sword",
+  "item.some-interesting.emerald_pickaxe": "Emerald Pickaxe",
+  "item.some-interesting.emerald_shovel": "Emerald Shovel",
+  "item.some-interesting.emerald_axe": "Emerald Axe",
+  "item.some-interesting.emerald_hoe": "Emerald Hoe",
+
+  "item.some-interesting.useless_item": "Useless Item",
+  "item.some-interesting.jump_apple": "Jump Apple",
+
+  "item.some-interesting.emerald_helmet": "Emerald Helmet",
+  "item.some-interesting.emerald_chestplate": "Emerald Chestplate",
+  "item.some-interesting.emerald_leggings": "Emerald Leggings",
+  "item.some-interesting.emerald_boots": "Emerald Boots",
+
+  "item.some-interesting.familiarizing": "Familiarizing",
+  "item.some-interesting.adept": "Adept",
+  "item.some-interesting.synchronized": "Synchronized",
+  "item.some-interesting.soulbound": "Soulbound",
+
+  "item.some-interesting.normal_count.info": "Attack Synergy: %1$s / %2$s",
+  "item.some-interesting.super_count.info": "Critical Synergy: %1$s / %2$s",
+
+  "item.some-interesting.swords.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.swords.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.swords.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.swords.adept.damage_up": "  §a✔ Gain 20% bonus damage",
+
+  "item.some-interesting.swords.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.swords.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.swords.synchronized.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.swords.synchronized.damage_up": "  §a✔ Gain 50% bonus damage",
+
+  "item.some-interesting.swords.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.swords.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.swords.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.swords.soulbound.damage_up": "  §a✔ Gain 80% bonus damage",
+  "item.some-interesting.swords.soulbound.max_level": "  §e★ Max level reached!",
+
+  "item.some-interesting.normal_excavate_count.info": "Block Mined Count: %1$s / %2$s",
+  "item.some-interesting.rare_excavate_count.info": "Rare Ore Mined Count: %1$s / %2$s",
+
+  "item.some-interesting.pickaxe.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.pickaxe.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.pickaxe.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.pickaxe.adept.damage_up": "  §a✔ Gain 2 mining speed bonus",
+
+  "item.some-interesting.pickaxe.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.pickaxe.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.pickaxe.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.pickaxe.synchronized.damage_up": "  §a✔ Gain 4 mining speed bonus",
+
+  "item.some-interesting.pickaxe.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.pickaxe.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.pickaxe.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.pickaxe.soulbound.damage_up": "  §a✔ Gain 8 mining speed bonus",
+  "item.some-interesting.pickaxe.soulbound.max_level": "  §e★ Max level reached!",
+
+  "item.some-interesting.axe_normal_count.info": "Chop/Attack Synergy: %1$s / %2$s",
+  "item.some-interesting.axe_super_count.info": "Crit Synergy: %1$s / %2$s",
+
+  "item.some-interesting.axe.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.axe.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.axe.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.axe.adept.damage_up": "  §a✔ Mining +1, Damage +10%%",
+
+  "item.some-interesting.axe.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.axe.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.axe.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.axe.synchronized.damage_up": "  §a✔ Mining +2, Damage +25%%",
+
+  "item.some-interesting.axe.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.axe.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.axe.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.axe.soulbound.damage_up": "  §a✔ Mining +4, Damage +40%%",
+  "item.some-interesting.axe.soulbound.max_level": "  §e★ Max level reached!",
+
+  "item.some-interesting.shovel_normal_count.info": "Dig Synergy: %1$s / %2$s",
+
+  "item.some-interesting.shovel.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.shovel.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.shovel.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.shovel.adept.damage_up": "  §a✔ Mining efficiency +2",
+
+  "item.some-interesting.shovel.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.shovel.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.shovel.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.shovel.synchronized.damage_up": "  §a✔ Mining efficiency +4",
+
+  "item.some-interesting.shovel.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.shovel.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.shovel.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.shovel.soulbound.damage_up": "  §a✔ Mining efficiency +8",
+  "item.some-interesting.shovel.soulbound.max_level": "  §e★ Max level reached!",
+
+  "item.some-interesting.hoe_normal_count.info": "Hoe/Mined Synergy: %1$s / %2$s",
+
+  "item.some-interesting.hoe.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.hoe.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.hoe.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.hoe.adept.damage_up": "  §a✔ Mining efficiency +2",
+
+  "item.some-interesting.hoe.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.hoe.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.hoe.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.hoe.synchronized.damage_up": "  §a✔ Mining efficiency +4",
+
+  "item.some-interesting.hoe.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.hoe.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.hoe.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.hoe.soulbound.damage_up": "  §a✔ Mining efficiency +8",
+  "item.some-interesting.hoe.soulbound.max_level": "  §e★ Max level reached!",
+
+  "item.some-interesting.bow.damage_bonus": "  §a✔ Arrow Damage: %1$s",
+
+  "item.some-interesting.bow_normal_count.info": "Shot Synergy: %1$s / %2$s",
+
+  "item.some-interesting.bow.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.bow.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.bow.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.bow.adept.damage_up": "  §a✔ Arrow Damage +20%%",
+  "item.some-interesting.bow.adept.next_goal": "  §e▶ Next upgrade: Shot >%1$s",
+
+  "item.some-interesting.bow.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.bow.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.bow.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.bow.synchronized.damage_up": "  §a✔ Arrow Damage +50%%",
+  "item.some-interesting.bow.synchronized.next_goal": "  §e▶ Next upgrade: Shot >%1$s",
+
+  "item.some-interesting.bow.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.bow.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.bow.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.bow.soulbound.damage_up": "  §a✔ Arrow Damage +80%%",
+  "item.some-interesting.bow.soulbound.max_level": "  §e★ Max level reached!",
+
+  "item.some-interesting.crossbow.damage_bonus": "  §a✔ Arrow Damage: %1$s",
+
+  "item.some-interesting.crossbow_normal_count.info": "Crossbow Synergy: %1$s / %2$s",
+
+  "item.some-interesting.crossbow.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.crossbow.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.crossbow.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.crossbow.adept.damage_up": "  §a✔ Arrow Damage +20%%",
+  "item.some-interesting.crossbow.adept.next_goal": "  §e▶ Next upgrade: Crossbow >%1$s",
+
+  "item.some-interesting.crossbow.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.crossbow.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.crossbow.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.crossbow.synchronized.damage_up": "  §a✔ Arrow Damage +50%%",
+  "item.some-interesting.crossbow.synchronized.next_goal": "  §e▶ Next upgrade: Crossbow >%1$s",
+
+  "item.some-interesting.crossbow.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.crossbow.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.crossbow.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.crossbow.soulbound.damage_up": "  §a✔ Arrow Damage +80%%",
+  "item.some-interesting.crossbow.soulbound.max_level": "  §e★ Max level reached!",
+
+  "item.some-interesting.armor_damage_taken.info": "Damage Taken: %1$s / %2$s",
+
+  "item.some-interesting.armor.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.armor.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.armor.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.armor.adept.damage_up": "  §a✔ Armor +1",
+  "item.some-interesting.armor.adept.next_goal": "  §e▶ Next upgrade: Damage Taken >%1$s",
+
+  "item.some-interesting.armor.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.armor.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.armor.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.armor.synchronized.damage_up": "  §a✔ Armor +2, Toughness +1",
+  "item.some-interesting.armor.synchronized.next_goal": "  §e▶ Next upgrade: Damage Taken >%1$s",
+
+  "item.some-interesting.armor.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.armor.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.armor.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.armor.soulbound.damage_up": "  §a✔ Armor +4, Toughness +2",
+  "item.some-interesting.armor.soulbound.max_level": "  §e★ Max level reached!",
+
+  "creativeTab.some-interesting": "CCChara's Test Mod"
+}

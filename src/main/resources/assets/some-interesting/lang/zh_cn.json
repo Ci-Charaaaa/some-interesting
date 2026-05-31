@@ -1,0 +1,180 @@
+﻿{
+  "item.some-interesting.emerald_sword": "绿宝石剑",
+  "item.some-interesting.emerald_pickaxe": "绿宝石镐",
+  "item.some-interesting.emerald_shovel": "绿宝石铲",
+  "item.some-interesting.emerald_axe": "绿宝石斧",
+  "item.some-interesting.emerald_hoe": "绿宝石锄",
+
+  "item.some-interesting.useless_item":"没用的东西",
+  "item.some-interesting.jump_apple": "跳跃苹果",
+
+  "item.some-interesting.emerald_helmet": "绿宝石头盔",
+  "item.some-interesting.emerald_chestplate": "绿宝石胸甲",
+  "item.some-interesting.emerald_leggings": "绿宝石护腿",
+  "item.some-interesting.emerald_boots": "绿宝石靴子",
+
+  "item.some-interesting.familiarizing":"初识",
+  "item.some-interesting.adept":"粗通",
+  "item.some-interesting.synchronized":"默契",
+  "item.some-interesting.soulbound":"灵魂相通",
+
+  "item.some-interesting.normal_count.info":"攻击默契度：%1$s / %2$s",
+  "item.some-interesting.super_count.info":"暴击默契度：%1$s / %2$s",
+
+  "item.some-interesting.swords.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.swords.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.swords.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.some-interesting.swords.adept.damage_up": "  §a✔ 获得 20%% 伤害加成",
+
+  "item.some-interesting.swords.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.swords.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.swords.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.some-interesting.swords.synchronized.damage_up": "  §a✔ 获得 50%% 伤害加成",
+
+  "item.some-interesting.swords.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.some-interesting.swords.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.swords.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.some-interesting.swords.soulbound.damage_up": "  §a✔ 获得 80%% 伤害加成",
+  "item.some-interesting.swords.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+
+  "item.some-interesting.normal_excavate_count.info": "方块挖掘数: %1$s / %2$s",
+  "item.some-interesting.rare_excavate_count.info": "稀有矿石挖掘数: %1$s / %2$s",
+
+  "item.some-interesting.pickaxe.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.pickaxe.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.pickaxe.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.some-interesting.pickaxe.adept.damage_up": "  §a✔ 获得 2 挖掘效率加成",
+
+  "item.some-interesting.pickaxe.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.pickaxe.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.pickaxe.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.some-interesting.pickaxe.synchronized.damage_up": "  §a✔ 获得 4 挖掘效率加成",
+
+  "item.some-interesting.pickaxe.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.some-interesting.pickaxe.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.pickaxe.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.some-interesting.pickaxe.soulbound.damage_up": "  §a✔ 获得 8 挖掘效率加成",
+  "item.some-interesting.pickaxe.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+  "item.some-interesting.axe_normal_count.info": "砍伐/攻击默契数：%1$s / %2$s",
+  "item.some-interesting.axe_super_count.info": "暴击默契度：%1$s / %2$s",
+
+  "item.some-interesting.axe.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.axe.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.axe.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.some-interesting.axe.adept.damage_up": "  §a✔ 挖掘效率+1，伤害+10%%",
+
+  "item.some-interesting.axe.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.axe.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.axe.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.some-interesting.axe.synchronized.damage_up": "  §a✔ 挖掘效率+2，伤害+25%%",
+
+  "item.some-interesting.axe.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.some-interesting.axe.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.axe.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.some-interesting.axe.soulbound.damage_up": "  §a✔ 挖掘效率+4，伤害+40%%",
+  "item.some-interesting.axe.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+  "item.some-interesting.shovel_normal_count.info": "挖掘默契：%1$s / %2$s",
+
+  "item.some-interesting.shovel.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.shovel.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.shovel.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.some-interesting.shovel.adept.damage_up": "  §a✔ 挖掘效率+2",
+
+  "item.some-interesting.shovel.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.shovel.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.shovel.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.some-interesting.shovel.synchronized.damage_up": "  §a✔ 挖掘效率+4",
+
+  "item.some-interesting.shovel.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.some-interesting.shovel.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.shovel.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.some-interesting.shovel.soulbound.damage_up": "  §a✔ 挖掘效率+8",
+  "item.some-interesting.shovel.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+  "item.some-interesting.hoe_normal_count.info": "耕耘/挖掘默契：%1$s / %2$s",
+
+  "item.some-interesting.hoe.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.hoe.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.hoe.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.some-interesting.hoe.adept.damage_up": "  §a✔ 挖掘效率+2",
+
+  "item.some-interesting.hoe.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.hoe.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.hoe.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.some-interesting.hoe.synchronized.damage_up": "  §a✔ 挖掘效率+4",
+
+  "item.some-interesting.hoe.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.some-interesting.hoe.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.hoe.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.some-interesting.hoe.soulbound.damage_up": "  §a✔ 挖掘效率+8",
+  "item.some-interesting.hoe.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+  "item.some-interesting.bow.damage_bonus": "  §a✔ 箭矢伤害：%1$s",
+
+  "item.some-interesting.bow_normal_count.info": "射击默契：%1$s / %2$s",
+
+  "item.some-interesting.bow.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.bow.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.bow.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.some-interesting.bow.adept.damage_up": "  §a✔ 箭矢伤害 +20%%",
+  "item.some-interesting.bow.adept.next_goal": "  §e▶ 下次升级需：射击默契 >%1$s",
+
+  "item.some-interesting.bow.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.bow.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.bow.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.some-interesting.bow.synchronized.damage_up": "  §a✔ 箭矢伤害 +50%%",
+  "item.some-interesting.bow.synchronized.next_goal": "  §e▶ 下次升级需：射击默契 >%1$s",
+
+  "item.some-interesting.bow.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.some-interesting.bow.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.bow.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.some-interesting.bow.soulbound.damage_up": "  §a✔ 箭矢伤害 +80%%",
+  "item.some-interesting.bow.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+  "item.some-interesting.crossbow.damage_bonus": "  §a✔ 弩箭伤害：%1$s",
+
+  "item.some-interesting.crossbow_normal_count.info": "弩击默契：%1$s / %2$s",
+
+  "item.some-interesting.crossbow.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.crossbow.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.crossbow.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.some-interesting.crossbow.adept.damage_up": "  §a✔ 弩箭伤害 +20%%",
+  "item.some-interesting.crossbow.adept.next_goal": "  §e▶ 下次升级需：弩击默契 >%1$s",
+
+  "item.some-interesting.crossbow.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.crossbow.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.crossbow.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.some-interesting.crossbow.synchronized.damage_up": "  §a✔ 弩箭伤害 +50%%",
+  "item.some-interesting.crossbow.synchronized.next_goal": "  §e▶ 下次升级需：弩击默契 >%1$s",
+
+  "item.some-interesting.crossbow.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.some-interesting.crossbow.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.crossbow.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.some-interesting.crossbow.soulbound.damage_up": "  §a✔ 弩箭伤害 +80%%",
+  "item.some-interesting.crossbow.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+  "item.some-interesting.armor_damage_taken.info": "承受伤害：%1$s / %2$s",
+
+  "item.some-interesting.armor.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.armor.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.armor.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.some-interesting.armor.adept.damage_up": "  §a✔ 护甲值 +1",
+  "item.some-interesting.armor.adept.next_goal": "  §e▶ 下次升级需：承受伤害 >%1$s",
+
+  "item.some-interesting.armor.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.armor.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.armor.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.some-interesting.armor.synchronized.damage_up": "  §a✔ 护甲值 +2，韧性 +1",
+  "item.some-interesting.armor.synchronized.next_goal": "  §e▶ 下次升级需：承受伤害 >%1$s",
+
+  "item.some-interesting.armor.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.some-interesting.armor.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.armor.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.some-interesting.armor.soulbound.damage_up": "  §a✔ 护甲值 +4，韧性 +2",
+  "item.some-interesting.armor.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+  "creativeTab.some-interesting":"CCChara的测试模组"
+}

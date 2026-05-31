@@ -1,0 +1,14 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "# #"
+  ],
+  "key": {
+    "#": "minecraft:emerald"
+  },
+  "result": {
+    "id": "some-interesting:emerald_boots",
+    "count": 1
+  }
+}

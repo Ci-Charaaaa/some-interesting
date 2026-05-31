@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "test-mod",
+	"id": "some-interesting",
 	"version": "${version}",
 	"name": "Some interesting",
 	"description": "一些奇思妙想，添加了一套绿宝石工具与护甲",
@@ -12,20 +12,20 @@
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/test-mod/icon.png",
+	"icon": "assets/some-interesting/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.chara.test1.TestMod"
+			"com.chara.some_interesting.SomeInteresting"
 		],
 		"client": [
-			"com.chara.test1.client.TestModClient"
+			"com.chara.some_interesting.client.SomeInterestingClient"
 		]
 	},
 	"mixins": [
-		"test-mod.mixins.json",
+		"some-interesting.mixins.json",
 		{
-			"config": "test-mod.client.mixins.json",
+			"config": "some-interesting.client.mixins.json",
 			"environment": "client"
 		}
 	],

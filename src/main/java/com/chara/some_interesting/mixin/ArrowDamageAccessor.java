@@ -1,0 +1,19 @@
+package com.chara.some_interesting.mixin;
+
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
+
+/**
+ * 访问 AbstractArrow 的私有字段 baseDamage，
+ * 用于读取当前基础伤害后再乘以熟练度倍率。
+ */
+@Mixin(AbstractArrow.class)
+public interface ArrowDamageAccessor {
+
+    @Accessor("baseDamage")
+    double SomeInteresting$getBaseDamage();
+
+    @Accessor("baseDamage")
+    void SomeInteresting$setBaseDamage(double damage);
+}
