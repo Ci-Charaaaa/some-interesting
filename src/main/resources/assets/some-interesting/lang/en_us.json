@@ -175,5 +175,25 @@
   "item.some-interesting.armor.soulbound.damage_up": "  §a✔ Armor +4, Toughness +2",
   "item.some-interesting.armor.soulbound.max_level": "  §e★ Max level reached!",
 
+  "item.some-interesting.shield_normal_count.info": "Block Synergy: %1$s / %2$s",
+
+  "item.some-interesting.shield.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.shield.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.shield.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.shield.adept.damage_up": "  §a✔ Knockback Resistance +1",
+  "item.some-interesting.shield.adept.next_goal": "  §e▶ Next upgrade: Block >%1$s",
+
+  "item.some-interesting.shield.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.shield.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.shield.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.shield.synchronized.damage_up": "  §a✔ Knockback Resistance +2",
+  "item.some-interesting.shield.synchronized.next_goal": "  §e▶ Next upgrade: Block >%1$s",
+
+  "item.some-interesting.shield.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.shield.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.shield.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.shield.soulbound.damage_up": "  §a✔ Knockback Resistance +4",
+  "item.some-interesting.shield.soulbound.max_level": "  §e★ Max level reached!",
+
   "creativeTab.some-interesting": "CCChara's Test Mod"
 }

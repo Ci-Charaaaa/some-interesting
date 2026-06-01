@@ -11,6 +11,7 @@ import com.chara.some_interesting.component.BowEnhanceComponent;
 import com.chara.some_interesting.component.CrossbowEnhanceComponent;
 import com.chara.some_interesting.component.PickaxeEnhanceComponent;
 import com.chara.some_interesting.component.HoeEnhanceComponent;
+import com.chara.some_interesting.component.ShieldEnhanceComponent;
 import com.chara.some_interesting.component.ShovelEnhanceComponent;
 import com.chara.some_interesting.component.SwordsEnhanceComponent;
 import net.fabricmc.api.ModInitializer;
@@ -71,6 +72,7 @@ public class SomeInteresting implements ModInitializer {
 		BowEnhanceComponent.initialize();
 		CrossbowEnhanceComponent.initialize();
 		ArmorEnhanceComponent.initialize();
+		ShieldEnhanceComponent.initialize();
 		ArmorEvent.initialize();
 
 

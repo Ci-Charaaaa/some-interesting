@@ -175,5 +175,25 @@
   "item.some-interesting.armor.soulbound.damage_up": "  §a✔ 護甲值 +4，韌性 +2",
   "item.some-interesting.armor.soulbound.max_level": "  §e★ 已達成最高等級！",
 
+  "item.some-interesting.shield_normal_count.info": "格擋默契：%1$s / %2$s",
+
+  "item.some-interesting.shield.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.shield.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.shield.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.some-interesting.shield.adept.damage_up": "  §a✔ 擊退抗性 +1",
+  "item.some-interesting.shield.adept.next_goal": "  §e▶ 下次升級需：格擋默契 >%1$s",
+
+  "item.some-interesting.shield.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.shield.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.shield.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.some-interesting.shield.synchronized.damage_up": "  §a✔ 擊退抗性 +2",
+  "item.some-interesting.shield.synchronized.next_goal": "  §e▶ 下次升級需：格擋默契 >%1$s",
+
+  "item.some-interesting.shield.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.some-interesting.shield.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.shield.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.some-interesting.shield.soulbound.damage_up": "  §a✔ 擊退抗性 +4",
+  "item.some-interesting.shield.soulbound.max_level": "  §e★ 已達成最高等級！",
+
   "creativeTab.some-interesting": "CCChara的測試模組"
 }
