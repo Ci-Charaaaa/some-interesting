@@ -68,6 +68,8 @@ public class SomeInteresting implements ModInitializer {
 		ShieldEnhanceComponent.initialize();
 		TridentEnhanceComponent.initialize();
 		MaceEnhanceComponent.initialize();
+		SpearEnhanceComponent.initialize();
+
 
 		//对原版的树叶添加食物的属性
 		//橡树

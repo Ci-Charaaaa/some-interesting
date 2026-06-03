@@ -235,5 +235,25 @@
   "item.some-interesting.mace.soulbound.damage_up": "  §a✔ 傷害 +80%%",
   "item.some-interesting.mace.soulbound.max_level": "  §e★ 已達最高等級！",
 
+  "item.some-interesting.spear_normal_count.info": "刺擊默契：%1$s / %2$s",
+
+  "item.some-interesting.spear.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.spear.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.spear.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.some-interesting.spear.adept.damage_up": "  §a✔ 傷害 +10%%",
+  "item.some-interesting.spear.adept.next_goal": "  §e▶ 下次升級需：刺擊默契 >%1$s",
+
+  "item.some-interesting.spear.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.spear.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.spear.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.some-interesting.spear.synchronized.damage_up": "  §a✔ 傷害 +20%%",
+  "item.some-interesting.spear.synchronized.next_goal": "  §e▶ 下次升級需：刺擊默契 >%1$s",
+
+  "item.some-interesting.spear.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.some-interesting.spear.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.spear.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.some-interesting.spear.soulbound.damage_up": "  §a✔ 傷害 +40%%",
+  "item.some-interesting.spear.soulbound.max_level": "  §e★ 已達成最高等級！",
+
   "creativeTab.some-interesting": "CCChara的測試模組"
 }

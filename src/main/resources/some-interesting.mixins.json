@@ -5,7 +5,8 @@
 	"mixins": [
 		"ExampleMixin",
 		"ArrowDamageMixin",
-		"ArrowDamageAccessor"
+		"ArrowDamageAccessor",
+		"SpearMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -235,5 +235,25 @@
   "item.some-interesting.mace.soulbound.damage_up": "  §a✔ Damage +80%%",
   "item.some-interesting.mace.soulbound.max_level": "  §e★ Max level reached!",
 
+  "item.some-interesting.spear_normal_count.info": "Stab Synergy: %1$s / %2$s",
+
+  "item.some-interesting.spear.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.spear.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.spear.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.spear.adept.damage_up": "  §a✔ Damage +10%%",
+  "item.some-interesting.spear.adept.next_goal": "  §e▶ Next: Stab >%1$s",
+
+  "item.some-interesting.spear.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.spear.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.spear.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.spear.synchronized.damage_up": "  §a✔ Damage +20%%",
+  "item.some-interesting.spear.synchronized.next_goal": "  §e▶ Next: Stab >%1$s",
+
+  "item.some-interesting.spear.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.spear.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.spear.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.spear.soulbound.damage_up": "  §a✔ Damage +40%%",
+  "item.some-interesting.spear.soulbound.max_level": "  §e★ Max level reached!",
+
   "creativeTab.some-interesting": "CCChara's Test Mod"
 }

@@ -2,8 +2,10 @@ package com.chara.some_interesting.EventCallBack;
 
 import com.chara.some_interesting.component.BowEnhanceComponent;
 import com.chara.some_interesting.component.CrossbowEnhanceComponent;
+import com.chara.some_interesting.component.SpearEnhanceComponent;
 import com.chara.some_interesting.component.TridentEnhanceComponent;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -83,6 +85,7 @@ public class RangedEvent {
 
                     processCrossbowUpgrade(player, heldstack, normal_count, is_adept, is_synchronized, is_soulbound, max_damage);
                 }
+
             }
             return InteractionResult.PASS;
         });
