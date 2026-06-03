@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface ArrowDamageAccessor {
 
     @Accessor("baseDamage")
-    double SomeInteresting$getBaseDamage();
+    double testmod$getBaseDamage();
 
     @Accessor("baseDamage")
-    void SomeInteresting$setBaseDamage(double damage);
+    void testmod$setBaseDamage(double damage);
 }

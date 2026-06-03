@@ -2,6 +2,7 @@ package com.chara.some_interesting.EventCallBack;
 
 import com.chara.some_interesting.component.AxeEnhanceComponent;
 import com.chara.some_interesting.component.SwordsEnhanceComponent;
+import com.chara.some_interesting.component.TridentEnhanceComponent;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 
@@ -28,6 +30,7 @@ public class AttackEvent {
         //斧逻辑，斧头既要改效率又要改攻击，所有注册两个
         Identifier AXE_SPEED_ID = Identifier.fromNamespaceAndPath("some-interesting", "axe_speed_id");
         Identifier AXE_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting", "axe_damage_id");
+        Identifier TRIDENT_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting", "trident_damage");
 
 
         //剑攻击逻辑
@@ -259,6 +262,76 @@ public class AttackEvent {
                         }
                     }
 
+                }
+            }
+            return InteractionResult.PASS;
+        });
+
+        //三叉戟近战攻击
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+            if(!world.isClientSide() && entity instanceof LivingEntity target){
+                ItemStack heldstack = player.getMainHandItem();
+                if(heldstack.is(Items.TRIDENT)){
+
+                    TridentEnhanceComponent comp = heldstack.getOrDefault(
+                            TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                            new TridentEnhanceComponent(0, 0, false, false, false));
+                    int normal = comp.normal_count();
+                    int superCnt = comp.super_count();
+                    boolean is_adept = comp.is_adept();
+                    boolean is_synchronized = comp.is_synchronized();
+                    boolean is_soulbound = comp.is_soulbound();
+                    int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE, 0);
+
+                    //普通计数+1
+                    heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                            new TridentEnhanceComponent(++normal, superCnt, is_adept, is_synchronized, is_soulbound));
+
+                    //升级判定
+                    int newNormal = normal + 1;
+                    boolean na = !is_adept && newNormal >= 30 && superCnt >= 6;
+                    boolean ns = !is_synchronized && newNormal >= 150 && superCnt >= 20;
+                    boolean nl = !is_soulbound && newNormal >= 450 && superCnt >= 80;
+
+                    if (!na && !ns && !nl) return InteractionResult.PASS;
+
+                    out_sound(world, player);
+                    String name = get_name(heldstack);
+
+                    if (nl) {
+                        heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                                new TridentEnhanceComponent(newNormal, superCnt, true, true, true));
+                        heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.8));
+                        heldstack.set(DataComponents.REPAIR_COST, 0);
+                        upgrade_text(player, "trident", "soulbound", name, "max_level", (int)(max_damage * 1.8));
+                    } else if (ns) {
+                        heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                                new TridentEnhanceComponent(newNormal, superCnt, is_adept, true, is_soulbound));
+                        heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.5));
+                        heldstack.set(DataComponents.REPAIR_COST, 0);
+                        upgrade_text(player, "trident", "synchronized", name, (int)(max_damage * 1.5));
+                    } else if (na) {
+                        heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                                new TridentEnhanceComponent(newNormal, superCnt, true, is_synchronized, is_soulbound));
+                        heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.2));
+                        heldstack.set(DataComponents.REPAIR_COST, 0);
+                        upgrade_text(player, "trident", "adept", name, (int)(max_damage * 1.2));
+                    }
+
+                    //伤害修饰符
+                    ItemAttributeModifiers current = heldstack.getOrDefault(
+                            DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                    ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+                    copy_original_data(current, builder, TRIDENT_DAMAGE_ID);
+
+                    double dmgMul = nl ? 0.8 : ns ? 0.5 : na ? 0.2 : 0;
+                    if (dmgMul > 0) {
+                        builder.add(Attributes.ATTACK_DAMAGE,
+                                new AttributeModifier(TRIDENT_DAMAGE_ID, dmgMul,
+                                        AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                EquipmentSlotGroup.MAINHAND);
+                        heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+                    }
                 }
             }
             return InteractionResult.PASS;

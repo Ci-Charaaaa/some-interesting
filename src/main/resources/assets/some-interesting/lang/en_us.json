@@ -195,5 +195,26 @@
   "item.some-interesting.shield.soulbound.damage_up": "  §a✔ Knockback Resistance +4",
   "item.some-interesting.shield.soulbound.max_level": "  §e★ Max level reached!",
 
+  "item.some-interesting.trident_normal_count.info": "Melee Synergy: %1$s / %2$s",
+  "item.some-interesting.trident_super_count.info": "Throw Synergy: %1$s / %2$s",
+
+  "item.some-interesting.trident.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.trident.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.trident.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.trident.adept.damage_up": "  §a✔ Damage +20%%",
+  "item.some-interesting.trident.adept.next_goal": "  §e▶ Next: Melee >%1$s + Throw >%2$s",
+
+  "item.some-interesting.trident.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.trident.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.trident.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.trident.synchronized.damage_up": "  §a✔ Damage +50%%",
+  "item.some-interesting.trident.synchronized.next_goal": "  §e▶ Next: Melee >%1$s + Throw >%2$s",
+
+  "item.some-interesting.trident.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.trident.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.trident.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.trident.soulbound.damage_up": "  §a✔ Damage +80%%",
+  "item.some-interesting.trident.soulbound.max_level": "  §e★ Max level reached!",
+
   "creativeTab.some-interesting": "CCChara's Test Mod"
 }

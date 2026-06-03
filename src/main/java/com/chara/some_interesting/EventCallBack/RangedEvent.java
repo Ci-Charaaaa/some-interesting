@@ -2,6 +2,7 @@ package com.chara.some_interesting.EventCallBack;
 
 import com.chara.some_interesting.component.BowEnhanceComponent;
 import com.chara.some_interesting.component.CrossbowEnhanceComponent;
+import com.chara.some_interesting.component.TridentEnhanceComponent;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionResult;
@@ -17,10 +18,56 @@ public class RangedEvent {
 
     public static void initialize() {
 
-        //弩射击计数，弓射击计数因调用物品栈会打断动画，逻辑移至注入方法中
+        //三叉戟/弩射击计数，弓射击计数因调用物品栈会打断动画，逻辑移至注入方法中
         UseItemCallback.EVENT.register((player, world, hand) -> {
             if (!world.isClientSide()) {
                 ItemStack heldstack = player.getItemInHand(hand);
+                //三叉戟投掷计数（UseItemCallback 在右键时触发）
+                if (heldstack.is(Items.TRIDENT)) {
+                    TridentEnhanceComponent comp = heldstack.getOrDefault(
+                            TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                            new TridentEnhanceComponent(0, 0, false, false, false));
+                    int normal = comp.normal_count();
+                    int newSuper = comp.super_count() + 1;
+                    boolean ad = comp.is_adept();
+                    boolean sy = comp.is_synchronized();
+                    boolean so = comp.is_soulbound();
+                    int md = heldstack.getOrDefault(DataComponents.MAX_DAMAGE, 0);
+
+                    heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                            new TridentEnhanceComponent(normal, newSuper, ad, sy, so));
+
+                    //升级判定
+                    boolean na = !ad && (normal >= 60 && newSuper >= 6);
+                    boolean ns = !sy && (normal >= 150 && newSuper >= 20);
+                    boolean nl = !so && (normal >= 450 && newSuper >= 80);
+
+                    if (na || ns || nl) {
+                        out_sound(world, player);
+                        String name = get_name(heldstack);
+
+                        if (nl) {
+                            heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                                    new TridentEnhanceComponent(normal, newSuper, true, true, true));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.8));
+                            heldstack.set(DataComponents.REPAIR_COST, 0);
+                            upgrade_text(player, "trident", "soulbound", name, "max_level", (int)(md * 1.8));
+                        } else if (ns) {
+                            heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                                    new TridentEnhanceComponent(normal, newSuper, ad, true, so));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.5));
+                            heldstack.set(DataComponents.REPAIR_COST, 0);
+                            upgrade_text(player, "trident", "synchronized", name, (int)(md * 1.5));
+                        } else if (na) {
+                            heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
+                                    new TridentEnhanceComponent(normal, newSuper, true, sy, so));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.2));
+                            heldstack.set(DataComponents.REPAIR_COST, 0);
+                            upgrade_text(player, "trident", "adept", name, (int)(md * 1.2));
+                        }
+                    }
+                }
+
                 if (heldstack.is(Items.CROSSBOW) && CrossbowItem.isCharged(heldstack)) {
                     CrossbowEnhanceComponent comp = heldstack.getOrDefault(
                             CrossbowEnhanceComponent.CROSSBOW_PROFICIENCY_COMPONENT,
