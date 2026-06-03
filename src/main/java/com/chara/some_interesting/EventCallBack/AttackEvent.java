@@ -24,17 +24,13 @@ import net.minecraft.world.level.Level;
 
 public class AttackEvent {
 
-    public static void initialize(){
+    public static final Identifier PROFICIENCY_BONUS_ID = Identifier.fromNamespaceAndPath("some-interesting", "proficiency_damage");
+    public static final Identifier AXE_SPEED_ID = Identifier.fromNamespaceAndPath("some-interesting", "axe_speed_id");
+    public static final Identifier AXE_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting", "axe_damage_id");
+    public static final Identifier TRIDENT_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting", "trident_damage");
+    public static final Identifier MACE_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting","mace_damage_id");
 
-        //定义一个标识符用于修改攻击数据组件
-        Identifier PROFICIENCY_BONUS_ID = Identifier.fromNamespaceAndPath("some-interesting", "proficiency_damage");
-        //斧逻辑，斧头既要改效率又要改攻击，所有注册两个
-        Identifier AXE_SPEED_ID = Identifier.fromNamespaceAndPath("some-interesting", "axe_speed_id");
-        Identifier AXE_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting", "axe_damage_id");
-        //三叉戟
-        Identifier TRIDENT_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting", "trident_damage");
-        //重锤
-        Identifier MACE_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting","mace_damage_id");
+    public static void initialize(){
 
         //剑攻击逻辑
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult)->{
@@ -440,6 +436,8 @@ public class AttackEvent {
             }
             return InteractionResult.PASS;
         });
+
+
 
     }
 
