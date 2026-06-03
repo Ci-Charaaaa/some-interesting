@@ -216,5 +216,24 @@
   "item.some-interesting.trident.soulbound.damage_up": "  §a✔ Damage +80%%",
   "item.some-interesting.trident.soulbound.max_level": "  §e★ Max level reached!",
 
+  "item.some-interesting.mace_normal_count.info": "Attack Rapport: %1$s / %2$s",
+  "item.some-interesting.mace_super_count.info": "Critical Rapport: %1$s / %2$s",
+
+  "item.some-interesting.mace.adept.text.info": "§6✦ You have become Adept with the %1$s!",
+  "item.some-interesting.mace.adept.repair_reset": "  §a✔ Anvil repair penalty reset",
+  "item.some-interesting.mace.adept.durability_up": "  §a✔ Max durability increased by 20%% (Current: %1$s)",
+  "item.some-interesting.mace.adept.damage_up": "  §a✔ Damage +20%%",
+
+  "item.some-interesting.mace.synchronized.text.info": "§6✦ You have achieved Mastery with the %1$s!",
+  "item.some-interesting.mace.synchronized.repair_reset": "  §a✔ Anvil repair penalty reset",
+  "item.some-interesting.mace.synchronized.durability_up": "  §a✔ Max durability increased by 50%% (Current: %1$s)",
+  "item.some-interesting.mace.synchronized.damage_up": "  §a✔ Damage +50%%",
+
+  "item.some-interesting.mace.soulbound.text.info": "§6✦ You have achieved Soul Bond with the %1$s!",
+  "item.some-interesting.mace.soulbound.repair_reset": "  §a✔ Anvil repair penalty reset",
+  "item.some-interesting.mace.soulbound.durability_up": "  §a✔ Max durability greatly increased by 80%% (Current: %1$s)",
+  "item.some-interesting.mace.soulbound.damage_up": "  §a✔ Damage +80%%",
+  "item.some-interesting.mace.soulbound.max_level": "  §e★ Max level reached!",
+
   "creativeTab.some-interesting": "CCChara's Test Mod"
 }

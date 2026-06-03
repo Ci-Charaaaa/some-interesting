@@ -1,6 +1,7 @@
 package com.chara.some_interesting.EventCallBack;
 
 import com.chara.some_interesting.component.AxeEnhanceComponent;
+import com.chara.some_interesting.component.MaceEnhanceComponent;
 import com.chara.some_interesting.component.SwordsEnhanceComponent;
 import com.chara.some_interesting.component.TridentEnhanceComponent;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -30,8 +31,10 @@ public class AttackEvent {
         //斧逻辑，斧头既要改效率又要改攻击，所有注册两个
         Identifier AXE_SPEED_ID = Identifier.fromNamespaceAndPath("some-interesting", "axe_speed_id");
         Identifier AXE_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting", "axe_damage_id");
+        //三叉戟
         Identifier TRIDENT_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting", "trident_damage");
-
+        //重锤
+        Identifier MACE_DAMAGE_ID = Identifier.fromNamespaceAndPath("some-interesting","mace_damage_id");
 
         //剑攻击逻辑
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult)->{
@@ -152,6 +155,107 @@ public class AttackEvent {
                             copy_original_data(current,builder,PROFICIENCY_BONUS_ID);
                             //追加灵魂相通加成--也就是要修改的部分
                             Attack_damage_add(builder,PROFICIENCY_BONUS_ID,0.8,heldstack,true);
+                            heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+                        }
+                    }
+                }
+            }
+            return InteractionResult.PASS;
+        });
+
+        //重锤攻击逻辑
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult)->{
+            // 确保逻辑在服务端运行，且攻击的目标是个生物
+            if (!world.isClientSide() && entity instanceof LivingEntity target) {
+
+                //获取玩家手上的物品
+                ItemStack heldstack = player.getMainHandItem();
+
+                // 检查玩家手里的物品
+                if (player.getItemInHand(hand).is(Items.MACE)) {
+                    //获取高级数据组件的记录类和组件本身
+                    MaceEnhanceComponent heldComponent = heldstack.getOrDefault(
+                            MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT,
+                            new MaceEnhanceComponent(0, 0,false,false,false));
+
+                    //获取两个具体的值
+                    int normal_count = heldComponent.normal_count();
+                    int super_count = heldComponent.super_count();
+                    boolean is_adept = heldComponent.is_adept();
+                    boolean is_synchronized = heldComponent.is_synchronized();
+                    boolean is_soulbound = heldComponent.is_soulbound();
+
+                    //检测是否满足暴击条件
+                    boolean isCrit = is_Crit(player);
+
+                    //如果满足，则对super_count加1
+                    if (isCrit){
+                        heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(normal_count, ++super_count,is_adept,is_synchronized,is_soulbound));
+                    }else{
+                        //每次自增普通攻击次数的值
+                        heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(++normal_count, super_count,is_adept,is_synchronized,is_soulbound));
+                    }
+
+                    int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
+
+                    if(normal_count <= 18 || super_count <= 6){
+                        //do nothing
+                    } else if (normal_count <= 36 || super_count <= 30) {
+                        if (!is_adept){
+                            is_adept = true;
+                            heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(normal_count, super_count, true,is_synchronized, is_soulbound));
+                            out_sound(world,player);
+                            String name = get_name(heldstack);
+                            upgrade_text(player,"mace","adept",name,max_damage);
+
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
+                            heldstack.set(DataComponents.REPAIR_COST, 0);
+
+                            ItemAttributeModifiers current = heldstack.getOrDefault(
+                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                            ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+                            copy_original_data(current,builder,MACE_DAMAGE_ID);
+                            //追加精通加成--也就是要修改的部分
+                            Attack_damage_add(builder,MACE_DAMAGE_ID,0.2,heldstack,true);
+                            heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+                        }
+                    } else if (normal_count <= 72 || super_count <= 90) {
+                        if (!is_synchronized) {
+                            is_synchronized = true;
+                            heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(normal_count, super_count, is_adept,true, is_soulbound));
+                            out_sound(world,player);
+                            String name = get_name(heldstack);
+                            upgrade_text(player,"mace","synchronized",name,max_damage);
+
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.5));
+                            heldstack.set(DataComponents.REPAIR_COST, 0);
+
+                            ItemAttributeModifiers current = heldstack.getOrDefault(
+                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                            ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+
+                            copy_original_data(current,builder,MACE_DAMAGE_ID);
+                            Attack_damage_add(builder,MACE_DAMAGE_ID,0.5,heldstack,true);
+                            heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+                        }
+                    }else{
+                        //如果发现是否灵魂相通为假，改成真的，并播放升级音效和输出文本
+                        if(!is_soulbound){
+                            is_soulbound = true;
+                            heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT,new MaceEnhanceComponent(normal_count,super_count,is_adept,is_synchronized,true));
+                            out_sound(world,player);
+                            String name = get_name(heldstack);
+                            upgrade_text(player,"mace","soulbound",name,"max_level",max_damage);
+
+                            heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.8));
+                            heldstack.set(DataComponents.REPAIR_COST,0);
+
+                            ItemAttributeModifiers current = heldstack.getOrDefault(
+                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                            ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+                            copy_original_data(current,builder,MACE_DAMAGE_ID);
+
+                            Attack_damage_add(builder,MACE_DAMAGE_ID,0.8,heldstack,true);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
                     }

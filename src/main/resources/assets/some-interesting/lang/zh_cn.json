@@ -120,13 +120,11 @@
   "item.some-interesting.bow.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.bow.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.some-interesting.bow.adept.damage_up": "  §a✔ 箭矢伤害 +20%%",
-  "item.some-interesting.bow.adept.next_goal": "  §e▶ 下次升级需：射击默契 >%1$s",
 
   "item.some-interesting.bow.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.some-interesting.bow.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.bow.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.some-interesting.bow.synchronized.damage_up": "  §a✔ 箭矢伤害 +50%%",
-  "item.some-interesting.bow.synchronized.next_goal": "  §e▶ 下次升级需：射击默契 >%1$s",
 
   "item.some-interesting.bow.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.some-interesting.bow.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
@@ -142,13 +140,11 @@
   "item.some-interesting.crossbow.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.crossbow.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.some-interesting.crossbow.adept.damage_up": "  §a✔ 弩箭伤害 +20%%",
-  "item.some-interesting.crossbow.adept.next_goal": "  §e▶ 下次升级需：弩击默契 >%1$s",
 
   "item.some-interesting.crossbow.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.some-interesting.crossbow.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.crossbow.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.some-interesting.crossbow.synchronized.damage_up": "  §a✔ 弩箭伤害 +50%%",
-  "item.some-interesting.crossbow.synchronized.next_goal": "  §e▶ 下次升级需：弩击默契 >%1$s",
 
   "item.some-interesting.crossbow.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.some-interesting.crossbow.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
@@ -162,13 +158,11 @@
   "item.some-interesting.armor.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.armor.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.some-interesting.armor.adept.damage_up": "  §a✔ 护甲值 +1",
-  "item.some-interesting.armor.adept.next_goal": "  §e▶ 下次升级需：承受伤害 >%1$s",
 
   "item.some-interesting.armor.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.some-interesting.armor.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.armor.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.some-interesting.armor.synchronized.damage_up": "  §a✔ 护甲值 +2，韧性 +1",
-  "item.some-interesting.armor.synchronized.next_goal": "  §e▶ 下次升级需：承受伤害 >%1$s",
 
   "item.some-interesting.armor.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.some-interesting.armor.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
@@ -182,13 +176,11 @@
   "item.some-interesting.shield.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.shield.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.some-interesting.shield.adept.damage_up": "  §a✔ 击退抗性 +1",
-  "item.some-interesting.shield.adept.next_goal": "  §e▶ 下次升级需：格挡默契 >%1$s",
 
   "item.some-interesting.shield.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.some-interesting.shield.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.shield.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.some-interesting.shield.synchronized.damage_up": "  §a✔ 击退抗性 +2",
-  "item.some-interesting.shield.synchronized.next_goal": "  §e▶ 下次升级需：格挡默契 >%1$s",
 
   "item.some-interesting.shield.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.some-interesting.shield.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
@@ -203,19 +195,36 @@
   "item.some-interesting.trident.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.trident.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
   "item.some-interesting.trident.adept.damage_up": "  §a✔ 伤害 +20%%",
-  "item.some-interesting.trident.adept.next_goal": "  §e▶ 下次升级需：近战 >%1$s + 投掷 >%2$s",
 
   "item.some-interesting.trident.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
   "item.some-interesting.trident.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.trident.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
   "item.some-interesting.trident.synchronized.damage_up": "  §a✔ 伤害 +50%%",
-  "item.some-interesting.trident.synchronized.next_goal": "  §e▶ 下次升级需：近战 >%1$s + 投掷 >%2$s",
 
   "item.some-interesting.trident.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
   "item.some-interesting.trident.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
   "item.some-interesting.trident.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
   "item.some-interesting.trident.soulbound.damage_up": "  §a✔ 伤害 +80%%",
   "item.some-interesting.trident.soulbound.max_level": "  §e★ 已达成最高等级！",
+
+  "item.some-interesting.mace_normal_count.info": "攻击默契：%1$s / %2$s",
+  "item.some-interesting.mace_super_count.info": "暴击默契：%1$s / %2$s",
+
+  "item.some-interesting.mace.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.mace.adept.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.mace.adept.durability_up": "  §a✔ 耐久上限提升 20%%（当前：%1$s）",
+  "item.some-interesting.mace.adept.damage_up": "  §a✔ 伤害 +20%%",
+
+  "item.some-interesting.mace.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.mace.synchronized.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.mace.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（当前：%1$s）",
+  "item.some-interesting.mace.synchronized.damage_up": "  §a✔ 伤害 +50%%",
+
+  "item.some-interesting.mace.soulbound.text.info": "§6✦ 你已与 %1$s 灵魂相通 ！",
+  "item.some-interesting.mace.soulbound.repair_reset": "  §a✔ 附魔修复惩罚已重置",
+  "item.some-interesting.mace.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（当前：%1$s）",
+  "item.some-interesting.mace.soulbound.damage_up": "  §a✔ 伤害 +80%%",
+  "item.some-interesting.mace.soulbound.max_level": "  §e★ 已达成最高等级！",
 
   "creativeTab.some-interesting":"CCChara的测试模组"
 }

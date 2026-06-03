@@ -216,5 +216,24 @@
   "item.some-interesting.trident.soulbound.damage_up": "  §a✔ 傷害 +80%%",
   "item.some-interesting.trident.soulbound.max_level": "  §e★ 已達成最高等級！",
 
+  "item.some-interesting.mace_normal_count.info": "攻擊默契：%1$s / %2$s",
+  "item.some-interesting.mace_super_count.info": "暴擊默契：%1$s / %2$s",
+
+  "item.some-interesting.mace.adept.text.info": "§6✦ 你已略懂 %1$s ！",
+  "item.some-interesting.mace.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.mace.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.some-interesting.mace.adept.damage_up": "  §a✔ 傷害 +20%%",
+
+  "item.some-interesting.mace.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.mace.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.mace.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.some-interesting.mace.synchronized.damage_up": "  §a✔ 傷害 +50%%",
+
+  "item.some-interesting.mace.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.some-interesting.mace.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.mace.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.some-interesting.mace.soulbound.damage_up": "  §a✔ 傷害 +80%%",
+  "item.some-interesting.mace.soulbound.max_level": "  §e★ 已達最高等級！",
+
   "creativeTab.some-interesting": "CCChara的測試模組"
 }

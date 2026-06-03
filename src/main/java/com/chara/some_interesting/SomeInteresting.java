@@ -5,16 +5,7 @@ import com.chara.some_interesting.EventCallBack.ArmorEvent;
 import com.chara.some_interesting.EventCallBack.BreakEvent;
 import com.chara.some_interesting.EventCallBack.RangedEvent;
 import com.chara.some_interesting.EventCallBack.RightEvent;
-import com.chara.some_interesting.component.ArmorEnhanceComponent;
-import com.chara.some_interesting.component.AxeEnhanceComponent;
-import com.chara.some_interesting.component.BowEnhanceComponent;
-import com.chara.some_interesting.component.CrossbowEnhanceComponent;
-import com.chara.some_interesting.component.PickaxeEnhanceComponent;
-import com.chara.some_interesting.component.HoeEnhanceComponent;
-import com.chara.some_interesting.component.ShieldEnhanceComponent;
-import com.chara.some_interesting.component.ShovelEnhanceComponent;
-import com.chara.some_interesting.component.TridentEnhanceComponent;
-import com.chara.some_interesting.component.SwordsEnhanceComponent;
+import com.chara.some_interesting.component.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -64,6 +55,7 @@ public class SomeInteresting implements ModInitializer {
 		RangedEvent.initialize();
 		BreakEvent.initialize();
 		RightEvent.initialize();
+		ArmorEvent.initialize();
 
 		PickaxeEnhanceComponent.initialize();
 		SwordsEnhanceComponent.initialize();
@@ -75,8 +67,7 @@ public class SomeInteresting implements ModInitializer {
 		ArmorEnhanceComponent.initialize();
 		ShieldEnhanceComponent.initialize();
 		TridentEnhanceComponent.initialize();
-		ArmorEvent.initialize();
-
+		MaceEnhanceComponent.initialize();
 
 		//对原版的树叶添加食物的属性
 		//橡树
