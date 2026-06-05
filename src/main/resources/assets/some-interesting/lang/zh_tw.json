@@ -255,5 +255,26 @@
   "item.some-interesting.spear.soulbound.damage_up": "  §a✔ 傷害 +40%%",
   "item.some-interesting.spear.soulbound.max_level": "  §e★ 已達成最高等級！",
 
+  "item.some-interesting.fishing_normal_count.info": "垂釣默契：%1$s / %2$s",
+
+  "item.some-interesting.fishing.slow": "  §c⚠ 釣魚等待時間增加",
+  "item.some-interesting.fishing.treasure": "  §a✔ 寶藏釣出概率提升",
+
+  "item.some-interesting.fishing.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.fishing.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.fishing.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.some-interesting.fishing.adept.damage_up": "  §a✔ 寶藏概率 +1，釣魚效率 -1",
+
+  "item.some-interesting.fishing.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.fishing.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.fishing.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.some-interesting.fishing.synchronized.damage_up": "  §a✔ 寶藏概率 +2，釣魚效率 -2",
+
+  "item.some-interesting.fishing.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.some-interesting.fishing.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.fishing.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.some-interesting.fishing.soulbound.damage_up": "  §a✔ 寶藏概率 +3，釣魚效率 -3",
+  "item.some-interesting.fishing.soulbound.max_level": "  §e★ 已達成最高等級！",
+
   "creativeTab.some-interesting": "CCChara的測試模組"
 }

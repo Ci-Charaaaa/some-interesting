@@ -255,5 +255,26 @@
   "item.some-interesting.spear.soulbound.damage_up": "  §a✔ Damage +40%%",
   "item.some-interesting.spear.soulbound.max_level": "  §e★ Max level reached!",
 
+  "item.some-interesting.fishing_normal_count.info": "Fishing Synergy: %1$s / %2$s",
+
+  "item.some-interesting.fishing.slow": "  §c⚠ Fishing wait time increased",
+  "item.some-interesting.fishing.treasure": "  §a✔ Treasure catch rate increased",
+
+  "item.some-interesting.fishing.adept.text.info": "§6✦ You have become adept with %1$s !",
+  "item.some-interesting.fishing.adept.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.fishing.adept.durability_up": "  §a✔ Max durability +20%% (now: %1$s)",
+  "item.some-interesting.fishing.adept.damage_up": "  §a✔ Treasure +1, Efficiency -1",
+
+  "item.some-interesting.fishing.synchronized.text.info": "§6✦ You have mastered %1$s !",
+  "item.some-interesting.fishing.synchronized.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.fishing.synchronized.durability_up": "  §a✔ Max durability +50%% (now: %1$s)",
+  "item.some-interesting.fishing.synchronized.damage_up": "  §a✔ Treasure +2, Efficiency -2",
+
+  "item.some-interesting.fishing.soulbound.text.info": "§6✦ You are soulbound with %1$s !",
+  "item.some-interesting.fishing.soulbound.repair_reset": "  §a✔ Enchantment repair cost reset",
+  "item.some-interesting.fishing.soulbound.durability_up": "  §a✔ Max durability +80%% (now: %1$s)",
+  "item.some-interesting.fishing.soulbound.damage_up": "  §a✔ Treasure +3, Efficiency -3",
+  "item.some-interesting.fishing.soulbound.max_level": "  §e★ Max level reached!",
+
   "creativeTab.some-interesting": "CCChara's Test Mod"
 }
