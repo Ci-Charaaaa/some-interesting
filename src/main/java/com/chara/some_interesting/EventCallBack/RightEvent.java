@@ -1,22 +1,26 @@
 package com.chara.some_interesting.EventCallBack;
 
+import com.chara.some_interesting.component.FlintAndSteelEnhanceComponent;
 import com.chara.some_interesting.component.HoeEnhanceComponent;
 import com.chara.some_interesting.component.ShovelEnhanceComponent;
-import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.ChatFormatting;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -127,6 +131,86 @@ public class RightEvent {
 				}
 			}
 			return InteractionResult.PASS;
+		});
+
+		//打火石右键计数（点燃方块/实体）
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+			ItemStack held = player.getItemInHand(hand);
+			if (world.isClientSide() || !held.is(Items.FLINT_AND_STEEL)) {
+				return InteractionResult.PASS;
+			}
+
+			FlintAndSteelEnhanceComponent comp = held.getOrDefault(
+					FlintAndSteelEnhanceComponent.FS_PROFICIENCY_COMPONENT,
+					new FlintAndSteelEnhanceComponent(0, false, false, false, false));
+
+			int normal = comp.normal_count() + 1;
+			boolean ad = comp.is_adept();
+			boolean sy = comp.is_synchronized();
+			boolean so = comp.is_soulbound();
+			boolean creeper = comp.has_lit_portal();
+			int md = held.getOrDefault(DataComponents.MAX_DAMAGE, 0);
+
+			held.set(FlintAndSteelEnhanceComponent.FS_PROFICIENCY_COMPONENT,
+					new FlintAndSteelEnhanceComponent(normal, creeper, ad, sy, so));
+
+			// 升级判定
+			boolean na = !ad && normal >= 60;
+			boolean ns = !sy && normal >= 180;
+			boolean nl = !so && normal >= 500 && creeper;
+			if (!na && !ns && !nl) return InteractionResult.PASS;
+
+			if (!(world instanceof ServerLevel serverLevel)) return InteractionResult.PASS;
+			out_sound(serverLevel, player);
+			String name = get_name(held);
+
+			if (nl) {
+				held.set(FlintAndSteelEnhanceComponent.FS_PROFICIENCY_COMPONENT,
+						new FlintAndSteelEnhanceComponent(normal, creeper, true, true, true));
+				held.set(DataComponents.MAX_DAMAGE, (int)(md * 1.8));
+				held.set(DataComponents.REPAIR_COST, 0);
+				upgrade_text(player, "fs", "soulbound", name, "max_level", (int)(md * 1.8));
+			} else if (ns) {
+				held.set(FlintAndSteelEnhanceComponent.FS_PROFICIENCY_COMPONENT,
+						new FlintAndSteelEnhanceComponent(normal, creeper, ad, true, so));
+				held.set(DataComponents.MAX_DAMAGE, (int)(md * 1.5));
+				held.set(DataComponents.REPAIR_COST, 0);
+				upgrade_text(player, "fs", "synchronized", name, (int)(md * 1.5));
+				if (!creeper) {
+					player.sendSystemMessage(Component.translatable("item.some-interesting.fs.synchronized.creeper_hint"));
+				}
+			} else {
+				held.set(FlintAndSteelEnhanceComponent.FS_PROFICIENCY_COMPONENT,
+						new FlintAndSteelEnhanceComponent(normal, creeper, true, sy, so));
+				held.set(DataComponents.MAX_DAMAGE, (int)(md * 1.2));
+				held.set(DataComponents.REPAIR_COST, 0);
+				upgrade_text(player, "fs", "adept", name, (int)(md * 1.2));
+			}
+
+			return InteractionResult.PASS;
+		});
+
+		//打火石点燃苦力怕
+		UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+			if (world.isClientSide()) return InteractionResult.PASS;
+			ItemStack held = player.getItemInHand(hand);
+			if (!held.is(Items.FLINT_AND_STEEL)) return InteractionResult.PASS;
+			if (!(entity instanceof Creeper creeper)) return InteractionResult.PASS;
+
+			// 点燃苦力怕
+			creeper.ignite();
+
+			// 标记特殊条件完成
+			FlintAndSteelEnhanceComponent comp = held.getOrDefault(
+					FlintAndSteelEnhanceComponent.FS_PROFICIENCY_COMPONENT,
+					new FlintAndSteelEnhanceComponent(0, false, false, false, false));
+			held.set(FlintAndSteelEnhanceComponent.FS_PROFICIENCY_COMPONENT,
+					new FlintAndSteelEnhanceComponent(comp.normal_count(), true,
+							comp.is_adept(), comp.is_synchronized(), comp.is_soulbound()));
+
+			// 消耗耐久
+			held.hurtAndBreak(1, player, hand);
+			return InteractionResult.SUCCESS;
 		});
     }
 }

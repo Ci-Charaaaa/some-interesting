@@ -5,6 +5,8 @@ import com.chara.some_interesting.EventCallBack.ArmorEvent;
 import com.chara.some_interesting.EventCallBack.BreakEvent;
 import com.chara.some_interesting.EventCallBack.RangedEvent;
 import com.chara.some_interesting.EventCallBack.RightEvent;
+import com.chara.some_interesting.EventCallBack.ShearsEvent;
+import com.chara.some_interesting.EventCallBack.ElytraEvent;
 import com.chara.some_interesting.component.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -56,6 +58,8 @@ public class SomeInteresting implements ModInitializer {
 		BreakEvent.initialize();
 		RightEvent.initialize();
 		ArmorEvent.initialize();
+		ShearsEvent.initialize();
+		ElytraEvent.initialize();
 
 		PickaxeEnhanceComponent.initialize();
 		SwordsEnhanceComponent.initialize();
@@ -70,6 +74,9 @@ public class SomeInteresting implements ModInitializer {
 		MaceEnhanceComponent.initialize();
 		SpearEnhanceComponent.initialize();
 		FishingRodEnhanceComponent.initialize();
+		ShearsEnhanceComponent.initialize();
+		FlintAndSteelEnhanceComponent.initialize();
+		ElytraEnhanceComponent.initialize();
 
 
 		//对原版的树叶添加食物的属性

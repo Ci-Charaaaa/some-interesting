@@ -8,7 +8,8 @@
 		"ArrowDamageAccessor",
 		"SpearMixin",
 		"FishingMixin",
-		"FishingHookAccessor"
+		"FishingHookAccessor",
+		"ElytraSpeedMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

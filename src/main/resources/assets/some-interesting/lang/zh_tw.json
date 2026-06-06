@@ -276,5 +276,64 @@
   "item.some-interesting.fishing.soulbound.damage_up": "  §a✔ 寶藏概率 +3，釣魚效率 -3",
   "item.some-interesting.fishing.soulbound.max_level": "  §e★ 已達成最高等級！",
 
+  "item.some-interesting.shears_normal_count.info": "修剪默契：%1$s / %2$s",
+
+  "item.some-interesting.shears.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.shears.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.shears.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.some-interesting.shears.adept.damage_up": "  §a✔ 默契升級",
+
+  "item.some-interesting.shears.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.shears.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.shears.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.some-interesting.shears.synchronized.damage_up": "  §a✔ 默契升級",
+
+  "item.some-interesting.shears.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.some-interesting.shears.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.shears.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.some-interesting.shears.soulbound.damage_up": "  §a✔ 默契升級",
+  "item.some-interesting.shears.soulbound.max_level": "  §e★ 已達成最高等級！",
+
+  "item.some-interesting.fs_normal_count.info": "點火默契：%1$s / %2$s",
+
+  "item.some-interesting.fs.mission": "點燃苦力怕：%1$s",
+
+  "item.some-interesting.fs.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.fs.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.fs.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.some-interesting.fs.adept.damage_up": "  §a✔ 默契升級",
+
+  "item.some-interesting.fs.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.fs.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.fs.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.some-interesting.fs.synchronized.damage_up": "  §a✔ 默契升級",
+  "item.some-interesting.fs.synchronized.creeper_hint": "  §6✦ 點燃一隻苦力怕以完成最大的使命！",
+
+  "item.some-interesting.fs.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.some-interesting.fs.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.fs.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.some-interesting.fs.soulbound.damage_up": "  §a✔ 已點燃苦力怕",
+  "item.some-interesting.fs.soulbound.max_level": "  §e★ 已達成最高等級！",
+
+  "item.some-interesting.elytra_normal_count.info": "飛行默契：%1$s / %2$s",
+
+  "item.some-interesting.elytra.speed_boost": "  §a✔ 最大飛行速度 +%1$s",
+
+  "item.some-interesting.elytra.adept.text.info": "§6✦ 你已粗通 %1$s ！",
+  "item.some-interesting.elytra.adept.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.elytra.adept.durability_up": "  §a✔ 耐久上限提升 20%%（目前：%1$s）",
+  "item.some-interesting.elytra.adept.damage_up": "  §a✔ 飛行速度 +10%%",
+
+  "item.some-interesting.elytra.synchronized.text.info": "§6✦ 你已精通 %1$s ！",
+  "item.some-interesting.elytra.synchronized.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.elytra.synchronized.durability_up": "  §a✔ 耐久上限提升 50%%（目前：%1$s）",
+  "item.some-interesting.elytra.synchronized.damage_up": "  §a✔ 飛行速度 +20%%",
+
+  "item.some-interesting.elytra.soulbound.text.info": "§6✦ 你已與 %1$s 靈魂相通 ！",
+  "item.some-interesting.elytra.soulbound.repair_reset": "  §a✔ 附魔修復懲罰已重置",
+  "item.some-interesting.elytra.soulbound.durability_up": "  §a✔ 耐久上限大幅提升 80%%（目前：%1$s）",
+  "item.some-interesting.elytra.soulbound.damage_up": "  §a✔ 飛行速度 +30%%",
+  "item.some-interesting.elytra.soulbound.max_level": "  §e★ 已達成最高等級！",
+
   "creativeTab.some-interesting": "CCChara的測試模組"
 }
