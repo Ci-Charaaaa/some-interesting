@@ -52,6 +52,7 @@ public class SomeInteresting implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 		ModItems.initialize();
 		GuiditeArmorMaterial.initialize();
+		ModBlocks.initialize();
 
 		AttackEvent.initialize();
 		RangedEvent.initialize();

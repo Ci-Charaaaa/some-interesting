@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    " / ",
+    "# #"
+  ],
+  "key": {
+    "#": "minecraft:emerald",
+    "/": "minecraft:crafting_table"
+  },
+  "result": {
+    "id": "some-interesting:upgrade_forge_table",
+    "count": 1
+  }
+}

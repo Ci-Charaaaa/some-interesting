@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "some-interesting:block/upgrade_forge_table"
+  }
+}

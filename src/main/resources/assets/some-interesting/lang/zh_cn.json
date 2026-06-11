@@ -18,6 +18,8 @@
   "item.some-interesting.synchronized":"默契",
   "item.some-interesting.soulbound":"灵魂相通",
 
+  "block.some-interesting.upgrade_forge_table": "升锻台",
+
   "item.some-interesting.normal_count.info":"攻击默契度：%1$s / %2$s",
   "item.some-interesting.super_count.info":"暴击默契度：%1$s / %2$s",
 

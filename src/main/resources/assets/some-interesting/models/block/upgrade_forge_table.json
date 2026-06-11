@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "some-interesting:block/upgrade_forge_table_bottom",
+    "up": "some-interesting:block/upgrade_forge_table_top",
+    "down": "some-interesting:block/upgrade_forge_table_bottom",
+    "north": "some-interesting:block/upgrade_forge_table_side",
+    "south": "some-interesting:block/upgrade_forge_table_side",
+    "west": "some-interesting:block/upgrade_forge_table_side",
+    "east": "some-interesting:block/upgrade_forge_table_front"
+  }
+}

@@ -62,10 +62,12 @@ public class ModItems{
                 //添加一个食物
                 output.accept(ModItems.JUMP_APPLE);
 
+
+
                 //同理添加方块
-//                // The tab builder also accepts Blocks
-//                output.accept(ModBlocks.CONDENSED_DIRT);
-//                output.accept(ModBlocks.CONDENSED_OAK_LOG);
+                //方块的物品是否添加进标签页里看先前创建实例时包不包含item
+                output.accept(ModBlocks.UPGRADE_FORGE_TABLE);
+
 
                 // 这里是描述如何添加特殊的，处理过（处理包括特殊的文本描述，自带附魔等等）的物品/方块，到标签页里
                 ItemStack stack = new ItemStack(Items.EMERALD);
@@ -122,18 +124,14 @@ public class ModItems{
 
     public static <T extends Item> T register( String name, Function<Item.Properties,T> itemFactory
             , Item.Properties settings){
-
-
         //创造注册表关联的item的键，用于注册表识别
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(SomeInteresting.MOD_ID,name));
 
         //使用item的类成员properties的setid方法，把刚才声明的键给设置成一个物品的id，等于创建物品的实例
         T item = itemFactory.apply(settings.setId(itemKey));
 
-
         //把物品注册到表里面去,BuiltInRegistries是一个静态容器类，是小注册表的注册表，也就是总目录
         Registry.register(BuiltInRegistries.ITEM,itemKey,item);
-
 
 
         return item;
