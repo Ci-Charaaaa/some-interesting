@@ -26,8 +26,6 @@ public class ModBlocks {
 
 
 
-
-
     private static Block register(String name, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties, boolean shouldRegisterItem) {
         //给方块创建一个注册用的键
         ResourceKey<Block> blockKey = keyOfBlock(name);

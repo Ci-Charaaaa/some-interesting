@@ -27,10 +27,10 @@ public record ShovelEnhanceComponent(int normal_count, boolean is_adept, boolean
             tooltip.accept(Component.translatable("item.some-interesting.shovel_normal_count.info", this.normal_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_synchronized) {
             tooltip.accept(Component.translatable("item.some-interesting.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.some-interesting.shovel_normal_count.info", this.normal_count, 960).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.shovel_normal_count.info", this.normal_count, 1200).withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_adept) {
             tooltip.accept(Component.translatable("item.some-interesting.adept").withStyle(ChatFormatting.GREEN));
-            tooltip.accept(Component.translatable("item.some-interesting.shovel_normal_count.info", this.normal_count, 240).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.shovel_normal_count.info", this.normal_count, 300).withStyle(ChatFormatting.DARK_GRAY));
         } else {
             tooltip.accept(Component.translatable("item.some-interesting.familiarizing").withStyle(ChatFormatting.DARK_GRAY));
             tooltip.accept(Component.translatable("item.some-interesting.shovel_normal_count.info", this.normal_count, 60).withStyle(ChatFormatting.DARK_GRAY));

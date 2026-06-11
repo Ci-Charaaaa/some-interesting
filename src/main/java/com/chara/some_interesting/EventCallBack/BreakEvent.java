@@ -71,7 +71,7 @@ public class BreakEvent {
 
 					if(normal_mined_count <= 60 || rare_mined_count < 0){
 						//do nothing
-					}else if (normal_mined_count <= 300 || rare_mined_count <= 3){
+					}else if (normal_mined_count <= 500 || rare_mined_count <= 3){
 						if (!is_adept){
 							//防止反复触发
 							is_adept = true;
@@ -99,7 +99,7 @@ public class BreakEvent {
                             Attack_damage_add(builder,MINING_SPEED_ID,2,heldstack,false);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
-					}else if (normal_mined_count <= 1500 || rare_mined_count <= 15){
+					}else if (normal_mined_count <= 1800 || rare_mined_count <= 18){
 
 						//判断是否已经精通
 						if(!is_synchronized){
@@ -281,7 +281,7 @@ public class BreakEvent {
 
                     if(normal_count <= 60){
                         //do nothing
-                    }else if(normal_count <= 240){
+                    }else if(normal_count <= 300){
                         //粗通
                         if(!is_adept){
                             is_adept = true;
@@ -303,7 +303,7 @@ public class BreakEvent {
 
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
-                    }else if(normal_count <= 960){
+                    }else if(normal_count <= 1200){
                         //默契
                         if(!is_synchronized){
                             is_synchronized = true;
