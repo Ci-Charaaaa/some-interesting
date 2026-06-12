@@ -308,6 +308,8 @@
   "item.some-interesting.fs.soulbound.damage_up": "  §a✔ 已点燃苦力怕",
   "item.some-interesting.fs.soulbound.max_level": "  §e★ 已达成最高等级！",
 
+  "block.some-interesting.upgrade_forge_table": "升锻台",
+
   "item.some-interesting.elytra_normal_count.info": "飞行默契：%1$s / %2$s",
 
   "item.some-interesting.elytra.speed_boost": "  §a✔ 最大飞行速度 +%1$s",

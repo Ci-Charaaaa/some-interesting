@@ -1,5 +1,6 @@
 package com.chara.some_interesting;
 
+import com.chara.some_interesting.Blocks.UpgradeForgeTableBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Function;
 
@@ -19,8 +21,8 @@ public class ModBlocks {
 
     public static final Block UPGRADE_FORGE_TABLE = register(
             "upgrade_forge_table",
-            Block::new,BlockBehaviour.Properties.of().sound(SoundType.WOOD).
-                    strength(1,4),
+            UpgradeForgeTableBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(1, 4),
             true);
 
 
@@ -41,7 +43,14 @@ public class ModBlocks {
             Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
         }
         //无item的方块
-        return Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
+        Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
+
+        // 添加方块的所有 state 到 BLOCK_STATE_REGISTRY（网络同步用）
+        for (BlockState state : block.getStateDefinition().getPossibleStates()) {
+            Block.BLOCK_STATE_REGISTRY.add(state);
+        }
+
+        return block;
     }
 
     private static ResourceKey<Block> keyOfBlock(String name) {

@@ -62,11 +62,8 @@ public class ModItems{
                 //添加一个食物
                 output.accept(ModItems.JUMP_APPLE);
 
-
-
-                //同理添加方块
-                //方块的物品是否添加进标签页里看先前创建实例时包不包含item
-                output.accept(ModBlocks.UPGRADE_FORGE_TABLE);
+                //升锻台
+                output.accept(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SomeInteresting.MOD_ID, "upgrade_forge_table")));
 
 
                 // 这里是描述如何添加特殊的，处理过（处理包括特殊的文本描述，自带附魔等等）的物品/方块，到标签页里
