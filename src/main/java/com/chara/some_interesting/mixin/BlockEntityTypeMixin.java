@@ -31,7 +31,7 @@ public class BlockEntityTypeMixin {
                     new Class<?>[]{supplierCls},
                     (p, m, a) -> new UpgradeForgeTableEntity((BlockPos) a[0], (BlockState) a[1]));
 
-            // 直接调私有构造器，跳过 register() → 无 datafixer 调用
+            //直接调私有构造器，跳过register()→无datafixer调用
             Constructor ctor = BlockEntityType.class.getDeclaredConstructors()[0];
             ctor.setAccessible(true);
             BlockEntityType type = (BlockEntityType) ctor.newInstance(supplier, Set.of(ModBlocks.UPGRADE_FORGE_TABLE));

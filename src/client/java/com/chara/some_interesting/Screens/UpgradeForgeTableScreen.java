@@ -31,17 +31,17 @@ public class UpgradeForgeTableScreen extends AbstractContainerScreen<UpgradeForg
                 this.imageWidth, this.imageHeight,
                 256, 256);
 
-        // 绘制工具格的深色背景 + 边框（模拟 Slot 立体凹陷效果）
+        //绘制工具格的深色背景 + 边框（模拟 Slot 立体凹陷效果）
         int x = this.leftPos + TOOL_X;
         int y = this.topPos + TOOL_Y;
         int w = SLOT_SIZE, h = SLOT_SIZE;
 
-        // 背景
+        //背景
         graphics.fill(x, y, x + w, y + h, 0xFF8B8B8B);
-        // 上/左边框（暗色——凹陷区域顶部的阴影）
+        //上/左边框（暗色——凹陷区域顶部的阴影）
         graphics.fill(x, y, x + w, y + 1, 0xFF373737);
         graphics.fill(x, y, x + 1, y + h, 0xFF373737);
-        // 下/右边框（亮色——凹陷区域底边的反光）
+        //下/右边框（亮色——凹陷区域底边的反光）
         graphics.fill(x, y + h - 1, x + w, y + h, 0xFFFFFFFF);
         graphics.fill(x + w - 1, y, x + w, y + h, 0xFFFFFFFF);
     }
