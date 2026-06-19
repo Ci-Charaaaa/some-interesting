@@ -65,6 +65,9 @@ public class ModItems{
                 //升锻台
                 output.accept(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SomeInteresting.MOD_ID, "upgrade_forge_table")));
 
+                //绑定石
+                output.accept(ModItems.BINDING_STONE);
+
 
                 // 这里是描述如何添加特殊的，处理过（处理包括特殊的文本描述，自带附魔等等）的物品/方块，到标签页里
                 ItemStack stack = new ItemStack(Items.EMERALD);
@@ -105,6 +108,8 @@ public class ModItems{
     //这是全局声明一个新的物品实例，Item::new是Item的构造器，
     //其传参和返回值与Function<Item.properties,T>一致，所以直接把构造器当接口实现用了，
     public static final Item USELESS_ITEM = register("useless_item",Item::new,new Item.Properties());
+
+    public static final Item BINDING_STONE = register("binding_stone",BindingStoneItem::new,new Item.Properties().stacksTo(16));
 
     //创建一个食物物品，后面属性使用food，food()传入直接新建的foodProper，也可以自定义两个组件，一个基础组件，一个特殊效果组件传入
     public static final Item JUMP_APPLE = register("jump_apple",Item::new,new Item.Properties().food(JUMP_APPLE_CONTENT,JUMP_APPLE_CONSUMABLE_CONTENT));

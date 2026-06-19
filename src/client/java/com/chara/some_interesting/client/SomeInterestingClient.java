@@ -9,5 +9,6 @@ public class SomeInterestingClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         MenuScreens.register(ModMenuType.UPGRADE_FORGE_TABLE_MENU_TYPE, UpgradeForgeTableScreen::new);
+        ModKeyBindings.initialize();
     }
 }

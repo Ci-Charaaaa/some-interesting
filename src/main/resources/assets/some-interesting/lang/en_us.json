@@ -339,5 +339,13 @@
   "item.some-interesting.elytra.soulbound.damage_up": "  §a✔ Flight Speed +30%%",
   "item.some-interesting.elytra.soulbound.max_level": "  §e★ Max level reached!",
 
+  "key.some-interesting.open_blank_screen": "Open Screen",
+  "screen.some-interesting.blank": "Blank Screen",
+
+  "item.some-interesting.binding_stone": "Binding Stone",
+  "item.some-interesting.binding_stone.success": "§6✦ Successfully bound %1$s to your soul!",
+  "item.some-interesting.binding_stone.fail_empty": "§c✖ Off-hand is empty!",
+  "item.some-interesting.binding_stone.fail_not_soulbound": "§c✖ Off-hand item has not reached Soulbound level!",
+
   "creativeTab.some-interesting": "CCChara's Test Mod"
 }

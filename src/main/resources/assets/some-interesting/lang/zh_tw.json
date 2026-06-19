@@ -339,5 +339,13 @@
   "item.some-interesting.elytra.soulbound.damage_up": "  §a✔ 飛行速度 +30%%",
   "item.some-interesting.elytra.soulbound.max_level": "  §e★ 已達成最高等級！",
 
+  "key.some-interesting.open_blank_screen": "打開介面",
+  "screen.some-interesting.blank": "空白介面",
+
+  "item.some-interesting.binding_stone": "綁定石",
+  "item.some-interesting.binding_stone.success": "§6✦ 成功將 %1$s 綁定至靈魂！",
+  "item.some-interesting.binding_stone.fail_empty": "§c✖ 副手沒有物品！",
+  "item.some-interesting.binding_stone.fail_not_soulbound": "§c✖ 副手物品尚未達到靈魂相通！",
+
   "creativeTab.some-interesting": "CCChara的測試模組"
 }
