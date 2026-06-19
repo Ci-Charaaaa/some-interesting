@@ -347,12 +347,12 @@
   "screen.some-interesting.cooldown": "§c✖ Crafting on cooldown, %1$s hours %2$s minutes remaining",
 
   "screen.some-interesting.intro.title": "§6§l========== Soul Binding System ==========",
-  "screen.some-interesting.intro.bind": "§e[Bind] §fMain hand: §6Binding Stone§f, Off-hand: §bSoulbound§f item, right-click to bind",
+  "screen.some-interesting.intro.bind": "§e[Bind] §fMain hand: §6Binding Dust§f, Off-hand: §bSoulbound§f item, right-click to bind",
   "screen.some-interesting.intro.select": "§e[Select] §f§aClick§f a bound item on the left panel to select it",
   "screen.some-interesting.intro.craft": "§e[Craft] §fPlace matching crafting materials in the right grid",
   "screen.some-interesting.intro.result": "§e[Result] §fOutput: §bfull durability§f copy with §denchantments§f, §dname§f & §dproficiency§f preserved",
 
-  "item.some-interesting.binding_stone": "Binding Stone",
+  "item.some-interesting.binding_stone": "Binding Dust",
   "item.some-interesting.binding_stone.success": "§6✦ Successfully bound %1$s to your soul!",
   "item.some-interesting.binding_stone.fail_empty": "§c✖ Off-hand is empty!",
   "item.some-interesting.binding_stone.fail_not_soulbound": "§c✖ Off-hand item has not reached Soulbound level!",

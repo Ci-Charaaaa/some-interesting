@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EAE",
+    "ADA",
+    "EAE"
+  ],
+  "key": {
+    "E": "minecraft:emerald",
+    "A": "minecraft:amethyst_shard",
+    "D": "minecraft:diamond"
+  },
+  "result": {
+    "id": "some-interesting:binding_stone",
+    "count": 1
+  }
+}
