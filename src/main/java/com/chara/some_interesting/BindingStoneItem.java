@@ -25,6 +25,12 @@ public class BindingStoneItem extends Item {
             DataComponentType.<Boolean>builder().persistent(Codec.BOOL).build()
     );
 
+    public static final DataComponentType<Long> BIND_TIME = Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            Identifier.fromNamespaceAndPath(SomeInteresting.MOD_ID, "bind_time"),
+            DataComponentType.<Long>builder().persistent(Codec.LONG).build()
+    );
+
     public BindingStoneItem(Properties properties) {
         super(properties);
     }
@@ -61,6 +67,7 @@ public class BindingStoneItem extends Item {
             String itemName = offHandStack.getHoverName().getString();
 
             offHandStack.set(SOUL_BOUND, true);
+            offHandStack.set(BIND_TIME, System.currentTimeMillis());
 
             BoundItemStorage.get().addBoundItem(serverPlayer, offHandStack);
 

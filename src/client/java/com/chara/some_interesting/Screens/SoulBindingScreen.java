@@ -1,5 +1,6 @@
 package com.chara.some_interesting.Screens;
 
+import com.chara.some_interesting.BindingStoneItem;
 import com.chara.some_interesting.Menu.SoulBindingMenu;
 import com.chara.some_interesting.SelectBoundItemPayload;
 import com.chara.some_interesting.client.ClientBoundItemData;
@@ -13,17 +14,23 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> {
 
-    private static final int ITEM_ROW_HEIGHT = 20;
+    private static final int ITEM_ROW_HEIGHT = 28;
     private static final int SLOT = 18;
     private static final int GRID_X = 190, GRID_Y = 18;
     private static final int RESULT_X = 270, RESULT_Y = 36;
     private static final int INV_X = 89, INV_Y = 148, HOTBAR_Y = 206;
+    private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private int selectedIndex = -1;
+    private int scrollOffset = 0;
 
     public SoulBindingScreen(SoulBindingMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, 340, 230);
@@ -45,28 +52,44 @@ public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean bl) {
         List<ItemStack> items = ClientBoundItemData.getBoundItems();
-        int maxItems = Math.min(items.size(), 5);
+        int maxVisible = 4;
+        int visibleCount = Math.min(items.size() - scrollOffset, maxVisible);
         int startY = this.topPos + 20;
 
-        for (int i = 0; i < maxItems; i++) {
+        for (int i = 0; i < visibleCount; i++) {
             int itemX = this.leftPos + 8;
             int itemY = startY + i * ITEM_ROW_HEIGHT;
             if (event.x() >= itemX && event.x() < itemX + 170
-                    && event.y() >= itemY && event.y() < itemY + 18) {
-                selectedIndex = i;
-                ClientPlayNetworking.send(new SelectBoundItemPayload(i));
+                    && event.y() >= itemY && event.y() < itemY + ITEM_ROW_HEIGHT - 2) {
+                selectedIndex = scrollOffset + i;
+                ClientPlayNetworking.send(new SelectBoundItemPayload(selectedIndex));
                 return true;
             }
         }
         return super.mouseClicked(event, bl);
     }
 
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        int panelLeft = this.leftPos;
+        int panelRight = this.leftPos + 180;
+        int panelTop = this.topPos;
+        int panelBottom = this.topPos + 132;
+
+        if (mouseX >= panelLeft && mouseX < panelRight && mouseY >= panelTop && mouseY < panelBottom) {
+            int maxOffset = Math.max(0, ClientBoundItemData.getBoundItems().size() - 4);
+            scrollOffset = Math.max(0, Math.min(maxOffset, scrollOffset - (int) verticalAmount));
+            return true;
+        }
+        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+    }
+
     private void drawSlotBg(GuiGraphicsExtractor g, int sx, int sy) {
-        g.fill(sx, sy, sx + SLOT, sy + SLOT, 0xFF1A1A1A);
-        g.fill(sx, sy, sx + SLOT, sy + 1, 0xFF505050);
-        g.fill(sx, sy + SLOT - 1, sx + SLOT, sy + SLOT, 0xFF505050);
-        g.fill(sx, sy, sx + 1, sy + SLOT, 0xFF505050);
-        g.fill(sx + SLOT - 1, sy, sx + SLOT, sy + SLOT, 0xFF505050);
+        g.fill(sx - 1, sy - 1, sx + 17, sy + 17, 0xFF1A1A1A);
+        g.fill(sx - 1, sy - 1, sx + 17, sy, 0xFF505050);
+        g.fill(sx - 1, sy + 16, sx + 17, sy + 17, 0xFF505050);
+        g.fill(sx - 1, sy - 1, sx, sy + 17, 0xFF505050);
+        g.fill(sx + 16, sy - 1, sx + 17, sy + 17, 0xFF505050);
     }
 
     @Override
@@ -95,10 +118,12 @@ public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> 
         drawSlotBg(graphics, x + RESULT_X, y + RESULT_Y);
 
         int arrowX = x + 248;
-        int arrowY = y + 38;
-        graphics.fill(arrowX, arrowY, arrowX + 14, arrowY + 1, 0xFFAAAAAA);
-        graphics.fill(arrowX, arrowY + 1, arrowX + 14, arrowY + 2, 0xFFAAAAAA);
-        graphics.fill(arrowX + 10, arrowY - 3, arrowX + 14, arrowY + 5, 0xFFAAAAAA);
+        int arrowY = y + 44;
+        graphics.fill(arrowX, arrowY, arrowX + 8, arrowY + 2, 0xFFAAAAAA);
+        graphics.fill(arrowX + 7, arrowY - 3, arrowX + 9, arrowY + 5, 0xFFAAAAAA);
+        graphics.fill(arrowX + 9, arrowY - 2, arrowX + 11, arrowY + 4, 0xFFAAAAAA);
+        graphics.fill(arrowX + 11, arrowY - 1, arrowX + 13, arrowY + 3, 0xFFAAAAAA);
+        graphics.fill(arrowX + 13, arrowY, arrowX + 14, arrowY + 2, 0xFFAAAAAA);
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
@@ -126,41 +151,63 @@ public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> 
 
         List<ItemStack> items = ClientBoundItemData.getBoundItems();
         int startY = y + 20;
-        int maxItems = 5;
+        int maxVisible = 4;
 
         if (items.isEmpty()) {
             graphics.text(this.font,
                     Component.translatable("screen.some-interesting.blank.empty"),
                     x + 30, y + 70, 0xFF888888);
         } else {
-            for (int i = 0; i < Math.min(items.size(), maxItems); i++) {
-                ItemStack stack = items.get(i);
+            int visibleCount = Math.min(items.size() - scrollOffset, maxVisible);
+
+            for (int i = 0; i < visibleCount; i++) {
+                int actualIndex = scrollOffset + i;
+                ItemStack stack = items.get(actualIndex);
                 int itemX = x + 8;
                 int itemY = startY + i * ITEM_ROW_HEIGHT;
 
-                if (i == selectedIndex) {
-                    graphics.fill(itemX - 2, itemY - 2, itemX + 170, itemY + 18, 0x40FFD700);
+                if (actualIndex == selectedIndex) {
+                    graphics.fill(itemX - 2, itemY - 2, itemX + 170, itemY + 24, 0x40FFD700);
                     graphics.fill(itemX - 2, itemY - 2, itemX + 170, itemY - 1, 0xFFFFD700);
-                    graphics.fill(itemX - 2, itemY + 17, itemX + 170, itemY + 18, 0xFFFFD700);
-                    graphics.fill(itemX - 2, itemY - 2, itemX - 1, itemY + 18, 0xFFFFD700);
-                    graphics.fill(itemX + 169, itemY - 2, itemX + 170, itemY + 18, 0xFFFFD700);
+                    graphics.fill(itemX - 2, itemY + 23, itemX + 170, itemY + 24, 0xFFFFD700);
+                    graphics.fill(itemX - 2, itemY - 2, itemX - 1, itemY + 24, 0xFFFFD700);
+                    graphics.fill(itemX + 169, itemY - 2, itemX + 170, itemY + 24, 0xFFFFD700);
                 } else {
                     graphics.fill(itemX - 1, itemY - 1, itemX + 17, itemY + 17, 0x40FFFFFF);
                 }
 
                 graphics.item(stack, itemX, itemY);
                 graphics.itemDecorations(this.font, stack, itemX, itemY);
-                graphics.text(this.font, stack.getHoverName(), itemX + 22, itemY + 4, 0xFFFFFFFF);
+                graphics.text(this.font, stack.getHoverName(), itemX + 22, itemY + 1, 0xFFFFFFFF);
+
+                long bindTime = stack.getOrDefault(BindingStoneItem.BIND_TIME, 0L);
+                if (bindTime > 0) {
+                    LocalDateTime dt = LocalDateTime.ofInstant(
+                            Instant.ofEpochMilli(bindTime), ZoneId.systemDefault());
+                    String timeStr = dt.format(TIME_FMT);
+                    graphics.text(this.font, Component.literal(timeStr),
+                            itemX + 22, itemY + 13, 0xFF666666);
+                }
 
                 if (mouseX >= itemX && mouseX < itemX + 16 && mouseY >= itemY && mouseY < itemY + 16) {
                     graphics.setTooltipForNextFrame(this.font, stack, mouseX, mouseY);
                 }
             }
 
-            if (items.size() > maxItems) {
-                graphics.text(this.font,
-                        Component.literal("... +" + (items.size() - maxItems)),
-                        x + 60, startY + maxItems * ITEM_ROW_HEIGHT + 2, 0xFF888888);
+            if (items.size() > maxVisible) {
+                int end = Math.min(scrollOffset + maxVisible, items.size());
+                String pageInfo = (scrollOffset + 1) + "-" + end + " / " + items.size();
+                graphics.text(this.font, Component.literal(pageInfo),
+                        x + 8, y + 124, 0xFF888888);
+
+                if (scrollOffset > 0) {
+                    graphics.text(this.font, Component.literal("\u25B2"),
+                            x + 168, y + 18, 0xFF888888);
+                }
+                if (scrollOffset + maxVisible < items.size()) {
+                    graphics.text(this.font, Component.literal("\u25BC"),
+                            x + 168, y + 120, 0xFF888888);
+                }
             }
         }
 
