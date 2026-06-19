@@ -1,8 +1,13 @@
 package com.chara.some_interesting;
 
 import com.chara.some_interesting.component.*;
+import com.mojang.serialization.Codec;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -13,6 +18,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class BindingStoneItem extends Item {
+
+    public static final DataComponentType<Boolean> SOUL_BOUND = Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            Identifier.fromNamespaceAndPath(SomeInteresting.MOD_ID, "soul_bound"),
+            DataComponentType.<Boolean>builder().persistent(Codec.BOOL).build()
+    );
 
     public BindingStoneItem(Properties properties) {
         super(properties);
@@ -32,6 +43,13 @@ public class BindingStoneItem extends Item {
             return InteractionResult.FAIL;
         }
 
+        if (offHandStack.getOrDefault(SOUL_BOUND, false)) {
+            if (!world.isClientSide()) {
+                player.sendSystemMessage(Component.translatable("item.some-interesting.binding_stone.fail_already_bound"));
+            }
+            return InteractionResult.FAIL;
+        }
+
         if (!isSoulbound(offHandStack)) {
             if (!world.isClientSide()) {
                 player.sendSystemMessage(Component.translatable("item.some-interesting.binding_stone.fail_not_soulbound"));
@@ -39,13 +57,19 @@ public class BindingStoneItem extends Item {
             return InteractionResult.FAIL;
         }
 
-        if (!world.isClientSide()) {
+        if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             String itemName = offHandStack.getHoverName().getString();
-            player.sendSystemMessage(Component.translatable("item.some-interesting.binding_stone.success", itemName));
+
+            offHandStack.set(SOUL_BOUND, true);
+
+            BoundItemStorage.get().addBoundItem(serverPlayer, offHandStack);
 
             player.getMainHandItem().shrink(1);
 
+            player.sendSystemMessage(Component.translatable("item.some-interesting.binding_stone.success", itemName));
             world.playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
+
+            ModNetworking.syncBoundItems(serverPlayer);
         }
 
         return InteractionResult.SUCCESS;

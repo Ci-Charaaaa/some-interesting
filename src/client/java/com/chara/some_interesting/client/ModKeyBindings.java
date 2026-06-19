@@ -1,8 +1,9 @@
 package com.chara.some_interesting.client;
 
-import com.chara.some_interesting.Screens.BlankScreen;
+import com.chara.some_interesting.OpenSoulBindingPayload;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
 
@@ -23,8 +24,8 @@ public class ModKeyBindings {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (OPEN_BLANK_SCREEN.consumeClick()) {
-                if (client.screen == null) {
-                    client.setScreen(new BlankScreen());
+                if (client.screen == null && client.getConnection() != null) {
+                    ClientPlayNetworking.send(new OpenSoulBindingPayload());
                 }
             }
         });

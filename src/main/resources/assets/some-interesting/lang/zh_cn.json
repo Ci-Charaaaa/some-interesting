@@ -331,12 +331,23 @@
   "item.some-interesting.elytra.soulbound.max_level": "  §e★ 已达成最高等级！",
 
   "key.some-interesting.open_blank_screen": "打开界面",
-  "screen.some-interesting.blank": "空白界面",
+  "screen.some-interesting.blank": "灵魂绑定",
+  "screen.some-interesting.blank.empty": "暂无绑定物品",
+  "screen.some-interesting.crafting": "合成",
+  "screen.some-interesting.select_hint": "请先选择左侧物品",
+  "screen.some-interesting.cooldown": "§c✖ 该物品合成冷却中，剩余 %1$s 小时 %2$s 分钟",
+
+  "screen.some-interesting.intro.title": "§6§l========== 灵魂绑定系统 ==========",
+  "screen.some-interesting.intro.bind": "§e[绑定] §f主手持§6绑定石§f，副手持§b灵魂相通§f的物品，右键完成绑定",
+  "screen.some-interesting.intro.select": "§e[选择] §f在左侧面板§a点击§f已绑定的物品进行选中",
+  "screen.some-interesting.intro.craft": "§e[合成] §f在右侧合成表中放入对应的合成材料",
+  "screen.some-interesting.intro.result": "§e[产物] §f合成出§b满耐久§f且保留§d附魔§f、§d名称§f、§d熟练度§f的全新副本",
 
   "item.some-interesting.binding_stone": "绑定石",
   "item.some-interesting.binding_stone.success": "§6✦ 成功将 %1$s 绑定至灵魂！",
   "item.some-interesting.binding_stone.fail_empty": "§c✖ 副手没有物品！",
   "item.some-interesting.binding_stone.fail_not_soulbound": "§c✖ 副手物品尚未达到灵魂相通！",
+  "item.some-interesting.binding_stone.fail_already_bound": "§c✖ 该物品已被灵魂绑定，无法再次绑定！",
 
   "creativeTab.some-interesting":"CCChara的测试模组"
 }

@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.MenuType;
 
 public class ModMenuType {
     public static final MenuType<UpgradeForgeTableMenu> UPGRADE_FORGE_TABLE_MENU_TYPE = register("upgrade_forge_table", UpgradeForgeTableMenu::new);
+    public static final MenuType<SoulBindingMenu> SOUL_BINDING_MENU_TYPE = register("soul_binding", SoulBindingMenu::new);
 
     public static <T extends AbstractContainerMenu> MenuType<T> register(
             String name,

@@ -62,6 +62,8 @@ public class SomeInteresting implements ModInitializer {
 		ShearsEvent.initialize();
 		ElytraEvent.initialize();
 
+		ModNetworking.initialize();
+
 		PickaxeEnhanceComponent.initialize();
 		SwordsEnhanceComponent.initialize();
 		AxeEnhanceComponent.initialize();
