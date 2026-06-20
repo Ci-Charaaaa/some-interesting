@@ -8,6 +8,7 @@ import com.chara.some_interesting.EventCallBack.RightEvent;
 import com.chara.some_interesting.EventCallBack.ShearsEvent;
 import com.chara.some_interesting.EventCallBack.ElytraEvent;
 import com.chara.some_interesting.component.*;
+import com.chara.some_interesting.config.ModConfigLoader;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -50,6 +51,7 @@ public class SomeInteresting implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
+		ModConfigLoader.load();
 		ModItems.initialize();
 		GuiditeArmorMaterial.initialize();
 		ModBlocks.initialize();

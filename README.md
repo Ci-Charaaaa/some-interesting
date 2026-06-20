@@ -1,9 +1,81 @@
-# Test Mod
+# Some Interesting
 
-## Setup
+一个 Minecraft Fabric 模组，为工具、武器和护甲添加了"武器熟练度"成长系统，以及灵魂绑定复制机制。
 
-For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
+## 功能一览
 
-## License
+### 绿宝石装备
+- 一整套绿宝石工具（剑、镐、斧、铲、锄）
+- 一整套绿宝石护甲（头盔、胸甲、护腿、靴子）
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+### 武器熟练度系统
+通过使用工具/武器/护甲积累经验，逐步解锁强化等级：
+
+| 等级 | 效果 |
+|------|------|
+| 初识 | 开始积累使用次数 |
+| 粗通 | 耐久 +20%，附魔修复惩罚重置，额外属性加成 |
+| 精通 | 耐久 +50%，更高的属性加成 |
+| 灵魂相通 | 耐久 +80%，最高属性加成，可使用灵魂绑定系统 |
+
+支持的装备类型：剑、镐、斧、铲、锄、弓、弩、护甲、盾牌、三叉戟、锤、矛、钓鱼竿、剪刀、打火石、鞘翅（共 16 种）
+
+### 灵魂绑定系统
+- **绑定粉**：使用绿宝石、钻石和紫水晶碎片合成
+- **绑定方式**：主手持绑定粉，副手持灵魂相通的装备，右键绑定
+- **灵魂绑定界面**（快捷键 K，可在设置中自定义）：
+  - 左侧面板展示所有已绑定物品（含绑定时间）
+  - 右侧合成台可用原版材料合成绑定物品的副本
+  - 副本保留原物品的附魔、名称和熟练度等级，且为满耐久
+  - 每件绑定物品 24 小时冷却，同一物品不可重复绑定
+- 无合成配方的物品（三叉戟、鞘翅等）绑定后仅作装饰/纪念
+
+### 升锻台
+可将低级工具升级为高级工具，保留附魔和熟练度数据。
+
+### 其他
+- 树叶可食用（金合欢树叶食用后中毒）
+- 跳跃苹果（食用后获得跳跃提升效果）
+
+## 安装
+
+1. 安装 [Fabric Loader](https://fabricmc.net/use/installer/) (>= 0.19.2)
+2. 安装 [Fabric API](https://modrinth.com/mod/fabric-api)
+3. 将模组 JAR 文件放入 `.minecraft/mods/` 目录
+4. 启动游戏
+
+### 支持版本
+
+| 分支          | Minecraft 版本 |
+|-------------|-------------|
+| main        | 26.1 |
+| branch26.2  | 26.2 |
+
+## 使用指南
+
+### 快速开始
+1. 正常游玩，使用工具/武器/护甲积累熟练度
+2. 物品 Tooltip 会显示当前等级和进度
+3. 达到"灵魂相通"后，合成绑定粉进行绑定
+4. 按 K 键打开灵魂绑定界面，选择物品后放入合成材料即可复制
+
+### 绑定粉合成配方
+```
+绿宝石  紫水晶碎片  绿宝石
+紫水晶碎片  钻石  紫水晶碎片
+绿宝石  紫水晶碎片  绿宝石
+```
+
+## 从源码构建
+
+```bash
+git clone <仓库地址>
+cd some-interesting-26.1.1
+./gradlew build
+```
+
+构建产物在 `build/libs/` 目录下。
+
+## 许可证
+
+本项目使用 [Apache 2.0](LICENSE) 许可证。

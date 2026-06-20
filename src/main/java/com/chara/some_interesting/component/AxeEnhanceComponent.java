@@ -1,6 +1,7 @@
 package com.chara.some_interesting.component;
 
 import com.chara.some_interesting.SomeInteresting;
+import com.chara.some_interesting.config.ModConfig;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
@@ -22,22 +23,23 @@ public record AxeEnhanceComponent(int normal_count, int super_count, boolean is_
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag, DataComponentGetter components) {
+        var cfg = ModConfig.get().axe;
         if (is_soulbound) {
             tooltip.accept(Component.translatable("item.some-interesting.soulbound").withStyle(ChatFormatting.GOLD));
             tooltip.accept(Component.translatable("item.some-interesting.axe_normal_count.info", this.normal_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
             tooltip.accept(Component.translatable("item.some-interesting.axe_super_count.info", this.super_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_synchronized) {
             tooltip.accept(Component.translatable("item.some-interesting.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.some-interesting.axe_normal_count.info", this.normal_count, 400).withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.axe_super_count.info", this.super_count, 40).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.axe_normal_count.info", this.normal_count, cfg.soulNormal).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.axe_super_count.info", this.super_count, cfg.soulSuper).withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_adept) {
             tooltip.accept(Component.translatable("item.some-interesting.adept").withStyle(ChatFormatting.GREEN));
-            tooltip.accept(Component.translatable("item.some-interesting.axe_normal_count.info", this.normal_count, 120).withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.axe_super_count.info", this.super_count, 12).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.axe_normal_count.info", this.normal_count, cfg.syncNormal).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.axe_super_count.info", this.super_count, cfg.syncSuper).withStyle(ChatFormatting.DARK_GRAY));
         } else {
             tooltip.accept(Component.translatable("item.some-interesting.familiarizing").withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.axe_normal_count.info", this.normal_count, 30).withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.axe_super_count.info", this.super_count, 3).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.axe_normal_count.info", this.normal_count, cfg.adeptNormal).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.axe_super_count.info", this.super_count, cfg.adeptSuper).withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 

@@ -1,6 +1,7 @@
 package com.chara.some_interesting.mixin;
 
 import com.chara.some_interesting.component.ElytraEnhanceComponent;
+import com.chara.some_interesting.config.ModConfig;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -26,13 +27,12 @@ public class ElytraSpeedMixin {
                 new ElytraEnhanceComponent(0, false, false, false));
 
         double boost = 0;
-        if (comp.is_soulbound()) boost = 0.03;
-        else if (comp.is_synchronized()) boost = 0.02;
-        else if (comp.is_adept()) boost = 0.01;
+        if (comp.is_soulbound()) boost = ModConfig.get().elytra.soulSpeedBonus;
+        else if (comp.is_synchronized()) boost = ModConfig.get().elytra.syncSpeedBonus;
+        else if (comp.is_adept()) boost = ModConfig.get().elytra.adeptSpeedBonus;
 
         if (boost > 0) {
             Vec3 original = cir.getReturnValue();
-            // 缩放速度以抵消部分空气阻力 → 火箭推力更持久，极限速度更高
             cir.setReturnValue(original.scale(1.0 + boost));
         }
     }

@@ -1,6 +1,7 @@
 package com.chara.some_interesting.EventCallBack;
 
 import com.chara.some_interesting.component.ShearsEnhanceComponent;
+import com.chara.some_interesting.config.ModConfig;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.core.component.DataComponents;
@@ -35,7 +36,6 @@ public class ShearsEvent {
     }
 
     public static void initialize() {
-        //方块破坏
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, entity) -> {
             if (world.isClientSide()) return;
             ItemStack held = player.getMainHandItem();
@@ -43,7 +43,6 @@ public class ShearsEvent {
             checkAndUpgrade(player, held, world);
         });
 
-        //实体交互
         UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (world.isClientSide()) return InteractionResult.PASS;
             ItemStack held = player.getItemInHand(hand);
@@ -61,6 +60,7 @@ public class ShearsEvent {
     }
 
     private static void checkAndUpgrade(Player player, ItemStack heldstack, Level world) {
+        var cfg = ModConfig.get().shears;
         ShearsEnhanceComponent comp = heldstack.getOrDefault(
                 ShearsEnhanceComponent.SHEARS_PROFICIENCY_COMPONENT,
                 new ShearsEnhanceComponent(0, false, false, false));
@@ -74,9 +74,9 @@ public class ShearsEvent {
         heldstack.set(ShearsEnhanceComponent.SHEARS_PROFICIENCY_COMPONENT,
                 new ShearsEnhanceComponent(normal, ad, sy, so));
 
-        boolean na = !ad && normal >= 60;
-        boolean ns = !sy && normal >= 180;
-        boolean nl = !so && normal >= 500;
+        boolean na = !ad && normal >= cfg.adeptThreshold;
+        boolean ns = !sy && normal >= cfg.syncThreshold;
+        boolean nl = !so && normal >= cfg.soulThreshold;
         if (!na && !ns && !nl) return;
 
         if (!(world instanceof ServerLevel serverLevel)) return;
@@ -86,21 +86,21 @@ public class ShearsEvent {
         if (nl) {
             heldstack.set(ShearsEnhanceComponent.SHEARS_PROFICIENCY_COMPONENT,
                     new ShearsEnhanceComponent(normal, true, true, true));
-            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.8));
+            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * cfg.soulDurability));
             heldstack.set(DataComponents.REPAIR_COST, 0);
-            upgrade_text(player, "shears", "soulbound", name, "max_level", (int)(md * 1.8));
+            upgrade_text(player, "shears", "soulbound", name, "max_level", (int)(md * cfg.soulDurability));
         } else if (ns) {
             heldstack.set(ShearsEnhanceComponent.SHEARS_PROFICIENCY_COMPONENT,
                     new ShearsEnhanceComponent(normal, ad, true, so));
-            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.5));
+            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * cfg.syncDurability));
             heldstack.set(DataComponents.REPAIR_COST, 0);
-            upgrade_text(player, "shears", "synchronized", name, (int)(md * 1.5));
+            upgrade_text(player, "shears", "synchronized", name, (int)(md * cfg.syncDurability));
         } else {
             heldstack.set(ShearsEnhanceComponent.SHEARS_PROFICIENCY_COMPONENT,
                     new ShearsEnhanceComponent(normal, true, sy, so));
-            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.2));
+            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * cfg.adeptDurability));
             heldstack.set(DataComponents.REPAIR_COST, 0);
-            upgrade_text(player, "shears", "adept", name, (int)(md * 1.2));
+            upgrade_text(player, "shears", "adept", name, (int)(md * cfg.adeptDurability));
         }
     }
 }
