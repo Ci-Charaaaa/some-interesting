@@ -351,12 +351,14 @@
   "screen.some-interesting.intro.select": "§e[選擇] §f在左側面板§a點擊§f已綁定的物品進行選中",
   "screen.some-interesting.intro.craft": "§e[合成] §f在右側合成表中放入對應的合成材料",
   "screen.some-interesting.intro.result": "§e[產物] §f合成出§b滿耐久§f且保留§d附魔§f、§d名稱§f、§d熟練度§f的全新副本",
+  "screen.some-interesting.intro.note": "§7[備註] §f無合成配方的物品（三叉戟、鞘翅等）綁定後僅作裝飾/紀念",
 
   "item.some-interesting.binding_stone": "綁定粉",
   "item.some-interesting.binding_stone.success": "§6✦ 成功將 %1$s 綁定至靈魂！",
   "item.some-interesting.binding_stone.fail_empty": "§c✖ 副手沒有物品！",
   "item.some-interesting.binding_stone.fail_not_soulbound": "§c✖ 副手物品尚未達到靈魂相通！",
   "item.some-interesting.binding_stone.fail_already_bound": "§c✖ 該物品已被靈魂綁定，無法再次綁定！",
+  "item.some-interesting.binding_stone.hint_no_recipe": "§7提示：若該物品無合成配方（如三叉戟、鞘翅等），綁定僅作裝飾/紀念用途",
 
   "creativeTab.some-interesting": "CCChara的測試模組"
 }

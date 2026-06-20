@@ -74,6 +74,7 @@ public class BindingStoneItem extends Item {
             player.getMainHandItem().shrink(1);
 
             player.sendSystemMessage(Component.translatable("item.some-interesting.binding_stone.success", itemName));
+            player.sendSystemMessage(Component.translatable("item.some-interesting.binding_stone.hint_no_recipe"));
             world.playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
 
             ModNetworking.syncBoundItems(serverPlayer);

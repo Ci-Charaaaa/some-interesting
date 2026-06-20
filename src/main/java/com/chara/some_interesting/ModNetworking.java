@@ -45,6 +45,7 @@ public class ModNetworking {
                 player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.select"));
                 player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.craft"));
                 player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.result"));
+                player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.note"));
             }
 
             player.openMenu(new SimpleMenuProvider(

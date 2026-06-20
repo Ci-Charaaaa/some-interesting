@@ -3,7 +3,7 @@
 	"id": "some-interesting",
 	"version": "${version}",
 	"name": "Some interesting",
-	"description": "一些奇思妙想，添加了一套绿宝石工具与护甲",
+	"description": "Adds emerald gear & proficiency (items grow with use). Upgrade Forge swaps materials (stone→iron). K-key UI & Binding Stones/Powder track items with timestamps. Craft bound items free every 24h to prevent loss. Early testing",
 	"authors": [
 		"CCiChara"
 	],
