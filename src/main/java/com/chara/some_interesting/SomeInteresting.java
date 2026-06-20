@@ -9,6 +9,7 @@ import com.chara.some_interesting.EventCallBack.ShearsEvent;
 import com.chara.some_interesting.EventCallBack.ElytraEvent;
 import com.chara.some_interesting.ModBlockEntities.UpgradeForgeTableEntity;
 import com.chara.some_interesting.component.*;
+import com.chara.some_interesting.config.ModConfigLoader;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -58,6 +59,7 @@ public class SomeInteresting implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
+		ModConfigLoader.load();
 		ModItems.initialize();
 		GuiditeArmorMaterial.initialize();
 		ModBlocks.initialize();

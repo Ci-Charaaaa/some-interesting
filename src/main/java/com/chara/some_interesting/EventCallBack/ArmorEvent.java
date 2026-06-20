@@ -2,6 +2,7 @@ package com.chara.some_interesting.EventCallBack;
 
 import com.chara.some_interesting.component.ArmorEnhanceComponent;
 import com.chara.some_interesting.component.ShieldEnhanceComponent;
+import com.chara.some_interesting.config.ModConfig;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.core.component.DataComponents;
@@ -29,12 +30,6 @@ public class ArmorEvent {
     private static final Identifier ARMOR_PRO = Identifier.fromNamespaceAndPath("some-interesting", "armor_protection");
     private static final Identifier ARMOR_TGH = Identifier.fromNamespaceAndPath("some-interesting", "armor_toughness");
     private static final Identifier SHIELD_KNOCK = Identifier.fromNamespaceAndPath("some-interesting", "shield_knockback");
-    private static final int TH_ADEPT = 200;
-    private static final int TH_SYNC  = 800;
-    private static final int TH_SOUL  = 2000;
-    private static final int SH_ADEPT = 60;
-    private static final int SH_SYNC = 200;
-    private static final int SH_SOUL = 500;
 
     public static void initialize() {
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
@@ -54,7 +49,6 @@ public class ArmorEvent {
                 }
                 lastHealth.put(uid, current);
 
-                //盾牌追踪：检测持盾时耐久度是否下降（表示成功格挡了伤害）
                 ItemStack shield = player.isBlocking() && player.getOffhandItem().is(Items.SHIELD)
                         ? player.getOffhandItem()
                         : player.isBlocking() && player.getMainHandItem().is(Items.SHIELD)
@@ -74,6 +68,7 @@ public class ArmorEvent {
     }
 
     private static void shieldUpgrade(ServerPlayer player, Level world, ItemStack shield) {
+        var cfg = ModConfig.get().shield;
         ShieldEnhanceComponent comp = shield.getOrDefault(
                 ShieldEnhanceComponent.SHIELD_PROFICIENCY_COMPONENT,
                 new ShieldEnhanceComponent(0, false, false, false));
@@ -86,9 +81,9 @@ public class ArmorEvent {
         shield.set(ShieldEnhanceComponent.SHIELD_PROFICIENCY_COMPONENT,
                 new ShieldEnhanceComponent(dt, ad, sy, so));
 
-        boolean na = !ad && dt >= SH_ADEPT;
-        boolean ns = !sy && dt >= SH_SYNC;
-        boolean nl = !so && dt >= SH_SOUL;
+        boolean na = !ad && dt >= cfg.adeptThreshold;
+        boolean ns = !sy && dt >= cfg.syncThreshold;
+        boolean nl = !so && dt >= cfg.soulThreshold;
         if (!na && !ns && !nl) return;
 
         out_sound(world, player);
@@ -97,24 +92,24 @@ public class ArmorEvent {
         if (nl) {
             shield.set(ShieldEnhanceComponent.SHIELD_PROFICIENCY_COMPONENT,
                     new ShieldEnhanceComponent(dt, true, true, true));
-            shield.set(DataComponents.MAX_DAMAGE, (int)(md * 1.8));
+            shield.set(DataComponents.MAX_DAMAGE, (int)(md * cfg.soulDurability));
             shield.set(DataComponents.REPAIR_COST, 0);
-            applyShieldModifier(shield, SHIELD_KNOCK, 0.4);
-            upgrade_text(player, "shield", "soulbound", name, "max_level", (int)(md * 1.8));
+            applyShieldModifier(shield, SHIELD_KNOCK, cfg.soulKnockbackResist);
+            upgrade_text(player, "shield", "soulbound", name, "max_level", (int)(md * cfg.soulDurability), cfg.soulKnockbackResist);
         } else if (ns) {
             shield.set(ShieldEnhanceComponent.SHIELD_PROFICIENCY_COMPONENT,
                     new ShieldEnhanceComponent(dt, true, true, false));
-            shield.set(DataComponents.MAX_DAMAGE, (int)(md * 1.5));
+            shield.set(DataComponents.MAX_DAMAGE, (int)(md * cfg.syncDurability));
             shield.set(DataComponents.REPAIR_COST, 0);
-            applyShieldModifier(shield, SHIELD_KNOCK, 0.2);
-            upgrade_text(player, "shield", "synchronized", name, (int)(md * 1.5));
+            applyShieldModifier(shield, SHIELD_KNOCK, cfg.syncKnockbackResist);
+            upgrade_text(player, "shield", "synchronized", name, (int)(md * cfg.syncDurability), cfg.syncKnockbackResist);
         } else if (na) {
             shield.set(ShieldEnhanceComponent.SHIELD_PROFICIENCY_COMPONENT,
                     new ShieldEnhanceComponent(dt, true, false, false));
-            shield.set(DataComponents.MAX_DAMAGE, (int)(md * 1.2));
+            shield.set(DataComponents.MAX_DAMAGE, (int)(md * cfg.adeptDurability));
             shield.set(DataComponents.REPAIR_COST, 0);
-            applyShieldModifier(shield, SHIELD_KNOCK, 0.1);
-            upgrade_text(player, "shield", "adept", name, (int)(md * 1.2));
+            applyShieldModifier(shield, SHIELD_KNOCK, cfg.adeptKnockbackResist);
+            upgrade_text(player, "shield", "adept", name, (int)(md * cfg.adeptDurability), cfg.adeptKnockbackResist);
         }
     }
 
@@ -128,12 +123,13 @@ public class ArmorEvent {
             }
         }
         builder.add(Attributes.KNOCKBACK_RESISTANCE,
-                new AttributeModifier(id, knockback, AttributeModifier.Operation.ADD_VALUE),
+                new AttributeModifier(id, knockback, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                 EquipmentSlotGroup.ANY);
         shield.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
     }
 
     private static void armorUpgrade(ServerPlayer player, Level world) {
+        var cfg = ModConfig.get().armor;
         EquipmentSlot[] armorSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
         for (EquipmentSlot slot : armorSlots) {
             ItemStack armor = player.getItemBySlot(slot);
@@ -152,9 +148,9 @@ public class ArmorEvent {
             armor.set(ArmorEnhanceComponent.ARMOR_PROFICIENCY_COMPONENT,
                     new ArmorEnhanceComponent(dt, ad, sy, so));
 
-            boolean needAdept = !ad && dt >= TH_ADEPT;
-            boolean needSync  = !sy && dt >= TH_SYNC;
-            boolean needSoul  = !so && dt >= TH_SOUL;
+            boolean needAdept = !ad && dt >= cfg.adeptThreshold;
+            boolean needSync  = !sy && dt >= cfg.syncThreshold;
+            boolean needSoul  = !so && dt >= cfg.soulThreshold;
 
             if (!needAdept && !needSync && !needSoul) continue;
 
@@ -164,43 +160,44 @@ public class ArmorEvent {
             if (needSoul) {
                 armor.set(ArmorEnhanceComponent.ARMOR_PROFICIENCY_COMPONENT,
                         new ArmorEnhanceComponent(dt, true, true, true));
-                armor.set(DataComponents.MAX_DAMAGE, (int)(baseMaxDura * 1.8));
+                armor.set(DataComponents.MAX_DAMAGE, (int)(baseMaxDura * cfg.soulDurability));
                 armor.set(DataComponents.REPAIR_COST, 0);
-                applyModifier(armor, ARMOR_PRO, 4, false);
-                applyModifier(armor, ARMOR_TGH, 2, true);
-                upgrade_text(player, "armor", "soulbound", name, "max_level", (int)(baseMaxDura * 1.8));
+                applyArmorModifiers(armor, cfg.soulArmorBonus, cfg.soulToughnessBonus);
+                upgrade_text(player, "armor", "soulbound", name, "max_level", (int)(baseMaxDura * cfg.soulDurability), cfg.soulArmorBonus * 100 + "%");
             } else if (needSync) {
                 armor.set(ArmorEnhanceComponent.ARMOR_PROFICIENCY_COMPONENT,
                         new ArmorEnhanceComponent(dt, true, true, false));
-                armor.set(DataComponents.MAX_DAMAGE, (int)(baseMaxDura * 1.5));
+                armor.set(DataComponents.MAX_DAMAGE, (int)(baseMaxDura * cfg.syncDurability));
                 armor.set(DataComponents.REPAIR_COST, 0);
-                applyModifier(armor, ARMOR_PRO, 2, false);
-                applyModifier(armor, ARMOR_TGH, 1, true);
-                upgrade_text(player, "armor", "synchronized", name, (int)(baseMaxDura * 1.5));
+                applyArmorModifiers(armor, cfg.syncArmorBonus, cfg.syncToughnessBonus);
+                upgrade_text(player, "armor", "synchronized", name, (int)(baseMaxDura * cfg.syncDurability), cfg.syncArmorBonus * 100 + "%");
             } else if (needAdept) {
                 armor.set(ArmorEnhanceComponent.ARMOR_PROFICIENCY_COMPONENT,
                         new ArmorEnhanceComponent(dt, true, false, false));
-                armor.set(DataComponents.MAX_DAMAGE, (int)(baseMaxDura * 1.2));
+                armor.set(DataComponents.MAX_DAMAGE, (int)(baseMaxDura * cfg.adeptDurability));
                 armor.set(DataComponents.REPAIR_COST, 0);
-                applyModifier(armor, ARMOR_PRO, 1, false);
-                upgrade_text(player, "armor", "adept", name, (int)(baseMaxDura * 1.2));
+                applyArmorModifiers(armor, cfg.adeptArmorBonus, cfg.adeptToughnessBonus);
+                upgrade_text(player, "armor", "adept", name, (int)(baseMaxDura * cfg.adeptDurability), cfg.adeptArmorBonus * 100 + "%");
             }
         }
     }
 
-    private static void applyModifier(ItemStack armor, Identifier id, int value, boolean isTough) {
+    private static void applyArmorModifiers(ItemStack armor, double armorBonus, double toughnessBonus) {
         ItemAttributeModifiers current = armor.getOrDefault(
                 DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
 
         for (ItemAttributeModifiers.Entry entry : current.modifiers()) {
-            if (!entry.modifier().id().equals(id)) {
+            if (!entry.modifier().id().equals(ARMOR_PRO) && !entry.modifier().id().equals(ARMOR_TGH)) {
                 builder.add(entry.attribute(), entry.modifier(), entry.slot());
             }
         }
 
-        builder.add(isTough ? Attributes.ARMOR_TOUGHNESS : Attributes.ARMOR,
-                new AttributeModifier(id, value, AttributeModifier.Operation.ADD_VALUE),
+        builder.add(Attributes.ARMOR,
+                new AttributeModifier(ARMOR_PRO, armorBonus, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                EquipmentSlotGroup.ARMOR);
+        builder.add(Attributes.ARMOR_TOUGHNESS,
+                new AttributeModifier(ARMOR_TGH, toughnessBonus, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                 EquipmentSlotGroup.ARMOR);
 
         armor.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());

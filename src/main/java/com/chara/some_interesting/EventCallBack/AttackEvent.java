@@ -4,6 +4,7 @@ import com.chara.some_interesting.component.AxeEnhanceComponent;
 import com.chara.some_interesting.component.MaceEnhanceComponent;
 import com.chara.some_interesting.component.SwordsEnhanceComponent;
 import com.chara.some_interesting.component.TridentEnhanceComponent;
+import com.chara.some_interesting.config.ModConfig;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -32,125 +33,81 @@ public class AttackEvent {
 
     public static void initialize(){
 
-        //剑攻击逻辑
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult)->{
-            // 确保逻辑在服务端运行，且攻击的目标是个生物
             if (!world.isClientSide() && entity instanceof LivingEntity target) {
-
-                //获取玩家手上的物品
                 ItemStack heldstack = player.getMainHandItem();
 
-                // 检查玩家手里的物品
                 if (player.getItemInHand(hand).is(ItemTags.SWORDS)) {
-                    //获取高级数据组件的记录类和组件本身
+                    var cfg = ModConfig.get().sword;
                     SwordsEnhanceComponent heldComponent = heldstack.getOrDefault(
                             SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT,
                             new SwordsEnhanceComponent(0, 0,false,false,false));
 
-                    //获取两个具体的值
                     int normal_count = heldComponent.normal_count();
                     int super_count = heldComponent.super_count();
                     boolean is_adept = heldComponent.is_adept();
                     boolean is_synchronized = heldComponent.is_synchronized();
                     boolean is_soulbound = heldComponent.is_soulbound();
 
-                    //检测是否满足暴击条件
                     boolean isCrit = is_Crit(player);
-
-                    //如果满足，则对super_count加1
                     if (isCrit){
                         heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, ++super_count,is_adept,is_synchronized,is_soulbound));
                     }else{
-                        //每次自增普通攻击次数的值
                         heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(++normal_count, super_count,is_adept,is_synchronized,is_soulbound));
                     }
 
                     int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
 
-                    if(normal_count <= 30 || super_count <= 6){
-                        //do nothing
-                    } else if (normal_count <= 180 || super_count <= 20) {
+                    if(normal_count < cfg.adeptNormal || super_count < cfg.adeptSuper){
+                    } else if (normal_count < cfg.syncNormal || super_count < cfg.syncSuper) {
                         if (!is_adept){
-                            //修改为真防止反复触发
                             is_adept = true;
                             heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, super_count, true,is_synchronized, is_soulbound));
-                            //播放音效
                             out_sound(world,player);
-                            //获取物品名字（优先取自定义名，没有则用默认显示名）
                             String name = get_name(heldstack);
-                            //输出文本
-                            upgrade_text(player,"swords","adept",name,max_damage);
+                            upgrade_text(player,"swords","adept",name,max_damage, cfg.adeptDamageBonus * 100 + "%");
 
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.adeptDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
 
-                            //获取这把剑当前拥有的所有属性修饰符--属性修饰符，通过这类modifier对剑的属性进行修改
-                            ItemAttributeModifiers current = heldstack.getOrDefault(
-                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
-                            //组件算固有属性，不能动态修改，需要调用builder重新生成一个覆盖原有的
+                            ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                             ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-                            //复制原有的所有修饰符--新生成的那个只有要修改的地方与原本不同，
-                            //但是其他属性要保持不变，所以得先获取一下原有的
                             copy_original_data(current,builder,PROFICIENCY_BONUS_ID);
-                            //追加精通加成--也就是要修改的部分
-                            Attack_damage_add(builder,PROFICIENCY_BONUS_ID,0.2,heldstack,true);
+                            Attack_damage_add(builder,PROFICIENCY_BONUS_ID,cfg.adeptDamageBonus,heldstack,true);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
-                    } else if (normal_count <= 500 || super_count <= 80) {
-                        //如果发现是否精通为假，改成真的，并播放升级音效和输出文本
+                    } else if (normal_count < cfg.soulNormal || super_count < cfg.soulSuper) {
                         if (!is_synchronized) {
                             is_synchronized = true;
-                            //修改为真防止反复触发
                             heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, super_count, is_adept,true, is_soulbound));
-                            //播放音效
                             out_sound(world,player);
-                            //获取物品名字（优先取自定义名，没有则用默认显示名）
                             String name = get_name(heldstack);
-                            //输出文本
-                            upgrade_text(player,"swords","synchronized",name,max_damage);
+                            upgrade_text(player,"swords","synchronized",name,max_damage, cfg.syncDamageBonus * 100 + "%");
 
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.5));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.syncDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
 
-                            //获取这把剑当前拥有的所有属性修饰符--属性修饰符，通过这类modifier对剑的属性进行修改
-                            ItemAttributeModifiers current = heldstack.getOrDefault(
-                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
-                            //组件算固有属性，不能动态修改，需要调用builder重新生成一个覆盖原有的
+                            ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                             ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-                            //复制原有的所有修饰符--新生成的那个只有要修改的地方与原本不同，
-                            //通过if来判断过滤之前粗通修改的数值，重新从0加
                             copy_original_data(current,builder,PROFICIENCY_BONUS_ID);
-                            //追加精通加成--也就是要修改的部分
-                            Attack_damage_add(builder,PROFICIENCY_BONUS_ID,0.5,heldstack,true);
+                            Attack_damage_add(builder,PROFICIENCY_BONUS_ID,cfg.syncDamageBonus,heldstack,true);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
                     }else{
-                        //如果发现是否灵魂相通为假，改成真的，并播放升级音效和输出文本
                         if(!is_soulbound){
                             is_soulbound = true;
-                            //修改为真防止反复触发
                             heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT,new SwordsEnhanceComponent(normal_count,super_count,is_adept,is_synchronized,true));
-                            //播放音效
                             out_sound(world,player);
-                            //获取物品名字
                             String name = get_name(heldstack);
-                            //输出文本
-                            upgrade_text(player,"swords","soulbound",name,"max_level",max_damage);
+                            upgrade_text(player,"swords","soulbound",name,"max_level",max_damage, cfg.soulDamageBonus * 100 + "%");
 
-                            heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.8));
+                            heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage * cfg.soulDurability));
                             heldstack.set(DataComponents.REPAIR_COST,0);
 
-                            //获取这把剑当前拥有的所有属性修饰符--属性修饰符，通过这类modifier对剑的属性进行修改
-                            ItemAttributeModifiers current = heldstack.getOrDefault(
-                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
-                            //组件算固有属性，不能动态修改，需要调用builder重新生成一个覆盖原有的
+                            ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                             ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-                            //复制原有的所有修饰符--新生成的那个只有要修改的地方与原本不同，
-                            //但是其他属性要保持不变，所以得先获取一下原有的
-                            //通过if来判断过滤之前精通修改的数值，重新从0加
                             copy_original_data(current,builder,PROFICIENCY_BONUS_ID);
-                            //追加灵魂相通加成--也就是要修改的部分
-                            Attack_damage_add(builder,PROFICIENCY_BONUS_ID,0.8,heldstack,true);
+                            Attack_damage_add(builder,PROFICIENCY_BONUS_ID,cfg.soulDamageBonus,heldstack,true);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
                     }
@@ -159,99 +116,81 @@ public class AttackEvent {
             return InteractionResult.PASS;
         });
 
-        //重锤攻击逻辑
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult)->{
-            // 确保逻辑在服务端运行，且攻击的目标是个生物
             if (!world.isClientSide() && entity instanceof LivingEntity target) {
-
-                //获取玩家手上的物品
                 ItemStack heldstack = player.getMainHandItem();
 
-                // 检查玩家手里的物品
                 if (player.getItemInHand(hand).is(Items.MACE)) {
-                    //获取高级数据组件的记录类和组件本身
+                    var cfg = ModConfig.get().mace;
                     MaceEnhanceComponent heldComponent = heldstack.getOrDefault(
                             MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT,
                             new MaceEnhanceComponent(0, 0,false,false,false));
 
-                    //获取两个具体的值
                     int normal_count = heldComponent.normal_count();
                     int super_count = heldComponent.super_count();
                     boolean is_adept = heldComponent.is_adept();
                     boolean is_synchronized = heldComponent.is_synchronized();
                     boolean is_soulbound = heldComponent.is_soulbound();
 
-                    //检测是否满足暴击条件
                     boolean isCrit = is_Crit(player);
-
-                    //如果满足，则对super_count加1
                     if (isCrit){
                         heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(normal_count, ++super_count,is_adept,is_synchronized,is_soulbound));
                     }else{
-                        //每次自增普通攻击次数的值
                         heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(++normal_count, super_count,is_adept,is_synchronized,is_soulbound));
                     }
 
                     int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
 
-                    if(normal_count <= 18 || super_count <= 6){
-                        //do nothing
-                    } else if (normal_count <= 36 || super_count <= 30) {
+                    if(normal_count < cfg.adeptNormal || super_count < cfg.adeptSuper){
+                    } else if (normal_count < cfg.syncNormal || super_count < cfg.syncSuper) {
                         if (!is_adept){
                             is_adept = true;
                             heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(normal_count, super_count, true,is_synchronized, is_soulbound));
                             out_sound(world,player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"mace","adept",name,max_damage);
+                            upgrade_text(player,"mace","adept",name,max_damage, cfg.adeptDamageBonus * 100 + "%");
 
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.adeptDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
 
-                            ItemAttributeModifiers current = heldstack.getOrDefault(
-                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                            ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                             ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
                             copy_original_data(current,builder,MACE_DAMAGE_ID);
-                            //追加精通加成--也就是要修改的部分
-                            Attack_damage_add(builder,MACE_DAMAGE_ID,0.2,heldstack,true);
+                            Attack_damage_add(builder,MACE_DAMAGE_ID,cfg.adeptDamageBonus,heldstack,true);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
-                    } else if (normal_count <= 72 || super_count <= 90) {
+                    } else if (normal_count < cfg.soulNormal || super_count < cfg.soulSuper) {
                         if (!is_synchronized) {
                             is_synchronized = true;
                             heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(normal_count, super_count, is_adept,true, is_soulbound));
                             out_sound(world,player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"mace","synchronized",name,max_damage);
+                            upgrade_text(player,"mace","synchronized",name,max_damage, cfg.syncDamageBonus * 100 + "%");
 
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.5));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.syncDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
 
-                            ItemAttributeModifiers current = heldstack.getOrDefault(
-                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                            ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                             ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-
                             copy_original_data(current,builder,MACE_DAMAGE_ID);
-                            Attack_damage_add(builder,MACE_DAMAGE_ID,0.5,heldstack,true);
+                            Attack_damage_add(builder,MACE_DAMAGE_ID,cfg.syncDamageBonus,heldstack,true);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
                     }else{
-                        //如果发现是否灵魂相通为假，改成真的，并播放升级音效和输出文本
                         if(!is_soulbound){
                             is_soulbound = true;
                             heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT,new MaceEnhanceComponent(normal_count,super_count,is_adept,is_synchronized,true));
                             out_sound(world,player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"mace","soulbound",name,"max_level",max_damage);
+                            upgrade_text(player,"mace","soulbound",name,"max_level",max_damage, cfg.soulDamageBonus * 100 + "%");
 
-                            heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage*1.8));
+                            heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage * cfg.soulDurability));
                             heldstack.set(DataComponents.REPAIR_COST,0);
 
-                            ItemAttributeModifiers current = heldstack.getOrDefault(
-                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                            ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                             ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
                             copy_original_data(current,builder,MACE_DAMAGE_ID);
-
-                            Attack_damage_add(builder,MACE_DAMAGE_ID,0.8,heldstack,true);
+                            Attack_damage_add(builder,MACE_DAMAGE_ID,cfg.soulDamageBonus,heldstack,true);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
                     }
@@ -260,18 +199,15 @@ public class AttackEvent {
             return InteractionResult.PASS;
         });
 
-        //斧暴击
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-            //依旧判断是不是客户端和生物
             if(!world.isClientSide() && entity instanceof LivingEntity){
                 ItemStack heldstack = player.getMainHandItem();
-                //依旧判断是不是斧头
                 if(heldstack.is(ItemTags.AXES)){
-                    //依旧获取数据组件
+                    var cfg = ModConfig.get().axe;
                     AxeEnhanceComponent comp = heldstack.getOrDefault(
                             AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                             new AxeEnhanceComponent(0,0,false,false,false));
-                    //依旧拿值
+
                     int normal_count = comp.normal_count();
                     int super_count = comp.super_count();
                     boolean is_adept = comp.is_adept();
@@ -279,9 +215,7 @@ public class AttackEvent {
                     boolean is_soulbound = comp.is_soulbound();
                     int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
 
-                    //依旧暴击
                     boolean isCrit = is_Crit(player);
-
                     if(isCrit){
                         heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                 new AxeEnhanceComponent(normal_count, ++super_count, is_adept, is_synchronized, is_soulbound));
@@ -290,89 +224,78 @@ public class AttackEvent {
                                 new AxeEnhanceComponent(++normal_count, super_count, is_adept, is_synchronized, is_soulbound));
                     }
 
-
-                    if(normal_count <= 30 || super_count <= 3){
-                        //do nothing
-                    }else if(normal_count <= 120 || super_count <= 12){
-                        //粗通
+                    if(normal_count < cfg.adeptNormal || super_count < cfg.adeptSuper){
+                    }else if(normal_count < cfg.syncNormal || super_count < cfg.syncSuper){
                         if(!is_adept){
                             is_adept = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"axe","adept",name,max_damage);
+                            upgrade_text(player,"axe","adept",name,max_damage, cfg.adeptDamageBonus * 100 + "%");
 
                             heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                     new AxeEnhanceComponent(normal_count, super_count, true, is_synchronized, is_soulbound));
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.2));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * cfg.adeptDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
 
-                            ItemAttributeModifiers current = heldstack.getOrDefault(
-                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                            ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                             ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
                             copy_original_data(current,builder,AXE_DAMAGE_ID,AXE_SPEED_ID);
 
-                            Attack_damage_add(builder,AXE_DAMAGE_ID,0.1,heldstack,true);
-                            Attack_damage_add(builder,AXE_DAMAGE_ID,1,heldstack,false);
+                            Attack_damage_add(builder,AXE_DAMAGE_ID,cfg.adeptDamageBonus,heldstack,true);
+                            Attack_damage_add(builder,AXE_SPEED_ID,cfg.adeptMiningBonus,heldstack,false);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
-                    }else if(normal_count <= 400 || super_count <= 40){
-                        //默契
+                    }else if(normal_count < cfg.soulNormal || super_count < cfg.soulSuper){
                         if(!is_synchronized){
                             is_synchronized = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"axe","synchronized",name,max_damage);
+                            upgrade_text(player,"axe","synchronized",name,max_damage, cfg.syncDamageBonus * 100 + "%");
 
                             heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                     new AxeEnhanceComponent(normal_count, super_count, is_adept, true, is_soulbound));
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.5));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * cfg.syncDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
 
-                            ItemAttributeModifiers current = heldstack.getOrDefault(
-                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                            ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                             ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-
                             copy_original_data(current,builder,AXE_DAMAGE_ID,AXE_SPEED_ID);
 
-                            Attack_damage_add(builder,AXE_DAMAGE_ID,0.25,heldstack,true);
-                            Attack_damage_add(builder,AXE_DAMAGE_ID,2,heldstack,false);
+                            Attack_damage_add(builder,AXE_DAMAGE_ID,cfg.syncDamageBonus,heldstack,true);
+                            Attack_damage_add(builder,AXE_SPEED_ID,cfg.syncMiningBonus,heldstack,false);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
                     }else{
-                        //灵魂相通
                         if(!is_soulbound){
                             is_soulbound = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"axe","soulbound",name,"max_level",max_damage);
+                            upgrade_text(player,"axe","soulbound",name,"max_level",max_damage, cfg.soulDamageBonus * 100 + "%");
 
                             heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                     new AxeEnhanceComponent(normal_count, super_count, is_adept, is_synchronized, true));
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.8));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * cfg.soulDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
 
-                            ItemAttributeModifiers current = heldstack.getOrDefault(
-                                    DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                            ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                             ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
                             copy_original_data(current,builder,AXE_DAMAGE_ID,AXE_SPEED_ID);
 
-                            Attack_damage_add(builder,AXE_DAMAGE_ID,0.4,heldstack,true);
-                            Attack_damage_add(builder,AXE_DAMAGE_ID,4,heldstack,false);
+                            Attack_damage_add(builder,AXE_DAMAGE_ID,cfg.soulDamageBonus,heldstack,true);
+                            Attack_damage_add(builder,AXE_SPEED_ID,cfg.soulMiningBonus,heldstack,false);
                             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                         }
                     }
-
                 }
             }
             return InteractionResult.PASS;
         });
 
-        //三叉戟近战攻击
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if(!world.isClientSide() && entity instanceof LivingEntity target){
                 ItemStack heldstack = player.getMainHandItem();
                 if(heldstack.is(Items.TRIDENT)){
-
+                    var cfg = ModConfig.get().trident;
                     TridentEnhanceComponent comp = heldstack.getOrDefault(
                             TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                             new TridentEnhanceComponent(0, 0, false, false, false));
@@ -383,15 +306,13 @@ public class AttackEvent {
                     boolean is_soulbound = comp.is_soulbound();
                     int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE, 0);
 
-                    //普通计数+1
                     heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                             new TridentEnhanceComponent(++normal, superCnt, is_adept, is_synchronized, is_soulbound));
 
-                    //升级判定
                     int newNormal = normal + 1;
-                    boolean na = !is_adept && newNormal >= 30 && superCnt >= 6;
-                    boolean ns = !is_synchronized && newNormal >= 150 && superCnt >= 20;
-                    boolean nl = !is_soulbound && newNormal >= 450 && superCnt >= 80;
+                    boolean na = !is_adept && newNormal >= cfg.adeptNormal && superCnt >= cfg.adeptSuper;
+                    boolean ns = !is_synchronized && newNormal >= cfg.syncNormal && superCnt >= cfg.syncSuper;
+                    boolean nl = !is_soulbound && newNormal >= cfg.soulNormal && superCnt >= cfg.soulSuper;
 
                     if (!na && !ns && !nl) return InteractionResult.PASS;
 
@@ -401,43 +322,37 @@ public class AttackEvent {
                     if (nl) {
                         heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                                 new TridentEnhanceComponent(newNormal, superCnt, true, true, true));
-                        heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.8));
+                        heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * cfg.soulDurability));
                         heldstack.set(DataComponents.REPAIR_COST, 0);
-                        upgrade_text(player, "trident", "soulbound", name, "max_level", (int)(max_damage * 1.8));
+                        upgrade_text(player, "trident", "soulbound", name, "max_level", (int)(max_damage * cfg.soulDurability), cfg.soulDamageBonus * 100 + "%");
                     } else if (ns) {
                         heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                                 new TridentEnhanceComponent(newNormal, superCnt, is_adept, true, is_soulbound));
-                        heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.5));
+                        heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * cfg.syncDurability));
                         heldstack.set(DataComponents.REPAIR_COST, 0);
-                        upgrade_text(player, "trident", "synchronized", name, (int)(max_damage * 1.5));
-                    } else if (na) {
+                        upgrade_text(player, "trident", "synchronized", name, (int)(max_damage * cfg.syncDurability), cfg.syncDamageBonus * 100 + "%");
+                    } else {
                         heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                                 new TridentEnhanceComponent(newNormal, superCnt, true, is_synchronized, is_soulbound));
-                        heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * 1.2));
+                        heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * cfg.adeptDurability));
                         heldstack.set(DataComponents.REPAIR_COST, 0);
-                        upgrade_text(player, "trident", "adept", name, (int)(max_damage * 1.2));
+                        upgrade_text(player, "trident", "adept", name, (int)(max_damage * cfg.adeptDurability), cfg.adeptDamageBonus * 100 + "%");
                     }
 
-                    //伤害修饰符
-                    ItemAttributeModifiers current = heldstack.getOrDefault(
-                            DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                    ItemAttributeModifiers current = heldstack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
                     ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
                     copy_original_data(current, builder, TRIDENT_DAMAGE_ID);
 
-                    double dmgMul = nl ? 0.8 : ns ? 0.5 : na ? 0.2 : 0;
-                    if (dmgMul > 0) {
-                        builder.add(Attributes.ATTACK_DAMAGE,
-                                new AttributeModifier(TRIDENT_DAMAGE_ID, dmgMul,
-                                        AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
-                                EquipmentSlotGroup.MAINHAND);
-                        heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
-                    }
+                    double dmgMul = nl ? cfg.soulDamageBonus : ns ? cfg.syncDamageBonus : cfg.adeptDamageBonus;
+                    builder.add(Attributes.ATTACK_DAMAGE,
+                            new AttributeModifier(TRIDENT_DAMAGE_ID, dmgMul,
+                                    AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                            EquipmentSlotGroup.MAINHAND);
+                    heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
                 }
             }
             return InteractionResult.PASS;
         });
-
-
 
     }
 
@@ -448,27 +363,23 @@ public class AttackEvent {
     }
 
     public static void out_sound(Level world, Player player){
-        //播放升级音效
-        world.playSound(
-                null,
-                player.getX(), player.getY(), player.getZ(),
+        world.playSound(null, player.getX(), player.getY(), player.getZ(),
                 net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP,
-                net.minecraft.sounds.SoundSource.PLAYERS,
-                1.0F, // 音量
-                1.0F  // 音调
-        );
+                net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 1.0F);
     }
 
-    public static void upgrade_text(Player player,String type,String level,String name,String max_level,int max_damage){
-        upgrade_text(player, type, level, name, max_damage);
+    public static void upgrade_text(Player player,String type,String level,String name,String max_level,int max_damage,Object... bonusArgs){
+        upgrade_text(player, type, level, name, max_damage, bonusArgs);
         player.sendSystemMessage(Component.translatable("item.some-interesting." + type + "." + level +"." + max_level));
     }
 
-    public static void upgrade_text(Player player,String type,String level,String name,int max_damage){
+    public static void upgrade_text(Player player,String type,String level,String name,int max_damage,Object... bonusArgs){
         player.sendSystemMessage(Component.translatable("item.some-interesting." + type + "." + level +".text.info", name).withStyle(ChatFormatting.GOLD));
         player.sendSystemMessage(Component.translatable("item.some-interesting." + type + "." + level +".repair_reset"));
-        player.sendSystemMessage(Component.translatable("item.some-interesting." + type + "." + level +".durability_up", String.valueOf(max_damage)));
-        player.sendSystemMessage(Component.translatable("item.some-interesting." + type + "." + level +".damage_up"));
+        player.sendSystemMessage(Component.translatable("item.some-interesting." + type + "." + level +".durability_up", "\u00a7a" + max_damage));
+        Object[] colored = new Object[bonusArgs.length];
+        for (int i = 0; i < bonusArgs.length; i++) colored[i] = "\u00a7a" + bonusArgs[i];
+        player.sendSystemMessage(Component.translatable("item.some-interesting." + type + "." + level +".damage_up", colored));
     }
 
     public static boolean is_Crit(Player player){
@@ -482,22 +393,17 @@ public class AttackEvent {
     public static void Attack_damage_add(ItemAttributeModifiers.Builder builder,Identifier id,double multiple_value,ItemStack heldstack,boolean is_multiplied){
         if (is_multiplied){
             builder.add(Attributes.ATTACK_DAMAGE,
-                    new AttributeModifier(id, multiple_value,
-                            //选择 加上原有值*xx倍 的修改方式
-                            AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                    new AttributeModifier(id, multiple_value, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                     EquipmentSlotGroup.MAINHAND);
             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
         }else{
             builder.add(Attributes.MINING_EFFICIENCY,
-                    new AttributeModifier(id, multiple_value,
-                            //选择 加上原有值*xx倍 的修改方式
-                            AttributeModifier.Operation.ADD_VALUE),
+                    new AttributeModifier(id, multiple_value, AttributeModifier.Operation.ADD_VALUE),
                     EquipmentSlotGroup.MAINHAND);
             heldstack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
         }
     }
 
-    //通过if来判断过滤之前修改过的数值，重新加
     public static void copy_original_data(ItemAttributeModifiers current,ItemAttributeModifiers.Builder builder,Identifier id1,Identifier id2){
         for(ItemAttributeModifiers.Entry entry : current.modifiers()){
             if(!entry.modifier().id().equals(id1) && !entry.modifier().id().equals(id2)){
@@ -513,7 +419,4 @@ public class AttackEvent {
             }
         }
     }
-
 }
-
-

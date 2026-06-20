@@ -1,6 +1,7 @@
 package com.chara.some_interesting.component;
 
 import com.chara.some_interesting.SomeInteresting;
+import com.chara.some_interesting.config.ModConfig;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
@@ -22,18 +23,19 @@ public record ArmorEnhanceComponent(int damage_taken, boolean is_adept, boolean 
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag, DataComponentGetter components) {
+        var cfg = ModConfig.get().armor;
         if (is_soulbound) {
             tooltip.accept(Component.translatable("item.some-interesting.soulbound").withStyle(ChatFormatting.GOLD));
             tooltip.accept(Component.translatable("item.some-interesting.armor_damage_taken.info", this.damage_taken, "MAX").withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_synchronized) {
             tooltip.accept(Component.translatable("item.some-interesting.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.some-interesting.armor_damage_taken.info", this.damage_taken, 2000).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.armor_damage_taken.info", this.damage_taken, cfg.soulThreshold).withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_adept) {
             tooltip.accept(Component.translatable("item.some-interesting.adept").withStyle(ChatFormatting.GREEN));
-            tooltip.accept(Component.translatable("item.some-interesting.armor_damage_taken.info", this.damage_taken, 800).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.armor_damage_taken.info", this.damage_taken, cfg.syncThreshold).withStyle(ChatFormatting.DARK_GRAY));
         } else {
             tooltip.accept(Component.translatable("item.some-interesting.familiarizing").withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.armor_damage_taken.info", this.damage_taken, 200).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.armor_damage_taken.info", this.damage_taken, cfg.adeptThreshold).withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 
