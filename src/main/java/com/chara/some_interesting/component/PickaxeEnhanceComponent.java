@@ -1,6 +1,7 @@
 package com.chara.some_interesting.component;
 
 import com.chara.some_interesting.SomeInteresting;
+import com.chara.some_interesting.config.ModConfig;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
@@ -28,22 +29,23 @@ public record PickaxeEnhanceComponent(int normal_excavate_count,int rare_excavat
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag, DataComponentGetter components) {
+        var cfg = ModConfig.get().pickaxe;
         if (is_soulbound) {
             tooltip.accept(Component.translatable("item.some-interesting.soulbound").withStyle(ChatFormatting.GOLD));
             tooltip.accept(Component.translatable("item.some-interesting.normal_excavate_count.info", this.normal_excavate_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
             tooltip.accept(Component.translatable("item.some-interesting.rare_excavate_count.info", this.rare_excavate_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_synchronized) {
             tooltip.accept(Component.translatable("item.some-interesting.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.some-interesting.normal_excavate_count.info", this.normal_excavate_count, 1800).withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.rare_excavate_count.info", this.rare_excavate_count, 18).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.normal_excavate_count.info", this.normal_excavate_count, cfg.soulNormal).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.rare_excavate_count.info", this.rare_excavate_count, cfg.soulRare).withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_adept) {
             tooltip.accept(Component.translatable("item.some-interesting.adept").withStyle(ChatFormatting.GREEN));
-            tooltip.accept(Component.translatable("item.some-interesting.normal_excavate_count.info", this.normal_excavate_count, 500).withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.rare_excavate_count.info", this.rare_excavate_count, 3).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.normal_excavate_count.info", this.normal_excavate_count, cfg.syncNormal).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.rare_excavate_count.info", this.rare_excavate_count, cfg.syncRare).withStyle(ChatFormatting.DARK_GRAY));
         } else {
             tooltip.accept(Component.translatable("item.some-interesting.familiarizing").withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.normal_excavate_count.info", this.normal_excavate_count, 60).withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.rare_excavate_count.info", this.rare_excavate_count, 0).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.normal_excavate_count.info", this.normal_excavate_count, cfg.adeptNormal).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.rare_excavate_count.info", this.rare_excavate_count, cfg.adeptRare).withStyle(ChatFormatting.DARK_GRAY));
         }
     }
     //定义匹配的codec

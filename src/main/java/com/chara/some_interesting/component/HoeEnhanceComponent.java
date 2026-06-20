@@ -1,6 +1,7 @@
 package com.chara.some_interesting.component;
 
 import com.chara.some_interesting.SomeInteresting;
+import com.chara.some_interesting.config.ModConfig;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
@@ -22,18 +23,19 @@ public record HoeEnhanceComponent(int normal_count, boolean is_adept, boolean is
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag, DataComponentGetter components) {
+        var cfg = ModConfig.get().hoe;
         if (is_soulbound) {
             tooltip.accept(Component.translatable("item.some-interesting.soulbound").withStyle(ChatFormatting.GOLD));
             tooltip.accept(Component.translatable("item.some-interesting.hoe_normal_count.info", this.normal_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_synchronized) {
             tooltip.accept(Component.translatable("item.some-interesting.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.some-interesting.hoe_normal_count.info", this.normal_count, 540).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.hoe_normal_count.info", this.normal_count, cfg.soulMining).withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_adept) {
             tooltip.accept(Component.translatable("item.some-interesting.adept").withStyle(ChatFormatting.GREEN));
-            tooltip.accept(Component.translatable("item.some-interesting.hoe_normal_count.info", this.normal_count, 180).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.hoe_normal_count.info", this.normal_count, cfg.syncMining).withStyle(ChatFormatting.DARK_GRAY));
         } else {
             tooltip.accept(Component.translatable("item.some-interesting.familiarizing").withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.hoe_normal_count.info", this.normal_count, 60).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.hoe_normal_count.info", this.normal_count, cfg.adeptMining).withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 

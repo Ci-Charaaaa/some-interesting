@@ -1,6 +1,7 @@
 package com.chara.some_interesting.mixin;
 
 import com.chara.some_interesting.component.SpearEnhanceComponent;
+import com.chara.some_interesting.config.ModConfig;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,9 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static com.chara.some_interesting.EventCallBack.AttackEvent.*;
 
-/**
- * 在 postHurtEnemy 中处理矛的熟练度。
- */
 @Mixin(Item.class)
 public class SpearMixin {
 
@@ -38,9 +36,9 @@ public class SpearMixin {
         stack.set(SpearEnhanceComponent.SPEAR_PROFICIENCY_COMPONENT,
                 new SpearEnhanceComponent(normal, ad, sy, so));
 
-        boolean na = !ad && normal >= 60;
-        boolean ns = !sy && normal >= 180;
-        boolean nl = !so && normal >= 500;
+        boolean na = !ad && normal >= ModConfig.get().spear.adeptThreshold;
+        boolean ns = !sy && normal >= ModConfig.get().spear.syncThreshold;
+        boolean nl = !so && normal >= ModConfig.get().spear.soulThreshold;
         if (!na && !ns && !nl) return;
 
         out_sound(player.level(), player);
@@ -49,21 +47,21 @@ public class SpearMixin {
         if (nl) {
             stack.set(SpearEnhanceComponent.SPEAR_PROFICIENCY_COMPONENT,
                     new SpearEnhanceComponent(normal, true, true, true));
-            stack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.8));
+            stack.set(DataComponents.MAX_DAMAGE, (int)(md * ModConfig.get().spear.soulDurability));
             stack.set(DataComponents.REPAIR_COST, 0);
-            upgrade_text(player, "spear", "soulbound", name, "max_level", (int)(md * 1.8));
+            upgrade_text(player, "spear", "soulbound", name, "max_level", (int)(md * ModConfig.get().spear.soulDurability));
         } else if (ns) {
             stack.set(SpearEnhanceComponent.SPEAR_PROFICIENCY_COMPONENT,
                     new SpearEnhanceComponent(normal, ad, true, so));
-            stack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.5));
+            stack.set(DataComponents.MAX_DAMAGE, (int)(md * ModConfig.get().spear.syncDurability));
             stack.set(DataComponents.REPAIR_COST, 0);
-            upgrade_text(player, "spear", "synchronized", name, (int)(md * 1.5));
+            upgrade_text(player, "spear", "synchronized", name, (int)(md * ModConfig.get().spear.syncDurability));
         } else {
             stack.set(SpearEnhanceComponent.SPEAR_PROFICIENCY_COMPONENT,
                     new SpearEnhanceComponent(normal, true, sy, so));
-            stack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.2));
+            stack.set(DataComponents.MAX_DAMAGE, (int)(md * ModConfig.get().spear.adeptDurability));
             stack.set(DataComponents.REPAIR_COST, 0);
-            upgrade_text(player, "spear", "adept", name, (int)(md * 1.2));
+            upgrade_text(player, "spear", "adept", name, (int)(md * ModConfig.get().spear.adeptDurability));
         }
     }
 }

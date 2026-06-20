@@ -2,10 +2,9 @@ package com.chara.some_interesting.EventCallBack;
 
 import com.chara.some_interesting.component.BowEnhanceComponent;
 import com.chara.some_interesting.component.CrossbowEnhanceComponent;
-import com.chara.some_interesting.component.SpearEnhanceComponent;
 import com.chara.some_interesting.component.TridentEnhanceComponent;
+import com.chara.some_interesting.config.ModConfig;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,12 +19,11 @@ public class RangedEvent {
 
     public static void initialize() {
 
-        //三叉戟/弩射击计数，弓射击计数因调用物品栈会打断动画，逻辑移至注入方法中
         UseItemCallback.EVENT.register((player, world, hand) -> {
             if (!world.isClientSide()) {
                 ItemStack heldstack = player.getItemInHand(hand);
-                //三叉戟投掷计数（UseItemCallback 在右键时触发）
                 if (heldstack.is(Items.TRIDENT)) {
+                    var cfg = ModConfig.get().trident;
                     TridentEnhanceComponent comp = heldstack.getOrDefault(
                             TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                             new TridentEnhanceComponent(0, 0, false, false, false));
@@ -39,10 +37,9 @@ public class RangedEvent {
                     heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                             new TridentEnhanceComponent(normal, newSuper, ad, sy, so));
 
-                    //升级判定
-                    boolean na = !ad && (normal >= 60 && newSuper >= 6);
-                    boolean ns = !sy && (normal >= 150 && newSuper >= 20);
-                    boolean nl = !so && (normal >= 450 && newSuper >= 80);
+                    boolean na = !ad && (normal >= cfg.adeptNormal && newSuper >= cfg.adeptSuper);
+                    boolean ns = !sy && (normal >= cfg.syncNormal && newSuper >= cfg.syncSuper);
+                    boolean nl = !so && (normal >= cfg.soulNormal && newSuper >= cfg.soulSuper);
 
                     if (na || ns || nl) {
                         out_sound(world, player);
@@ -51,21 +48,21 @@ public class RangedEvent {
                         if (nl) {
                             heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                                     new TridentEnhanceComponent(normal, newSuper, true, true, true));
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.8));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * cfg.soulDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
-                            upgrade_text(player, "trident", "soulbound", name, "max_level", (int)(md * 1.8));
+                            upgrade_text(player, "trident", "soulbound", name, "max_level", (int)(md * cfg.soulDurability), cfg.soulDamageBonus * 100 + "%");
                         } else if (ns) {
                             heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                                     new TridentEnhanceComponent(normal, newSuper, ad, true, so));
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.5));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * cfg.syncDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
-                            upgrade_text(player, "trident", "synchronized", name, (int)(md * 1.5));
+                            upgrade_text(player, "trident", "synchronized", name, (int)(md * cfg.syncDurability), cfg.syncDamageBonus * 100 + "%");
                         } else if (na) {
                             heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                                     new TridentEnhanceComponent(normal, newSuper, true, sy, so));
-                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * 1.2));
+                            heldstack.set(DataComponents.MAX_DAMAGE, (int)(md * cfg.adeptDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
-                            upgrade_text(player, "trident", "adept", name, (int)(md * 1.2));
+                            upgrade_text(player, "trident", "adept", name, (int)(md * cfg.adeptDurability), cfg.adeptDamageBonus * 100 + "%");
                         }
                     }
                 }
@@ -91,35 +88,34 @@ public class RangedEvent {
         });
     }
 
-    //弓升级处理
     public static void processBowUpgrade(Player player, ItemStack heldstack,
                                           int normal_count, boolean is_adept, boolean is_synchronized, boolean is_soulbound,
                                           int max_damage) {
+        var cfg = ModConfig.get().bow;
         Level world = player.level();
-        if (normal_count <= 60) {
-            //do nothing
-        } else if (normal_count <= 180) {
+        if (normal_count < cfg.adeptThreshold) {
+        } else if (normal_count < cfg.syncThreshold) {
             if (!is_adept) {
                 is_adept = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "bow", "adept", name, max_damage);
+                upgrade_text(player, "bow", "adept", name, max_damage, cfg.adeptArrowBonus);
 
                 heldstack.set(BowEnhanceComponent.BOW_PROFICIENCY_COMPONENT,
                         new BowEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
-                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
+                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.adeptDurability));
                 heldstack.set(DataComponents.REPAIR_COST, 0);
             }
-        } else if (normal_count <= 500) {
+        } else if (normal_count < cfg.soulThreshold) {
             if (!is_synchronized) {
                 is_synchronized = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "bow", "synchronized", name, max_damage);
+                upgrade_text(player, "bow", "synchronized", name, max_damage, cfg.syncArrowBonus);
 
                 heldstack.set(BowEnhanceComponent.BOW_PROFICIENCY_COMPONENT,
                         new BowEnhanceComponent(normal_count, is_adept, true, is_soulbound));
-                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.5));
+                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.syncDurability));
                 heldstack.set(DataComponents.REPAIR_COST, 0);
             }
         } else {
@@ -127,45 +123,44 @@ public class RangedEvent {
                 is_soulbound = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "bow", "soulbound", name, "max_level", max_damage);
+                upgrade_text(player, "bow", "soulbound", name, "max_level", max_damage, cfg.soulArrowBonus);
 
                 heldstack.set(BowEnhanceComponent.BOW_PROFICIENCY_COMPONENT,
                         new BowEnhanceComponent(normal_count, is_adept, is_synchronized, true));
-                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.8));
+                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.soulDurability));
                 heldstack.set(DataComponents.REPAIR_COST, 0);
             }
         }
     }
 
-    //弩升级处理
     public static void processCrossbowUpgrade(Player player, ItemStack heldstack,
                                                int normal_count, boolean is_adept, boolean is_synchronized, boolean is_soulbound,
                                                int max_damage) {
+        var cfg = ModConfig.get().crossbow;
         Level world = player.level();
-        if (normal_count <= 60) {
-            //do nothing
-        } else if (normal_count <= 180) {
+        if (normal_count < cfg.adeptThreshold) {
+        } else if (normal_count < cfg.syncThreshold) {
             if (!is_adept) {
                 is_adept = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "crossbow", "adept", name, max_damage);
+                upgrade_text(player, "crossbow", "adept", name, max_damage, cfg.adeptArrowBonus);
 
                 heldstack.set(CrossbowEnhanceComponent.CROSSBOW_PROFICIENCY_COMPONENT,
                         new CrossbowEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
-                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.2));
+                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.adeptDurability));
                 heldstack.set(DataComponents.REPAIR_COST, 0);
             }
-        } else if (normal_count <= 540) {
+        } else if (normal_count < cfg.soulThreshold) {
             if (!is_synchronized) {
                 is_synchronized = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "crossbow", "synchronized", name, max_damage);
+                upgrade_text(player, "crossbow", "synchronized", name, max_damage, cfg.syncArrowBonus);
 
                 heldstack.set(CrossbowEnhanceComponent.CROSSBOW_PROFICIENCY_COMPONENT,
                         new CrossbowEnhanceComponent(normal_count, is_adept, true, is_soulbound));
-                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.5));
+                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.syncDurability));
                 heldstack.set(DataComponents.REPAIR_COST, 0);
             }
         } else {
@@ -173,11 +168,11 @@ public class RangedEvent {
                 is_soulbound = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "crossbow", "soulbound", name, "max_level", max_damage);
+                upgrade_text(player, "crossbow", "soulbound", name, "max_level", max_damage, cfg.soulArrowBonus);
 
                 heldstack.set(CrossbowEnhanceComponent.CROSSBOW_PROFICIENCY_COMPONENT,
                         new CrossbowEnhanceComponent(normal_count, is_adept, is_synchronized, true));
-                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * 1.8));
+                heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.soulDurability));
                 heldstack.set(DataComponents.REPAIR_COST, 0);
             }
         }

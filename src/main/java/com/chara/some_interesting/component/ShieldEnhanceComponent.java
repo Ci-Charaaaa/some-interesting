@@ -1,6 +1,7 @@
 package com.chara.some_interesting.component;
 
 import com.chara.some_interesting.SomeInteresting;
+import com.chara.some_interesting.config.ModConfig;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
@@ -22,18 +23,19 @@ public record ShieldEnhanceComponent(int normal_count, boolean is_adept, boolean
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag, DataComponentGetter components) {
+        var cfg = ModConfig.get().shield;
         if (is_soulbound) {
             tooltip.accept(Component.translatable("item.some-interesting.soulbound").withStyle(ChatFormatting.GOLD));
             tooltip.accept(Component.translatable("item.some-interesting.shield_normal_count.info", this.normal_count, "MAX").withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_synchronized) {
             tooltip.accept(Component.translatable("item.some-interesting.synchronized").withStyle(ChatFormatting.BLUE));
-            tooltip.accept(Component.translatable("item.some-interesting.shield_normal_count.info", this.normal_count, 500).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.shield_normal_count.info", this.normal_count, cfg.soulThreshold).withStyle(ChatFormatting.DARK_GRAY));
         } else if (is_adept) {
             tooltip.accept(Component.translatable("item.some-interesting.adept").withStyle(ChatFormatting.GREEN));
-            tooltip.accept(Component.translatable("item.some-interesting.shield_normal_count.info", this.normal_count, 200).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.shield_normal_count.info", this.normal_count, cfg.syncThreshold).withStyle(ChatFormatting.DARK_GRAY));
         } else {
             tooltip.accept(Component.translatable("item.some-interesting.familiarizing").withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.accept(Component.translatable("item.some-interesting.shield_normal_count.info", this.normal_count, 60).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.accept(Component.translatable("item.some-interesting.shield_normal_count.info", this.normal_count, cfg.adeptThreshold).withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 
