@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 
 // Should match your modid
-rootProject.name = 'test-mod'
+rootProject.name = 'some-interesting'
