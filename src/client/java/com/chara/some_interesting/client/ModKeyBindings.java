@@ -30,7 +30,7 @@ public class ModKeyBindings {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (OPEN_BLANK_SCREEN.consumeClick()) {
-                if (client.getConnection() != null) {
+                if (client.screen == null && client.getConnection() != null) {
                     ClientPlayNetworking.send(new OpenSoulBindingPayload());
                 }
             }

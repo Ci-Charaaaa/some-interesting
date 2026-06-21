@@ -48,7 +48,7 @@ public class BreakEvent {
 
 					int max_damage = heldstack.getOrDefault(DataComponents.MAX_DAMAGE,0);
 
-					if (state.is(ConventionalBlockTags.DIAMOND_ORES) || state.is(ConventionalBlockTags.EMERALD_ORES) || state.is(ConventionalBlockTags.NETHERITE_SCRAP_ORES)){
+					if (state.is(BlockTags.DIAMOND_ORES) || state.is(BlockTags.EMERALD_ORES) || state.is(ConventionalBlockTags.NETHERITE_SCRAP_ORES)){
 						heldstack.set(PickaxeEnhanceComponent.PICKAXE_PROFICIENCY_COMPONENT,new PickaxeEnhanceComponent(normal_mined_count,++rare_mined_count,is_adept,is_synchronized,is_soulbound));
 					}
 
