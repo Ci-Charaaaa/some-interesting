@@ -10,6 +10,12 @@ import com.chara.some_interesting.EventCallBack.ElytraEvent;
 import com.chara.some_interesting.component.*;
 import com.chara.some_interesting.config.ModConfigLoader;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import com.chara.some_interesting.ModBlockEntities.UpgradeForgeTableEntity;
+
+import java.util.Set;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -57,6 +63,10 @@ public class SomeInteresting implements ModInitializer {
 		ModItems.initialize();
 		GuiditeArmorMaterial.initialize();
 		ModBlocks.initialize();
+
+		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+				Identifier.fromNamespaceAndPath(MOD_ID, "upgrade_forge_table"),
+				new BlockEntityType<>(UpgradeForgeTableEntity::new, Set.of(ModBlocks.UPGRADE_FORGE_TABLE)));
 
 		AttackEvent.initialize();
 		RangedEvent.initialize();
