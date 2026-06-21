@@ -32,7 +32,7 @@ src/client/resources/  # Client mixin config
 - Split source sets: `src/main/` (shared) vs `src/client/` (client-only)
 - No code comments (project convention)
 - `build.gradle` uses `filteringCharset = 'UTF-8'` for resource processing
-- Language files: always update all three (zh_cn, en_us, zh_tw)
+- Language files: always update all four (zh_cn, en_us, zh_tw, ja_jp)
 - MC 26.x rendering: use `GuiGraphicsExtractor` with `extractRenderState()`/`extractBackground()`
 - MC 26.x input: `KeyEvent`/`MouseButtonEvent` record classes
 - MC 26.x colors: text rendering requires ARGB format (e.g., `0xFFFFFFFF` not `0xFFFFFF`)
