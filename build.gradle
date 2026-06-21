@@ -13,12 +13,11 @@ base {
 repositories {
 
 	repositories {
-		// 优先从国内镜像下载 Mod 依赖和 Fabric 库
 		maven { url "https://maven.aliyun.com/repository/public" }
 		maven { url "https://bmclapi2.bangbang93.com/maven" }
-
-		// 原有的 Fabric 官方库建议保留作为备选
 		maven { url "https://maven.fabricmc.net/" }
+		maven { url "https://maven.terraformersmc.com/" }
+		maven { url "https://maven.shedaniel.me/" }
 	}
 
 	// Add repositories to retrieve artifacts from in here.
@@ -49,6 +48,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 	
+	compileOnly "com.terraformersmc:modmenu:18.0.0-beta.1"
+	compileOnly "me.shedaniel.cloth:cloth-config-fabric:26.1.154"
 }
 
 processResources {
