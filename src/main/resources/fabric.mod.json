@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"com.chara.some_interesting.client.SomeInterestingClient"
+		],
+		"modmenu": [
+			"com.chara.some_interesting.client.ModMenuIntegration"
 		]
 	},
 	"mixins": [
