@@ -435,5 +435,22 @@
   "config.some-interesting.soul_lure": "魂の絆 釣り効率",
   "config.some-interesting.soul_requires_creeper": "魂の絆にクリーパー着火が必要",
 
+  "advancements.some-interesting.root.title": "Some Interesting",
+  "advancements.some-interesting.root.description": "奇抜なアイデアはここから始まる",
+  "advancements.some-interesting.proficiency.adept.title": "あれ？何かが違う",
+  "advancements.some-interesting.proficiency.adept.description": "装備が「熟達」に到達する",
+  "advancements.some-interesting.proficiency.sync.title": "だんだん掴めてきた！",
+  "advancements.some-interesting.proficiency.sync.description": "装備が「調和」に到達する",
+  "advancements.some-interesting.proficiency.soul.title": "感じる…私と固く結ばれている",
+  "advancements.some-interesting.proficiency.soul.description": "装備が「魂の絆」に到達する",
+  "advancements.some-interesting.proficiency.bound.title": "今、私たちは永遠に離れない",
+  "advancements.some-interesting.proficiency.bound.description": "結縛の粉で魂の絆アイテムをバインドする",
+  "advancements.some-interesting.side.jump_apple.title": "飛び立つぞ！",
+  "advancements.some-interesting.side.jump_apple.description": "ジャンプリンゴを作って食べる",
+  "advancements.some-interesting.side.eat_leaves.title": "草食動物",
+  "advancements.some-interesting.side.eat_leaves.description": "初めて葉っぱを食べる",
+  "advancements.some-interesting.side.eat_acacia.title": "ああ、お腹が…！",
+  "advancements.some-interesting.side.eat_acacia.description": "アカシアの葉を食べて中毒になる",
+
   "creativeTab.some-interesting": "CCCharaのテストMod"
 }

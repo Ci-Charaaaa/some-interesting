@@ -1,0 +1,15 @@
+{
+  "parent": "some-interesting:proficiency/adept",
+  "display": {
+    "icon": { "id": "minecraft:diamond_sword" },
+    "title": { "translate": "advancements.some-interesting.proficiency.sync.title" },
+    "description": { "translate": "advancements.some-interesting.proficiency.sync.description" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "impossible": { "trigger": "minecraft:impossible" }
+  }
+}

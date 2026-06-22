@@ -1,0 +1,15 @@
+{
+  "parent": "some-interesting:root",
+  "display": {
+    "icon": { "id": "minecraft:iron_sword" },
+    "title": { "translate": "advancements.some-interesting.proficiency.adept.title" },
+    "description": { "translate": "advancements.some-interesting.proficiency.adept.description" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "impossible": { "trigger": "minecraft:impossible" }
+  }
+}

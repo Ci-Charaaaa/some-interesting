@@ -426,5 +426,22 @@
   "config.some-interesting.soul_lure": "灵魂 钓鱼效率",
   "config.some-interesting.soul_requires_creeper": "灵魂相通需点燃苦力怕",
 
+  "advancements.some-interesting.root.title": "Some Interesting",
+  "advancements.some-interesting.root.description": "一切奇思妙想，从此开始",
+  "advancements.some-interesting.proficiency.adept.title": "欸？似乎有什么不一样",
+  "advancements.some-interesting.proficiency.adept.description": "任意一件装备达到「粗通」等级",
+  "advancements.some-interesting.proficiency.sync.title": "似乎逐渐掌握了！",
+  "advancements.some-interesting.proficiency.sync.description": "任意一件装备达到「精通」等级",
+  "advancements.some-interesting.proficiency.soul.title": "我能感受到，它正与我紧紧相连",
+  "advancements.some-interesting.proficiency.soul.description": "任意一件装备达到「灵魂相通」等级",
+  "advancements.some-interesting.proficiency.bound.title": "现在，我们将永不分离",
+  "advancements.some-interesting.proficiency.bound.description": "使用绑定粉将一件灵魂相通的物品绑定",
+  "advancements.some-interesting.side.jump_apple.title": "我要起飞了！",
+  "advancements.some-interesting.side.jump_apple.description": "制作并吃下一个跳跃苹果",
+  "advancements.some-interesting.side.eat_leaves.title": "食草动物",
+  "advancements.some-interesting.side.eat_leaves.description": "第一次食用树叶",
+  "advancements.some-interesting.side.eat_acacia.title": "哎呀，坏肚子了！",
+  "advancements.some-interesting.side.eat_acacia.description": "吃到金合欢树叶导致中毒",
+
   "creativeTab.some-interesting":"CCChara的测试模组"
 }

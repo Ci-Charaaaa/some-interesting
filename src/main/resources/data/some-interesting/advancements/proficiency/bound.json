@@ -1,0 +1,15 @@
+{
+  "parent": "some-interesting:proficiency/soulbound",
+  "display": {
+    "icon": { "id": "some-interesting:binding_stone" },
+    "title": { "translate": "advancements.some-interesting.proficiency.bound.title" },
+    "description": { "translate": "advancements.some-interesting.proficiency.bound.description" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "impossible": { "trigger": "minecraft:impossible" }
+  }
+}

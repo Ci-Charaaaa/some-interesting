@@ -435,5 +435,22 @@
   "config.some-interesting.soul_lure": "Soul Lure",
   "config.some-interesting.soul_requires_creeper": "Soul Requires Creeper",
 
+  "advancements.some-interesting.root.title": "Some Interesting",
+  "advancements.some-interesting.root.description": "Where interesting ideas begin",
+  "advancements.some-interesting.proficiency.adept.title": "Huh? Something feels different",
+  "advancements.some-interesting.proficiency.adept.description": "Reach Adept level with any equipment",
+  "advancements.some-interesting.proficiency.sync.title": "Seems like I'm getting the hang of it!",
+  "advancements.some-interesting.proficiency.sync.description": "Reach Synchronized level with any equipment",
+  "advancements.some-interesting.proficiency.soul.title": "I can feel it, tightly connected to me",
+  "advancements.some-interesting.proficiency.soul.description": "Reach Soulbound level with any equipment",
+  "advancements.some-interesting.proficiency.bound.title": "Now, we shall never part",
+  "advancements.some-interesting.proficiency.bound.description": "Use Binding Dust to bind a Soulbound item",
+  "advancements.some-interesting.side.jump_apple.title": "I'm taking off!",
+  "advancements.some-interesting.side.jump_apple.description": "Craft and eat a Jump Apple",
+  "advancements.some-interesting.side.eat_leaves.title": "Herbivore",
+  "advancements.some-interesting.side.eat_leaves.description": "Eat leaves for the first time",
+  "advancements.some-interesting.side.eat_acacia.title": "Oops, stomachache!",
+  "advancements.some-interesting.side.eat_acacia.description": "Get poisoned by eating Acacia leaves",
+
   "creativeTab.some-interesting": "CCChara's Test Mod"
 }

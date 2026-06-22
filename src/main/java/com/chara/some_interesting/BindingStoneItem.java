@@ -16,6 +16,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 
 public class BindingStoneItem extends Item {
 
@@ -84,6 +87,11 @@ public class BindingStoneItem extends Item {
             world.playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
 
             ModNetworking.syncBoundItems(serverPlayer);
+
+            AdvancementHolder boundAdv = ((net.minecraft.server.level.ServerLevel) serverPlayer.level())
+                    .getServer().getAdvancements().get(
+                            Identifier.fromNamespaceAndPath(SomeInteresting.MOD_ID, "proficiency/bound"));
+            if (boundAdv != null) serverPlayer.getAdvancements().award(boundAdv, "impossible");
         }
 
         return InteractionResult.SUCCESS;

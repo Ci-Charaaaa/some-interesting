@@ -22,6 +22,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 
 public class AttackEvent {
 
@@ -380,6 +385,21 @@ public class AttackEvent {
         Object[] colored = new Object[bonusArgs.length];
         for (int i = 0; i < bonusArgs.length; i++) colored[i] = "\u00a7a" + bonusArgs[i];
         player.sendSystemMessage(Component.translatable("item.some-interesting." + type + "." + level +".damage_up", colored));
+        grantAdvancement(player, level);
+    }
+
+    private static void grantAdvancement(Player player, String level) {
+        if (!(player instanceof ServerPlayer sp)) return;
+        String adv = switch (level) {
+            case "adept" -> "proficiency/adept";
+            case "synchronized" -> "proficiency/synchronized";
+            case "soulbound" -> "proficiency/soulbound";
+            default -> null;
+        };
+        if (adv == null) return;
+        AdvancementHolder holder = ((net.minecraft.server.level.ServerLevel) sp.level()).getServer()
+                .getAdvancements().get(Identifier.fromNamespaceAndPath("some-interesting", adv));
+        if (holder != null) sp.getAdvancements().award(holder, "impossible");
     }
 
     public static boolean is_Crit(Player player){
