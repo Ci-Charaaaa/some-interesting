@@ -21,6 +21,7 @@ public class ModNetworking {
         PayloadTypeRegistry.clientboundPlay().register(BoundItemsSyncPayload.TYPE, BoundItemsSyncPayload.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(OpenSoulBindingPayload.TYPE, OpenSoulBindingPayload.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(SelectBoundItemPayload.TYPE, SelectBoundItemPayload.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ToggleFavoritePayload.TYPE, ToggleFavoritePayload.STREAM_CODEC);
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> BoundItemStorage.get().load(server));
         ServerLifecycleEvents.BEFORE_SAVE.register((server, flush, force) -> BoundItemStorage.get().save(server));
@@ -43,6 +44,7 @@ public class ModNetworking {
                 player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.title"));
                 player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.bind"));
                 player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.select"));
+                player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.favorite"));
                 player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.craft"));
                 player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.result"));
                 player.sendSystemMessage(Component.translatable("screen.some-interesting.intro.note"));
@@ -72,6 +74,17 @@ public class ModNetworking {
                 } else {
                     menu.setSelectedBoundItem(net.minecraft.world.item.ItemStack.EMPTY, -1, key);
                 }
+            }
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(ToggleFavoritePayload.TYPE, (payload, context) -> {
+            ServerPlayer player = context.player();
+            List<net.minecraft.world.item.ItemStack> items = BoundItemStorage.get().getBoundItems(player);
+            int index = payload.index();
+            if (index >= 0 && index < items.size()) {
+                boolean current = items.get(index).getOrDefault(BindingStoneItem.FAVORITED, false);
+                items.get(index).set(BindingStoneItem.FAVORITED, !current);
+                syncBoundItems(player);
             }
         });
     }

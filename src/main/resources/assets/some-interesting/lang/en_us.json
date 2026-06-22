@@ -350,6 +350,7 @@
   "screen.some-interesting.intro.title": "§6§l========== Soul Binding System ==========",
   "screen.some-interesting.intro.bind": "§e[Bind] §fMain hand: §6Binding Dust§f, Off-hand: §bSoulbound§f item, right-click to bind",
   "screen.some-interesting.intro.select": "§e[Select] §f§aClick§f a bound item on the left panel to select it",
+  "screen.some-interesting.intro.favorite": "§e[Favorite] §f§6Right-click§f an item to favorite it, favorites pinned to top",
   "screen.some-interesting.intro.craft": "§e[Craft] §fPlace matching crafting materials in the right grid",
   "screen.some-interesting.intro.result": "§e[Result] §fOutput: §bfull durability§f copy with §denchantments§f, §dname§f & §dproficiency§f preserved",
   "screen.some-interesting.intro.note": "§7[Note] §fItems without recipes (trident, elytra, etc.) are bound for decoration/memorial only",

@@ -3,6 +3,7 @@ package com.chara.some_interesting.Screens;
 import com.chara.some_interesting.BindingStoneItem;
 import com.chara.some_interesting.Menu.SoulBindingMenu;
 import com.chara.some_interesting.SelectBoundItemPayload;
+import com.chara.some_interesting.ToggleFavoritePayload;
 import com.chara.some_interesting.client.ClientBoundItemData;
 import com.chara.some_interesting.client.ModKeyBindings;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -18,6 +19,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> {
@@ -49,20 +52,42 @@ public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> 
         return super.keyPressed(keyEvent);
     }
 
+    private int[] buildDisplayOrder(List<ItemStack> items) {
+        List<Integer> indices = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) indices.add(i);
+        indices.sort((a, b) -> {
+            boolean fa = items.get(a).getOrDefault(BindingStoneItem.FAVORITED, false);
+            boolean fb = items.get(b).getOrDefault(BindingStoneItem.FAVORITED, false);
+            if (fa && !fb) return -1;
+            if (!fa && fb) return 1;
+            return Integer.compare(a, b);
+        });
+        int[] order = new int[indices.size()];
+        for (int i = 0; i < indices.size(); i++) order[i] = indices.get(i);
+        return order;
+    }
+
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean bl) {
         List<ItemStack> items = ClientBoundItemData.getBoundItems();
-        int maxVisible = 4;
-        int visibleCount = Math.min(items.size() - scrollOffset, maxVisible);
+        if (items.isEmpty()) return super.mouseClicked(event, bl);
+        int[] order = buildDisplayOrder(items);
+        int scrollMax = Math.max(0, order.length - 4);
+        int visibleCount = Math.min(order.length - scrollOffset, 4);
         int startY = this.topPos + 20;
 
         for (int i = 0; i < visibleCount; i++) {
+            int originalIndex = order[scrollOffset + i];
             int itemX = this.leftPos + 8;
             int itemY = startY + i * ITEM_ROW_HEIGHT;
             if (event.x() >= itemX && event.x() < itemX + 170
                     && event.y() >= itemY && event.y() < itemY + ITEM_ROW_HEIGHT - 2) {
-                selectedIndex = scrollOffset + i;
-                ClientPlayNetworking.send(new SelectBoundItemPayload(selectedIndex));
+                if (event.button() == 1) {
+                    ClientPlayNetworking.send(new ToggleFavoritePayload(originalIndex));
+                    return true;
+                }
+                selectedIndex = originalIndex;
+                ClientPlayNetworking.send(new SelectBoundItemPayload(originalIndex));
                 return true;
             }
         }
@@ -150,6 +175,7 @@ public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> 
                 x + INV_X, y + 136, 0xFFAAAAAA);
 
         List<ItemStack> items = ClientBoundItemData.getBoundItems();
+        int[] order = buildDisplayOrder(items);
         int startY = y + 20;
         int maxVisible = 4;
 
@@ -158,15 +184,16 @@ public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> 
                     Component.translatable("screen.some-interesting.blank.empty"),
                     x + 30, y + 70, 0xFF888888);
         } else {
-            int visibleCount = Math.min(items.size() - scrollOffset, maxVisible);
+            int scrollMax = Math.max(0, order.length - maxVisible);
+            int visibleCount = Math.min(order.length - scrollOffset, maxVisible);
 
             for (int i = 0; i < visibleCount; i++) {
-                int actualIndex = scrollOffset + i;
-                ItemStack stack = items.get(actualIndex);
+                int originalIndex = order[scrollOffset + i];
+                ItemStack stack = items.get(originalIndex);
                 int itemX = x + 8;
                 int itemY = startY + i * ITEM_ROW_HEIGHT;
 
-                if (actualIndex == selectedIndex) {
+                if (originalIndex == selectedIndex) {
                     graphics.fill(itemX - 2, itemY - 2, itemX + 170, itemY + 24, 0x40FFD700);
                     graphics.fill(itemX - 2, itemY - 2, itemX + 170, itemY - 1, 0xFFFFD700);
                     graphics.fill(itemX - 2, itemY + 23, itemX + 170, itemY + 24, 0xFFFFD700);
@@ -178,7 +205,14 @@ public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> 
 
                 graphics.item(stack, itemX, itemY);
                 graphics.itemDecorations(this.font, stack, itemX, itemY);
-                graphics.text(this.font, stack.getHoverName(), itemX + 22, itemY + 1, 0xFFFFFFFF);
+
+                boolean fav = stack.getOrDefault(BindingStoneItem.FAVORITED, false);
+                int textX = itemX + 22;
+                if (fav) {
+                    graphics.text(this.font, Component.literal("\u2605"), itemX + 22, itemY + 1, 0xFFFFD700);
+                    textX += 10;
+                }
+                graphics.text(this.font, stack.getHoverName(), textX, itemY + 1, 0xFFFFFFFF);
 
                 long bindTime = stack.getOrDefault(BindingStoneItem.BIND_TIME, 0L);
                 if (bindTime > 0) {
@@ -194,9 +228,9 @@ public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> 
                 }
             }
 
-            if (items.size() > maxVisible) {
-                int end = Math.min(scrollOffset + maxVisible, items.size());
-                String pageInfo = (scrollOffset + 1) + "-" + end + " / " + items.size();
+            if (order.length > maxVisible) {
+                int end = Math.min(scrollOffset + maxVisible, order.length);
+                String pageInfo = (scrollOffset + 1) + "-" + end + " / " + order.length;
                 graphics.text(this.font, Component.literal(pageInfo),
                         x + 8, y + 124, 0xFF888888);
 
@@ -204,7 +238,7 @@ public class SoulBindingScreen extends AbstractContainerScreen<SoulBindingMenu> 
                     graphics.text(this.font, Component.literal("\u25B2"),
                             x + 168, y + 18, 0xFF888888);
                 }
-                if (scrollOffset + maxVisible < items.size()) {
+                if (scrollOffset + maxVisible < order.length) {
                     graphics.text(this.font, Component.literal("\u25BC"),
                             x + 168, y + 120, 0xFF888888);
                 }
