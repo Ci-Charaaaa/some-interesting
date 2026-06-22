@@ -341,6 +341,7 @@
   "screen.some-interesting.intro.title": "§6§l========== 灵魂绑定系统 ==========",
   "screen.some-interesting.intro.bind": "§e[绑定] §f主手持§6绑定粉§f，副手持§b灵魂相通§f的物品，右键完成绑定",
   "screen.some-interesting.intro.select": "§e[选择] §f在左侧面板§a点击§f已绑定的物品进行选中",
+  "screen.some-interesting.intro.favorite": "§e[收藏] §f在物品上§6右键§f可将其收藏，收藏物品置顶显示",
   "screen.some-interesting.intro.craft": "§e[合成] §f在右侧合成表中放入对应的合成材料",
   "screen.some-interesting.intro.result": "§e[产物] §f合成出§b满耐久§f且保留§d附魔§f、§d名称§f、§d熟练度§f的全新副本",
   "screen.some-interesting.intro.note": "§7[备注] §f无合成配方的物品（三叉戟、鞘翅等）绑定后仅作装饰/纪念",

@@ -31,6 +31,12 @@ public class BindingStoneItem extends Item {
             DataComponentType.<Long>builder().persistent(Codec.LONG).build()
     );
 
+    public static final DataComponentType<Boolean> FAVORITED = Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            Identifier.fromNamespaceAndPath(SomeInteresting.MOD_ID, "favorited"),
+            DataComponentType.<Boolean>builder().persistent(Codec.BOOL).build()
+    );
+
     public BindingStoneItem(Properties properties) {
         super(properties);
     }

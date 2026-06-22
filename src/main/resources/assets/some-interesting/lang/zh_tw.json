@@ -350,6 +350,7 @@
   "screen.some-interesting.intro.title": "§6§l========== 靈魂綁定系統 ==========",
   "screen.some-interesting.intro.bind": "§e[綁定] §f主手持§6綁定粉§f，副手持§b靈魂相通§f的物品，右鍵完成綁定",
   "screen.some-interesting.intro.select": "§e[選擇] §f在左側面板§a點擊§f已綁定的物品進行選中",
+  "screen.some-interesting.intro.favorite": "§e[收藏] §f在物品上§6右鍵§f可將其收藏，收藏物品置頂顯示",
   "screen.some-interesting.intro.craft": "§e[合成] §f在右側合成表中放入對應的合成材料",
   "screen.some-interesting.intro.result": "§e[產物] §f合成出§b滿耐久§f且保留§d附魔§f、§d名稱§f、§d熟練度§f的全新副本",
   "screen.some-interesting.intro.note": "§7[備註] §f無合成配方的物品（三叉戟、鞘翅等）綁定後僅作裝飾/紀念",

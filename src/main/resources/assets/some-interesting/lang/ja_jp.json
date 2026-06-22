@@ -350,6 +350,7 @@
   "screen.some-interesting.intro.title": "§6§l========== ソウルバインドシステム ==========",
   "screen.some-interesting.intro.bind": "§e[バインド] §fメインハンド：§6結縛の粉§f、オフハンド：§b魂の絆§fのアイテム、右クリックでバインド",
   "screen.some-interesting.intro.select": "§e[選択] §f左パネルのバインド済みアイテムを§aクリック§fして選択",
+  "screen.some-interesting.intro.favorite": "§e[お気に入り] §fアイテムを§6右クリック§fでお気に入り、上部に固定表示",
   "screen.some-interesting.intro.craft": "§e[クラフト] §f右のクラフトグリッドに対応する素材を配置",
   "screen.some-interesting.intro.result": "§e[結果] §f§b最大耐久§fで§dエンチャント§f、§d名前§f、§d熟練度§fを保持した複製を入手",
   "screen.some-interesting.intro.note": "§7[備考] §fレシピのないアイテム（トライデント、エリトラなど）はバインドしても装飾/記念用のみ",
