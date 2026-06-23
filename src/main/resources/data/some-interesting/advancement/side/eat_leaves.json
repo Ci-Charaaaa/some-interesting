@@ -4,14 +4,19 @@
     "icon": { "id": "some-interesting:emerald_sword" },
     "title": { "translate": "advancements.some-interesting.side.eat_leaves.title" },
     "description": { "translate": "advancements.some-interesting.side.eat_leaves.description" },
-    "announce_to_chat": true,
-    "show_toast": true
+    "show_toast": true,
+    "announce_to_chat": true
   },
   "criteria": {
-    "impossible": { "trigger": "minecraft:impossible" }
+    "eat": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": { "tag": "minecraft:leaves" }
+      }
+    }
   },
   "requirements": [
-    ["impossible"]
+    ["eat"]
   ],
   "sends_telemetry_event": true
 }

@@ -9,10 +9,15 @@
     "hidden": true
   },
   "criteria": {
-    "impossible": { "trigger": "minecraft:impossible" }
+    "eat": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": { "items": "minecraft:acacia_leaves" }
+      }
+    }
   },
   "requirements": [
-    ["impossible"]
+    ["eat"]
   ],
   "sends_telemetry_event": true
 }
