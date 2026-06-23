@@ -8,10 +8,15 @@
     "announce_to_chat": true
   },
   "criteria": {
-    "impossible": { "trigger": "minecraft:impossible" }
+    "eat": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": { "items": "some-interesting:jump_apple" }
+      }
+    }
   },
   "requirements": [
-    ["impossible"]
+    ["eat"]
   ],
   "sends_telemetry_event": true
 }
