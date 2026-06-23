@@ -1,0 +1,18 @@
+{
+  "parent": "some-interesting:proficiency/soulbound",
+  "display": {
+    "icon": { "id": "some-interesting:emerald_sword" },
+    "title": { "translate": "advancements.some-interesting.proficiency.bound.title" },
+    "description": { "translate": "advancements.some-interesting.proficiency.bound.description" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "impossible": { "trigger": "minecraft:impossible" }
+  },
+  "requirements": [
+    ["impossible"]
+  ],
+  "sends_telemetry_event": true
+}

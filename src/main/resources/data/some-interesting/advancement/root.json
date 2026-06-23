@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": { "id": "some-interesting:emerald_sword" },
+    "title": { "translate": "advancements.some-interesting.root.title" },
+    "description": { "translate": "advancements.some-interesting.root.description" },
+    "background": "minecraft:block/bricks",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "seeds": {
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    ["seeds"]
+  ],
+  "sends_telemetry_event": true
+}

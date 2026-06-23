@@ -1,0 +1,17 @@
+{
+  "parent": "some-interesting:root",
+  "display": {
+    "icon": { "id": "some-interesting:emerald_sword" },
+    "title": { "translate": "advancements.some-interesting.side.eat_leaves.title" },
+    "description": { "translate": "advancements.some-interesting.side.eat_leaves.description" },
+    "announce_to_chat": true,
+    "show_toast": true
+  },
+  "criteria": {
+    "impossible": { "trigger": "minecraft:impossible" }
+  },
+  "requirements": [
+    ["impossible"]
+  ],
+  "sends_telemetry_event": true
+}
