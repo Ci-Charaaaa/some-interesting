@@ -1,15 +1,17 @@
 {
   "parent": "some-interesting:root",
   "display": {
-    "icon": { "id": "some-interesting:jump_apple" },
+    "icon": { "id": "some-interesting:emerald_sword" },
     "title": { "translate": "advancements.some-interesting.side.jump_apple.title" },
     "description": { "translate": "advancements.some-interesting.side.jump_apple.description" },
-    "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
+    "announce_to_chat": true
   },
   "criteria": {
     "impossible": { "trigger": "minecraft:impossible" }
-  }
+  },
+  "requirements": [
+    ["impossible"]
+  ],
+  "sends_telemetry_event": true
 }

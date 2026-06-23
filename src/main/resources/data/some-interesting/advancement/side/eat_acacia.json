@@ -1,15 +1,18 @@
 {
   "parent": "some-interesting:side/eat_leaves",
   "display": {
-    "icon": { "id": "minecraft:acacia_leaves" },
+    "icon": { "id": "some-interesting:emerald_sword" },
     "title": { "translate": "advancements.some-interesting.side.eat_acacia.title" },
     "description": { "translate": "advancements.some-interesting.side.eat_acacia.description" },
-    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": true
   },
   "criteria": {
     "impossible": { "trigger": "minecraft:impossible" }
-  }
+  },
+  "requirements": [
+    ["impossible"]
+  ],
+  "sends_telemetry_event": true
 }
