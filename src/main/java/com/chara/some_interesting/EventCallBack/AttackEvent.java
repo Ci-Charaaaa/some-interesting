@@ -314,10 +314,9 @@ public class AttackEvent {
                     heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
                             new TridentEnhanceComponent(++normal, superCnt, is_adept, is_synchronized, is_soulbound));
 
-                    int newNormal = normal + 1;
-                    boolean na = !is_adept && newNormal >= cfg.adeptNormal && superCnt >= cfg.adeptSuper;
-                    boolean ns = !is_synchronized && newNormal >= cfg.syncNormal && superCnt >= cfg.syncSuper;
-                    boolean nl = !is_soulbound && newNormal >= cfg.soulNormal && superCnt >= cfg.soulSuper;
+                    boolean na = !is_adept && normal >= cfg.adeptNormal && superCnt >= cfg.adeptSuper;
+                    boolean ns = !is_synchronized && normal >= cfg.syncNormal && superCnt >= cfg.syncSuper;
+                    boolean nl = !is_soulbound && normal >= cfg.soulNormal && superCnt >= cfg.soulSuper;
 
                     if (!na && !ns && !nl) return InteractionResult.PASS;
 
@@ -326,19 +325,19 @@ public class AttackEvent {
 
                     if (nl) {
                         heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
-                                new TridentEnhanceComponent(newNormal, superCnt, true, true, true));
+                                new TridentEnhanceComponent(normal, superCnt, true, true, true));
                         heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * cfg.soulDurability));
                         heldstack.set(DataComponents.REPAIR_COST, 0);
                         upgrade_text(player, "trident", "soulbound", name, "max_level", (int)(max_damage * cfg.soulDurability), cfg.soulDamageBonus * 100 + "%");
                     } else if (ns) {
                         heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
-                                new TridentEnhanceComponent(newNormal, superCnt, is_adept, true, is_soulbound));
+                                new TridentEnhanceComponent(normal, superCnt, is_adept, true, is_soulbound));
                         heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * cfg.syncDurability));
                         heldstack.set(DataComponents.REPAIR_COST, 0);
                         upgrade_text(player, "trident", "synchronized", name, (int)(max_damage * cfg.syncDurability), cfg.syncDamageBonus * 100 + "%");
                     } else {
                         heldstack.set(TridentEnhanceComponent.TRIDENT_PROFICIENCY_COMPONENT,
-                                new TridentEnhanceComponent(newNormal, superCnt, true, is_synchronized, is_soulbound));
+                                new TridentEnhanceComponent(normal, superCnt, true, is_synchronized, is_soulbound));
                         heldstack.set(DataComponents.MAX_DAMAGE, (int)(max_damage * cfg.adeptDurability));
                         heldstack.set(DataComponents.REPAIR_COST, 0);
                         upgrade_text(player, "trident", "adept", name, (int)(max_damage * cfg.adeptDurability), cfg.adeptDamageBonus * 100 + "%");
