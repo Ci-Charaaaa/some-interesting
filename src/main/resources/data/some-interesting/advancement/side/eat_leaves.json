@@ -11,7 +11,7 @@
     "eat": {
       "trigger": "minecraft:consume_item",
       "conditions": {
-        "item": { "tag": "minecraft:leaves" }
+        "item": { "items": "#minecraft:leaves" }
       }
     }
   },
