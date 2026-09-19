@@ -5,8 +5,10 @@ for /f "tokens=2 delims==" %%a in ('findstr "minecraft_version" gradle.propertie
 for /f "tokens=2 delims==" %%a in ('findstr "fabric_api_version" gradle.properties') do echo Fabric API: %%a
 findstr "minecraft" src\main\resources\fabric.mod.json | findstr "~"
 findstr "modmenu\|cloth-config" build.gradle
-findstr "BlockEntityTypeMixin" src\main\resources\some-interesting.mixins.json >nul 2>&1 && echo Mixin: BlockEntityTypeMixin PRESENT (26.1.1 mode) || echo Mixin: BlockEntityTypeMixin ABSENT (26.2 mode)
-findstr "client.screen" src\client\java\com\chara\some_interesting\client\ModKeyBindings.java >nul 2>&1 && echo Screen: client.screen check PRESENT (26.1.1 mode) || echo Screen: client.screen check ABSENT (26.2 mode)
+findstr "BlockEntityTypeMixin" src\main\resources\some-interesting.mixins.json >nul 2>&1 && echo Mixin: BlockEntityTypeMixin PRESENT (26.1.1 mode) || echo Mixin: BlockEntityTypeMixin ABSENT (26.2+ mode)
+findstr "client.screen" src\client\java\com\chara\some_interesting\client\ModKeyBindings.java >nul 2>&1 && echo Screen: client.screen check PRESENT (26.1.1 mode) || echo Screen: client.screen check ABSENT (26.2+ mode)
+findstr "simpleCodec" src\main\java\com\chara\some_interesting\Blocks\UpgradeForgeTableBlock.java >nul 2>&1 && echo Block codec: simpleCodec PRESENT (26.2 mode) || echo Block codec: simpleCodec ABSENT (26.3 mode)
+findstr "org.lwjgl.glfw" src\client\java\com\chara\some_interesting\client\ModKeyBindings.java >nul 2>&1 && echo Input: GLFW PRESENT (26.2 mode) || echo Input: GLFW ABSENT / SDL InputConstants (26.3 mode)
 echo.
 echo === Done ===
 pause

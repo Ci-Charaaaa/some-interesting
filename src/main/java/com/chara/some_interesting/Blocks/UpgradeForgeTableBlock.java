@@ -1,7 +1,6 @@
 package com.chara.some_interesting.Blocks;
 
 import com.chara.some_interesting.ModBlockEntities.UpgradeForgeTableEntity;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -17,11 +16,6 @@ public class UpgradeForgeTableBlock extends BaseEntityBlock {
 
     public UpgradeForgeTableBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(UpgradeForgeTableBlock::new);
     }
 
     @Nullable

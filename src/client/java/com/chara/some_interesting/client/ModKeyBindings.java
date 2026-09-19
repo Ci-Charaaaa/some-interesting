@@ -2,12 +2,12 @@ package com.chara.some_interesting.client;
 
 import com.chara.some_interesting.OpenSoulBindingPayload;
 import com.chara.some_interesting.SomeInteresting;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.Identifier;
-import org.lwjgl.glfw.GLFW;
 
 public class ModKeyBindings {
 
@@ -17,7 +17,7 @@ public class ModKeyBindings {
 
     private static final KeyMapping OPEN_BLANK_SCREEN = new KeyMapping(
             "key.some-interesting.open_blank_screen",
-            GLFW.GLFW_KEY_K,
+            InputConstants.KEY_K,
             MOD_CATEGORY
     );
 
