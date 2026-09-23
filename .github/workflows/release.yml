@@ -1,20 +1,19 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
+# Build and publish a GitHub Release whenever a version tag is pushed.
+# Tag format examples: beta-0.3.2, v0.3.2
 
-name: build
+name: release
 
 on:
   push:
-  pull_request:
-  workflow_dispatch:
+    tags:
+      - 'beta-*'
+      - 'v*'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-24.04
     steps:
       - name: checkout repository
@@ -32,8 +31,7 @@ jobs:
         run: chmod +x ./gradlew
       - name: build
         run: ./gradlew build --no-daemon
-      - name: capture build artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: Artifacts
-          path: build/libs/
+      - name: publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" build/libs/*.jar --generate-notes --title "${GITHUB_REF_NAME}"
