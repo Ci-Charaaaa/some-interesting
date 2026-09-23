@@ -99,6 +99,7 @@ src/
 |------|------|
 | `main` | 主力开发分支，对应 Minecraft 26.1.1 |
 | `branch26.2` | Minecraft 26.2 适配分支 |
+| `branch26.3` | Minecraft 26.3 适配分支 |
 
 - 日常开发在 `main` 分支进行
 - 新版本适配：从 `main` 创建分支 → 修改版本号 → 修复编译错误
