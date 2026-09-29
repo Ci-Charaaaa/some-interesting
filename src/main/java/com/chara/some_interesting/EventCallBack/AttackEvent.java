@@ -70,7 +70,7 @@ public class AttackEvent {
                             heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, super_count, true,is_synchronized, is_soulbound));
                             out_sound(world,player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"swords","adept",name,max_damage, cfg.adeptDamageBonus * 100 + "%");
+                            upgrade_text(player,"swords","adept",name,(int)(max_damage * cfg.adeptDurability), cfg.adeptDamageBonus * 100 + "%");
 
                             heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.adeptDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -87,7 +87,7 @@ public class AttackEvent {
                             heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT, new SwordsEnhanceComponent(normal_count, super_count, is_adept,true, is_soulbound));
                             out_sound(world,player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"swords","synchronized",name,max_damage, cfg.syncDamageBonus * 100 + "%");
+                            upgrade_text(player,"swords","synchronized",name,(int)(max_damage * cfg.syncDurability), cfg.syncDamageBonus * 100 + "%");
 
                             heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.syncDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -104,7 +104,7 @@ public class AttackEvent {
                             heldstack.set(SwordsEnhanceComponent.SWORDS_PROFICIENCY_COMPONENT,new SwordsEnhanceComponent(normal_count,super_count,is_adept,is_synchronized,true));
                             out_sound(world,player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"swords","soulbound",name,"max_level",max_damage, cfg.soulDamageBonus * 100 + "%");
+                            upgrade_text(player,"swords","soulbound",name,"max_level",(int)(max_damage * cfg.soulDurability), cfg.soulDamageBonus * 100 + "%");
 
                             heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage * cfg.soulDurability));
                             heldstack.set(DataComponents.REPAIR_COST,0);
@@ -153,7 +153,7 @@ public class AttackEvent {
                             heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(normal_count, super_count, true,is_synchronized, is_soulbound));
                             out_sound(world,player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"mace","adept",name,max_damage, cfg.adeptDamageBonus * 100 + "%");
+                            upgrade_text(player,"mace","adept",name,(int)(max_damage * cfg.adeptDurability), cfg.adeptDamageBonus * 100 + "%");
 
                             heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.adeptDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -170,7 +170,7 @@ public class AttackEvent {
                             heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT, new MaceEnhanceComponent(normal_count, super_count, is_adept,true, is_soulbound));
                             out_sound(world,player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"mace","synchronized",name,max_damage, cfg.syncDamageBonus * 100 + "%");
+                            upgrade_text(player,"mace","synchronized",name,(int)(max_damage * cfg.syncDurability), cfg.syncDamageBonus * 100 + "%");
 
                             heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.syncDurability));
                             heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -187,7 +187,7 @@ public class AttackEvent {
                             heldstack.set(MaceEnhanceComponent.MACE_PROFICIENCY_COMPONENT,new MaceEnhanceComponent(normal_count,super_count,is_adept,is_synchronized,true));
                             out_sound(world,player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"mace","soulbound",name,"max_level",max_damage, cfg.soulDamageBonus * 100 + "%");
+                            upgrade_text(player,"mace","soulbound",name,"max_level",(int)(max_damage * cfg.soulDurability), cfg.soulDamageBonus * 100 + "%");
 
                             heldstack.set(DataComponents.MAX_DAMAGE,(int)(max_damage * cfg.soulDurability));
                             heldstack.set(DataComponents.REPAIR_COST,0);
@@ -235,7 +235,7 @@ public class AttackEvent {
                             is_adept = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"axe","adept",name,max_damage, cfg.adeptDamageBonus * 100 + "%");
+                            upgrade_text(player,"axe","adept",name,(int)(max_damage * cfg.adeptDurability), cfg.adeptDamageBonus * 100 + "%");
 
                             heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                     new AxeEnhanceComponent(normal_count, super_count, true, is_synchronized, is_soulbound));
@@ -255,7 +255,7 @@ public class AttackEvent {
                             is_synchronized = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"axe","synchronized",name,max_damage, cfg.syncDamageBonus * 100 + "%");
+                            upgrade_text(player,"axe","synchronized",name,(int)(max_damage * cfg.syncDurability), cfg.syncDamageBonus * 100 + "%");
 
                             heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                     new AxeEnhanceComponent(normal_count, super_count, is_adept, true, is_soulbound));
@@ -275,7 +275,7 @@ public class AttackEvent {
                             is_soulbound = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"axe","soulbound",name,"max_level",max_damage, cfg.soulDamageBonus * 100 + "%");
+                            upgrade_text(player,"axe","soulbound",name,"max_level",(int)(max_damage * cfg.soulDurability), cfg.soulDamageBonus * 100 + "%");
 
                             heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                     new AxeEnhanceComponent(normal_count, super_count, is_adept, is_synchronized, true));
