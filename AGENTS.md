@@ -4,7 +4,7 @@ This file provides context for AI coding assistants working on this project.
 
 ## Project Overview
 - **Type**: Minecraft Fabric Mod
-- **Minecraft Version**: 26.1.1 (main branch), 26.2 (branch26.2)
+- **Minecraft Version**: 26.1.1 (main branch), 26.2 (branch26.2), 26.3 (branch26.3)
 - **Java Version**: 25
 - **Fabric Loader**: 0.19.2
 - **Fabric Loom**: 1.16-SNAPSHOT
@@ -36,6 +36,8 @@ src/client/resources/  # Client mixin config
 - MC 26.x rendering: use `GuiGraphicsExtractor` with `extractRenderState()`/`extractBackground()`
 - MC 26.x input: `KeyEvent`/`MouseButtonEvent` record classes
 - MC 26.x colors: text rendering requires ARGB format (e.g., `0xFFFFFFFF` not `0xFFFFFF`)
+- MC 26.3: block codecs removed (`Block.CODEC`, `codec()`, `simpleCodec` no longer exist)
+- MC 26.3: GLFW replaced by SDL; use `InputConstants.KEY_*` instead of `org.lwjgl.glfw.GLFW`
 - Run configs: `.idea/runConfigurations/` use `$PROJECT_DIR$` for paths
 
 ## Architecture Notes
