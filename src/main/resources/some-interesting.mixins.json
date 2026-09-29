@@ -9,8 +9,7 @@
 		"SpearMixin",
 		"FishingMixin",
 		"FishingHookAccessor",
-		"ElytraSpeedMixin",
-		"BlockEntityTypeMixin"
+		"ElytraSpeedMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
