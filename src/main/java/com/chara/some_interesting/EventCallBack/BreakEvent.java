@@ -65,7 +65,7 @@ public class BreakEvent {
 
 							out_sound(world,player);
 							String name = get_name(heldstack);
-                            upgrade_text(player,"pickaxe","adept",name,max_damage, cfg.adeptMiningBonus);
+                            upgrade_text(player,"pickaxe","adept",name,(int)(max_damage * cfg.adeptDurability), cfg.adeptMiningBonus);
 
 							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.adeptDurability));
 							heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -87,7 +87,7 @@ public class BreakEvent {
 
 							out_sound(world,player);
 							String name = get_name(heldstack);
-                            upgrade_text(player,"pickaxe","synchronized",name,max_damage, cfg.syncMiningBonus);
+                            upgrade_text(player,"pickaxe","synchronized",name,(int)(max_damage * cfg.syncDurability), cfg.syncMiningBonus);
 
 							heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.syncDurability));
 							heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -108,7 +108,7 @@ public class BreakEvent {
 
 							out_sound(world,player);
 							String name = get_name(heldstack);
-                            upgrade_text(player,"pickaxe","soulbound",name,"max_level",max_damage, cfg.soulMiningBonus);
+                            upgrade_text(player,"pickaxe","soulbound",name,"max_level",(int)(max_damage * cfg.soulDurability), cfg.soulMiningBonus);
 
                             heldstack.set(DataComponents.MAX_DAMAGE, (int) (max_damage * cfg.soulDurability));
 							heldstack.set(DataComponents.REPAIR_COST, 0);
@@ -152,7 +152,7 @@ public class BreakEvent {
                             is_adept = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"axe","adept",name,max_damage, cfg.adeptMiningBonus);
+                            upgrade_text(player,"axe","adept",name,(int)(max_damage * cfg.adeptDurability), cfg.adeptMiningBonus);
 
                             heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                     new AxeEnhanceComponent(normal_count, super_count, true, is_synchronized, is_soulbound));
@@ -174,7 +174,7 @@ public class BreakEvent {
                             is_synchronized = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"axe","synchronized",name,max_damage, cfg.syncMiningBonus);
+                            upgrade_text(player,"axe","synchronized",name,(int)(max_damage * cfg.syncDurability), cfg.syncMiningBonus);
 
                             heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                     new AxeEnhanceComponent(normal_count, super_count, is_adept, true, is_soulbound));
@@ -195,7 +195,7 @@ public class BreakEvent {
                             is_soulbound = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"axe","soulbound",name,"max_level",max_damage, cfg.soulMiningBonus);
+                            upgrade_text(player,"axe","soulbound",name,"max_level",(int)(max_damage * cfg.soulDurability), cfg.soulMiningBonus);
 
                             heldstack.set(AxeEnhanceComponent.AXE_PROFICIENCY_COMPONENT,
                                     new AxeEnhanceComponent(normal_count, super_count, is_adept, is_synchronized, true));
@@ -241,7 +241,7 @@ public class BreakEvent {
                             is_adept = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"shovel","adept",name,max_damage, cfg.adeptMiningBonus);
+                            upgrade_text(player,"shovel","adept",name,(int)(max_damage * cfg.adeptDurability), cfg.adeptMiningBonus);
 
                             heldstack.set(ShovelEnhanceComponent.SHOVEL_PROFICIENCY_COMPONENT,
                                     new ShovelEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
@@ -262,7 +262,7 @@ public class BreakEvent {
                             is_synchronized = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"shovel","synchronized",name,max_damage, cfg.syncMiningBonus);
+                            upgrade_text(player,"shovel","synchronized",name,(int)(max_damage * cfg.syncDurability), cfg.syncMiningBonus);
 
                             heldstack.set(ShovelEnhanceComponent.SHOVEL_PROFICIENCY_COMPONENT,
                                     new ShovelEnhanceComponent(normal_count, is_adept, true, is_soulbound));
@@ -283,7 +283,7 @@ public class BreakEvent {
                             is_soulbound = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"shovel","soulbound",name,"max_level",max_damage, cfg.soulMiningBonus);
+                            upgrade_text(player,"shovel","soulbound",name,"max_level",(int)(max_damage * cfg.soulDurability), cfg.soulMiningBonus);
 
                             heldstack.set(ShovelEnhanceComponent.SHOVEL_PROFICIENCY_COMPONENT,
                                     new ShovelEnhanceComponent(normal_count, is_adept, is_synchronized, true));
@@ -327,7 +327,7 @@ public class BreakEvent {
                             is_adept = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"hoe","adept",name,max_damage, cfg.adeptMiningBonus);
+                            upgrade_text(player,"hoe","adept",name,(int)(max_damage * cfg.adeptDurability), cfg.adeptMiningBonus);
 
                             heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
                                     new HoeEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
@@ -348,7 +348,7 @@ public class BreakEvent {
                             is_synchronized = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"hoe","synchronized",name,max_damage, cfg.syncMiningBonus);
+                            upgrade_text(player,"hoe","synchronized",name,(int)(max_damage * cfg.syncDurability), cfg.syncMiningBonus);
 
                             heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
                                     new HoeEnhanceComponent(normal_count, is_adept, true, is_soulbound));
@@ -369,7 +369,7 @@ public class BreakEvent {
                             is_soulbound = true;
                             out_sound(world, player);
                             String name = get_name(heldstack);
-                            upgrade_text(player,"hoe","soulbound",name,"max_level",max_damage, cfg.soulMiningBonus);
+                            upgrade_text(player,"hoe","soulbound",name,"max_level",(int)(max_damage * cfg.soulDurability), cfg.soulMiningBonus);
 
                             heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
                                     new HoeEnhanceComponent(normal_count, is_adept, is_synchronized, true));
