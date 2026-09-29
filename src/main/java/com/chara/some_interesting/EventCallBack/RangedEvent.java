@@ -99,7 +99,7 @@ public class RangedEvent {
                 is_adept = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "bow", "adept", name, max_damage, cfg.adeptArrowBonus);
+                upgrade_text(player, "bow", "adept", name, (int)(max_damage * cfg.adeptDurability), cfg.adeptArrowBonus);
 
                 heldstack.set(BowEnhanceComponent.BOW_PROFICIENCY_COMPONENT,
                         new BowEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
@@ -111,7 +111,7 @@ public class RangedEvent {
                 is_synchronized = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "bow", "synchronized", name, max_damage, cfg.syncArrowBonus);
+                upgrade_text(player, "bow", "synchronized", name, (int)(max_damage * cfg.syncDurability), cfg.syncArrowBonus);
 
                 heldstack.set(BowEnhanceComponent.BOW_PROFICIENCY_COMPONENT,
                         new BowEnhanceComponent(normal_count, is_adept, true, is_soulbound));
@@ -123,7 +123,7 @@ public class RangedEvent {
                 is_soulbound = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "bow", "soulbound", name, "max_level", max_damage, cfg.soulArrowBonus);
+                upgrade_text(player, "bow", "soulbound", name, "max_level", (int)(max_damage * cfg.soulDurability), cfg.soulArrowBonus);
 
                 heldstack.set(BowEnhanceComponent.BOW_PROFICIENCY_COMPONENT,
                         new BowEnhanceComponent(normal_count, is_adept, is_synchronized, true));
@@ -144,7 +144,7 @@ public class RangedEvent {
                 is_adept = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "crossbow", "adept", name, max_damage, cfg.adeptArrowBonus);
+                upgrade_text(player, "crossbow", "adept", name, (int)(max_damage * cfg.adeptDurability), cfg.adeptArrowBonus);
 
                 heldstack.set(CrossbowEnhanceComponent.CROSSBOW_PROFICIENCY_COMPONENT,
                         new CrossbowEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
@@ -156,7 +156,7 @@ public class RangedEvent {
                 is_synchronized = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "crossbow", "synchronized", name, max_damage, cfg.syncArrowBonus);
+                upgrade_text(player, "crossbow", "synchronized", name, (int)(max_damage * cfg.syncDurability), cfg.syncArrowBonus);
 
                 heldstack.set(CrossbowEnhanceComponent.CROSSBOW_PROFICIENCY_COMPONENT,
                         new CrossbowEnhanceComponent(normal_count, is_adept, true, is_soulbound));
@@ -168,7 +168,7 @@ public class RangedEvent {
                 is_soulbound = true;
                 out_sound(world, player);
                 String name = get_name(heldstack);
-                upgrade_text(player, "crossbow", "soulbound", name, "max_level", max_damage, cfg.soulArrowBonus);
+                upgrade_text(player, "crossbow", "soulbound", name, "max_level", (int)(max_damage * cfg.soulDurability), cfg.soulArrowBonus);
 
                 heldstack.set(CrossbowEnhanceComponent.CROSSBOW_PROFICIENCY_COMPONENT,
                         new CrossbowEnhanceComponent(normal_count, is_adept, is_synchronized, true));

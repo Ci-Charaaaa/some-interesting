@@ -65,7 +65,7 @@ public class RightEvent {
 							is_adept = true;
 							out_sound(world, player);
 							String name = get_name(heldstack);
-							upgrade_text(player,"hoe","adept",name,max_damage, cfg.adeptMiningBonus);
+							upgrade_text(player,"hoe","adept",name,(int)(max_damage * cfg.adeptDurability), cfg.adeptMiningBonus);
 
 							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
 									new HoeEnhanceComponent(normal_count, true, is_synchronized, is_soulbound));
@@ -85,7 +85,7 @@ public class RightEvent {
 							is_synchronized = true;
 							out_sound(world, player);
 							String name = get_name(heldstack);
-							upgrade_text(player,"hoe","synchronized",name,max_damage, cfg.syncMiningBonus);
+							upgrade_text(player,"hoe","synchronized",name,(int)(max_damage * cfg.syncDurability), cfg.syncMiningBonus);
 
 							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
 									new HoeEnhanceComponent(normal_count, is_adept, true, is_soulbound));
@@ -105,7 +105,7 @@ public class RightEvent {
 							is_soulbound = true;
 							out_sound(world, player);
 							String name = get_name(heldstack);
-							upgrade_text(player,"hoe","soulbound",name,"max_level",max_damage, cfg.soulMiningBonus);
+							upgrade_text(player,"hoe","soulbound",name,"max_level",(int)(max_damage * cfg.soulDurability), cfg.soulMiningBonus);
 
 							heldstack.set(HoeEnhanceComponent.HOE_PROFICIENCY_COMPONENT,
 									new HoeEnhanceComponent(normal_count, is_adept, is_synchronized, true));
